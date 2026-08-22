@@ -42,7 +42,7 @@
     "language": "Language",
     "locale": {
       "en": "English",
-      "zh": "中文"
+      "zh-CN": "中文"
     }
   },
   "Footer": {

@@ -36,11 +36,11 @@ function buildMetadataBase(raw: string | undefined): URL {
  * always match the URLs next-intl actually generates (localePrefix:
  * "as-needed" => default locale without prefix, others with `/{locale}`):
  *   - en    => path as-is (no prefix), also x-default
- *   - zh-CN => same path prefixed with `/zh` (hreflang uses BCP 47 tags)
+ *   - zh-CN => same path prefixed with `/zh-CN`
  *
  * Examples:
- *   canonical = https://toolhuntly.com/          => zh => https://toolhuntly.com/zh/
- *   canonical = https://toolhuntly.com/tag/ai    => zh => https://toolhuntly.com/zh/tag/ai
+ *   canonical = https://toolhuntly.com/          => zh-CN => https://toolhuntly.com/zh-CN/
+ *   canonical = https://toolhuntly.com/tag/ai    => zh-CN => https://toolhuntly.com/zh-CN/tag/ai
  */
 function buildHreflangAlternates(
   canonical: string,
@@ -95,7 +95,7 @@ const DEFAULT_HOME_TITLE =
  *   3. <link canonical> = https://toolhuntly.com/ for home, page-specific for subs
  *   4. og:*            = mirror title / description / url / image (/og.png)
  *   5. twitter:card    = summary_large_image, rest mirrors og
- *   6. alternates hreflang: en has no locale prefix, zh is /zh/*
+ *   6. alternates hreflang: en has no locale prefix, zh-CN is /zh-CN/*
  */
 export function constructMetadata({
   title,

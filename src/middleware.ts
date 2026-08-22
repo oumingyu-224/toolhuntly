@@ -18,7 +18,7 @@ const { auth } = NextAuth(authConfig);
 // next-intl middleware handles locale detection, rewriting & redirects
 const intlMiddleware = createMiddleware(routing);
 
-// Strip the locale prefix from a pathname (e.g. `/zh/auth/login` -> `/auth/login`)
+// Strip the locale prefix from a pathname (e.g. `/zh-CN/auth/login` -> `/auth/login`)
 function getPathnameWithoutLocale(pathname: string): string {
   for (const locale of routing.locales) {
     if (pathname === `/${locale}`) return "/";
@@ -79,6 +79,13 @@ export default auth((req) => {
   // it lives outside /[locale] and relies on Sanity's own auth (CORS + token).
   if (pathname.startsWith("/studio")) {
     return null;
+  }
+
+  // Redirect legacy /zh* URLs to /zh-CN (locale renamed from "zh" to "zh-CN").
+  // 301 keeps previously crawled hreflang links working.
+  if (pathname === "/zh" || pathname.startsWith("/zh/")) {
+    const newPath = `/zh-CN${pathname.slice(3)}${nextUrl.search}`;
+    return Response.redirect(new URL(newPath, nextUrl), 301);
   }
 
   // For page routes, let next-intl handle the locale first
