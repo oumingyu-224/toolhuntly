@@ -12,6 +12,12 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import { constructMetadata } from "@/lib/metadata";
+import {
+  buildFAQPageJsonLd,
+  buildOrganizationJsonLd,
+  buildWebSiteJsonLd,
+  serializeJsonLd,
+} from "@/lib/seo-schema";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -51,7 +57,29 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head />
+      <head>
+        {/* 8. Organization schema.org JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(buildOrganizationJsonLd()),
+          }}
+        />
+        {/* 9. WebSite + SearchAction JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(buildWebSiteJsonLd()),
+          }}
+        />
+        {/* 10. FAQPage JSON-LD (data source for 4-4 home section too) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(buildFAQPageJsonLd()),
+          }}
+        />
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background antialiased",
