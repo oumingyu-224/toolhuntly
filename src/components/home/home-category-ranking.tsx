@@ -91,7 +91,7 @@ const rankingCategories: RankingCategory[] = [
     ],
   },
   {
-    title: "Video & Audio",
+    titleKey: "Home.ranking.columns.video",
     tools: [
       {
         name: "Runway",
