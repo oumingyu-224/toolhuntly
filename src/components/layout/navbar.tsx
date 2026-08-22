@@ -3,6 +3,7 @@
 import { LoginWrapper } from "@/components/auth/login-button";
 import Container from "@/components/container";
 import { Icons } from "@/components/icons/icons";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { ModeToggle } from "@/components/layout/mode-toggle";
 import { UserButton } from "@/components/layout/user-button";
 import { Button } from "@/components/ui/button";
@@ -99,7 +100,7 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             ) : null}
           </div>
 
-          {/* Right actions: Submit + Log in + User menu */}
+          {/* Right actions: Submit + Log in + User menu + Language */}
           <div className="flex items-center gap-x-3">
             <Link href="/submit">
               <Button
@@ -128,12 +129,14 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
               </LoginWrapper>
             )}
 
+            <LanguageSwitcher />
+
             {/* <ModeToggle /> */}
           </div>
         </Container>
       </header>
 
-      {/* Mobile View — 3-part: Hamburger (left) + Logo (center) + Login (right) */}
+      {/* Mobile View — 3-part: Hamburger (left) + Logo (center) + Login + Language (right) */}
       <header className="md:hidden flex justify-center bg-background/60 backdrop-blur-xl transition-all">
         <div className="w-full px-4 h-16 grid grid-cols-3 items-center">
           {/* Left: Hamburger */}
@@ -204,8 +207,10 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             </Link>
           </div>
 
-          {/* Right: Login only (no language switcher here) */}
+          {/* Right: Language switcher + Login (stacked horizontally in justify-end) */}
           <div className="flex items-center justify-end gap-x-2">
+            <LanguageSwitcher />
+
             {user ? (
               <div className="flex items-center">
                 <UserButton />
