@@ -13,12 +13,13 @@ import { notFound, redirect } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { locale: string; id: string };
 }): Promise<Metadata | undefined> {
   return constructMetadata({
     title: "Submit your product (3/3)",
     description: "Submit your product (3/3) Review and publish product",
     canonicalUrl: `${siteConfig.url}/publish/${params.id}`,
+    locale: params.locale,
   });
 }
 

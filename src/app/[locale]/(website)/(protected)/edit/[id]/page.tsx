@@ -19,12 +19,13 @@ import { notFound, redirect } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { locale: string; id: string };
 }): Promise<Metadata | undefined> {
   return constructMetadata({
     title: "Edit product information",
     description: "Edit product information",
     canonicalUrl: `${siteConfig.url}/edit/${params.id}`,
+    locale: params.locale,
   });
 }
 

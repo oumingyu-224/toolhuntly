@@ -24,7 +24,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata | undefined> {
   const post = await sanityFetch<BlogPostMetadataQueryResult>({
     query: blogPostMetadataQuery,
@@ -42,6 +42,7 @@ export async function generateMetadata({
     description: post.excerpt,
     canonicalUrl: `${siteConfig.url}/blog/${params.slug}`,
     image: imageProps?.src,
+    locale: params.locale,
   });
 }
 

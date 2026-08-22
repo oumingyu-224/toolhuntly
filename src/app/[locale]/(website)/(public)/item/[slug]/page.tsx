@@ -29,7 +29,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata | undefined> {
   const item = await sanityFetch<ItemInfoBySlugQueryResult>({
     query: itemInfoBySlugQuery,
@@ -46,6 +46,7 @@ export async function generateMetadata({
     description: item.description,
     canonicalUrl: `${siteConfig.url}/item/${params.slug}`,
     image: imageProps?.src,
+    locale: params.locale,
   });
 }
 

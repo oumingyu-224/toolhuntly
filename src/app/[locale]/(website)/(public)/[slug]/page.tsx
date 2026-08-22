@@ -10,7 +10,7 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata | undefined> {
   const page = await sanityFetch<PageQueryResult>({
     query: pageQuery,
@@ -25,6 +25,7 @@ export async function generateMetadata({
     title: page.title,
     description: page.excerpt,
     canonicalUrl: `${siteConfig.url}/${params.slug}`,
+    locale: params.locale,
   });
 }
 

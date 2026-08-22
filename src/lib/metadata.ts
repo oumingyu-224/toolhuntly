@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/site";
 import { localeToLangTag, localeToOgLocale, routing } from "@/i18n/routing";
-import { getLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 /**
@@ -104,6 +103,7 @@ export function constructMetadata({
   canonicalUrl,
   image,
   noIndex = false,
+  locale = routing.defaultLocale,
 }: {
   /** Page-specific title (the part before `| ToolHuntly`). Leave empty for home. */
   title?: string;
@@ -113,6 +113,8 @@ export function constructMetadata({
   /** OG image URL. Defaults to siteConfig.image, which is /og.png?v=1 */
   image?: string;
   noIndex?: boolean;
+  /** Active locale, used for og:locale. Pass params.locale in generateMetadata. */
+  locale?: string;
 } = {}): Metadata {
   const metadataBase = buildMetadataBase(siteConfig.url);
   const origin = metadataBase.origin;
@@ -147,15 +149,7 @@ export function constructMetadata({
   const languages = buildHreflangAlternates(canonical, metadataBase);
 
   // --- OpenGraph locale --------------------------------------------------
-  // Resolve the active locale from the request scope when available
-  // (getLocale throws outside a request, e.g. module-level export metadata).
-  let metaLocale = routing.defaultLocale;
-  try {
-    metaLocale = getLocale();
-  } catch {
-    // no request scope — fall back to the default locale
-  }
-  const ogLocale = (metaLocale && localeToOgLocale[metaLocale]) || "en_US";
+  const ogLocale = localeToOgLocale[locale] ?? "en_US";
 
   return {
     title: fullTitle,

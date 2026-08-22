@@ -13,7 +13,7 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: { locale: string; slug: string };
 }): Promise<Metadata | undefined> {
   const category = await sanityFetch<BlogCategoryMetadateQueryResult>({
     query: blogCategoryMetadateQuery,
@@ -36,6 +36,7 @@ export async function generateMetadata({
     description: category.description,
     canonicalUrl: `${siteConfig.url}/blog/category/${params.slug}`,
     // image: ogImageUrl.toString(),
+    locale: params.locale,
   });
 }
 
