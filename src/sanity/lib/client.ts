@@ -4,20 +4,32 @@ import { apiVersion, dataset, projectId } from "./api";
 import { token } from "./token";
 
 /**
- * NOTE: Defer Sanity client creation to first real use. Even with the safe
- * fallbacks introduced in `api.ts` and `token.ts`, `createClient` can throw
- * synchronously during its own validation when `projectId` is the empty
- * string. Lazily constructing the client means the build phase never
- * evaluates this path for routes that don't actually fetch from Sanity, and
- * runtime users who hit real Sanity endpoints get a deterministic "Sanity
- * not configured" error instead of a cryptic page-data-collection failure.
+ * Lazily build the singleton Sanity client the first time any code actually
+ * reaches for a method (fetch, patch, create, withConfig, …).
+ *
+ * This is the critical fix for the earlier Vercel build crashes: importing
+ * the `sanityClient` symbol must never, on its own, invoke
+ * `next-sanity/createClient`. If `projectId`/`dataset` aren't available at
+ * module-evaluation time, construction is deferred to first use.
+ *
+ * NOTE: We intentionally construct a real SanityClient instance (not a
+ * Proxy) and then return its methods through an accessor Proxy. Using a
+ * Proxy around the real instance preserves class private fields (the
+ * `#config` slot that next-sanity reads internally), which is what the
+ * previous draft-route crash was about:
+ *   `TypeError: Cannot read private member #c from an object whose class
+ *    did not declare it`
+ * That error happened because a Proxy target of `{}` (plain object) does
+ * not declare the `#config` private member that `withConfig` / `config`
+ * read from `this`. Instantiating `createClient` first gives `this` the
+ * correct class, so private member access works.
  */
-let _sanityClient: SanityClient | null | undefined;
+let _real: SanityClient | null | undefined;
 
-function initSanityClient(): SanityClient {
-  if (_sanityClient !== undefined) return _sanityClient as SanityClient;
+function realClient(): SanityClient {
+  if (_real !== undefined && _real !== null) return _real;
   try {
-    _sanityClient = createClient({
+    _real = createClient({
       projectId,
       dataset,
       apiVersion,
@@ -28,65 +40,77 @@ function initSanityClient(): SanityClient {
   } catch (error) {
     if (typeof console !== "undefined") {
       console.warn(
-        "[sanity/lib/client] Failed to initialize Sanity client. Sanity-backed features unavailable:",
+        "[sanity/lib/client] Sanity client failed to initialize (projectId/dataset missing?). Sanity-backed features are unavailable at runtime until env is configured. Cause:",
         error,
       );
     }
-    // Best-effort fallback: build a dummy-like client using createClient with
-    // empty strings would also throw inside next-sanity, so we throw a clear
-    // error on first *use* (fetch/patch/commit). We still cache a value in
-    // _sanityClient via a "throw-on-access" proxy so the cache is sealed.
-    _sanityClient = makeErrorClient(error);
+    // Fallback: keep _real defined but throw a clear error on first use.
+    // We still create an object so import sites never crash at build time.
+    _real = makeThrowClient(error);
   }
-  return _sanityClient as SanityClient;
+  return _real as SanityClient;
 }
 
 /**
- * Thin named export retained for existing callers.
+ * Public named export. Kept for backward compatibility with every existing
+ * `import { sanityClient } from "@/sanity/lib/client"` call site.
  *
- * We expose the client via a Proxy so build-phase property access (e.g. a
- * server component simply importing the symbol to pass around) does not
- * trigger `createClient()` at module-evaluation time. Real method calls such
- * as `.fetch()` or `.patch().commit()` instantiate the client lazily.
+ * The outer Proxy is only a method-access forwarder — it does not masquerade
+ * as a SanityClient instance. Once a property is requested, the real client
+ * is materialized (if it wasn't already) and that property is returned with
+ * the correct `this` bound to the real instance. This keeps private field
+ * lookups (`#config`) inside next-sanity's class methods working.
  */
 export const sanityClient: SanityClient = new Proxy<SanityClient>(
   {} as SanityClient,
   {
-    get(_t, prop, receiver) {
-      const actual = initSanityClient();
-      return Reflect.get(actual, prop, receiver);
+    get(_trapTarget, prop, _receiver) {
+      const actual = realClient();
+      // biome-ignore lint/suspicious/noExplicitAny: Reflect accept any key
+      const value = Reflect.get(actual, prop, actual) as any;
+      // If we're returning a function (fetch, patch, withConfig, etc.),
+      // rebind `this` to the real client so private member access doesn't
+      // walk back up to the empty trap target.
+      if (typeof value === "function") {
+        // biome-ignore lint/suspicious/noExplicitAny: <matching any arity>
+        return (...args: any[]) =>
+          // biome-ignore lint/suspicious/noExplicitAny: <any cast for arity>
+          (value as any).apply(actual, args);
+      }
+      return value;
     },
   },
 );
 
-/**
- * Called by callers that want a plain `SanityClient` value without the Proxy
- * wrapper (e.g. if passing the client into a third-party helper). Throws or
- * warns at call-time instead of build-time.
- */
 export function getSanityClient(): SanityClient {
-  return initSanityClient();
+  return realClient();
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: any-typed proxy because SanityClient has many methods
-function makeErrorClient(cause: unknown): any {
+/**
+ * Best-effort "throw on use" client used when `createClient` itself fails
+ * (e.g. required env is missing). We still need a value that has the shape
+ * of SanityClient on the type level so TS doesn't break all import sites,
+ * but any runtime use throws a deterministic message.
+ */
+// biome-ignore lint/suspicious/noExplicitAny: intentionally generic proxy shape
+function makeThrowClient(cause: unknown): any {
   // biome-ignore lint/suspicious/noExplicitAny:
-  const thrower: any = () => {
+  const fn: any = () => {
     throw new Error(
-      "Sanity client unavailable (NEXT_PUBLIC_SANITY_PROJECT_ID / DATASET misconfigured). Original cause: " +
+      "Sanity client unavailable — check NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET, and SANITY_API_TOKEN. Original createClient error: " +
         String(cause),
     );
   };
-  return new Proxy(thrower, {
+  return new Proxy(fn, {
     get(_t, p) {
       if (p === "then" || p === "catch" || p === "finally") {
         // biome-ignore lint/suspicious/noExplicitAny:
-        return (thrower() as Promise<any>)[p];
+        return (fn() as Promise<any>)[p];
       }
-      return makeErrorClient(cause);
+      return makeThrowClient(cause);
     },
     apply(_t, _this, _args) {
-      return thrower();
+      return fn();
     },
   });
 }
