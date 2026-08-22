@@ -1,4 +1,5 @@
 import { siteConfig } from "@/config/site";
+import { routing } from "@/i18n/routing";
 import type { Metadata } from "next";
 
 /**
@@ -30,15 +31,16 @@ function buildMetadataBase(raw: string | undefined): URL {
 }
 
 /**
- * Given a canonical URL (full or relative), return the two hreflang
- * alternates that the ToolHuntly site uses:
- *   - English (x-default / en): path as-is (no locale prefix)
- *   - Chinese (zh-Hans / zh-CN): same path but prefixed with `/cn`
+ * Given a canonical URL (full or relative), return the hreflang alternates
+ * for the site's locales. Paths are derived from src/i18n/routing.ts so they
+ * always match the URLs next-intl actually generates (localePrefix:
+ * "as-needed" => default locale without prefix, others with `/{locale}`):
+ *   - en  => path as-is (no prefix), also x-default
+ *   - zh  => same path prefixed with `/zh`
  *
  * Examples:
- *   canonical = https://toolhuntly.com/          => zh => https://toolhuntly.com/cn/
- *   canonical = https://toolhuntly.com/tag/ai    => zh => https://toolhuntly.com/cn/tag/ai
- *   canonical = /tag/ai (relative) is normalized via metadataBase first
+ *   canonical = https://toolhuntly.com/          => zh => https://toolhuntly.com/zh/
+ *   canonical = https://toolhuntly.com/tag/ai    => zh => https://toolhuntly.com/zh/tag/ai
  */
 function buildHreflangAlternates(
   canonical: string,
@@ -58,21 +60,24 @@ function buildHreflangAlternates(
   const pathname = canonicalObj.pathname.replace(/\/+$/, "") || "/";
   const search = canonicalObj.search;
 
-  // English: default path, no locale prefix
-  const enPath = pathname === "/" ? "/" : `${pathname}/`;
-  const enUrl = `${origin}${enPath}${search}`;
+  const alternatives: Record<string, string> = {};
 
-  // Chinese: same path but prefixed with `/cn`
-  const zhPath =
-    pathname === "/" ? "/cn/" : `/cn${pathname}/`;
-  const zhUrl = `${origin}${zhPath}${search}`;
+  for (const locale of routing.locales) {
+    if (locale === routing.defaultLocale) {
+      // Default locale: no prefix
+      alternatives[locale] =
+        `${origin}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
+    } else {
+      // Non-default locale: /{locale} prefix
+      alternatives[locale] =
+        `${origin}/${locale}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
+    }
+  }
 
-  return {
-    "x-default": enUrl,
-    en: enUrl,
-    "zh-Hans": zhUrl,
-    "zh-CN": zhUrl,
-  };
+  // x-default points to the default (English) URL
+  alternatives["x-default"] = alternatives[routing.defaultLocale];
+
+  return alternatives;
 }
 
 const DEFAULT_HOME_TITLE =
@@ -88,7 +93,7 @@ const DEFAULT_HOME_TITLE =
  *   3. <link canonical> = https://toolhuntly.com/ for home, page-specific for subs
  *   4. og:*            = mirror title / description / url / image (/og.png)
  *   5. twitter:card    = summary_large_image, rest mirrors og
- *   6. alternates hreflang: en has no locale prefix, zh is /cn/*
+ *   6. alternates hreflang: en has no locale prefix, zh is /zh/*
  */
 export function constructMetadata({
   title,
