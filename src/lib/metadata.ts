@@ -166,7 +166,11 @@ export function constructMetadata({
       creator: siteConfig.author,
     },
     icons: {
-      icon: "/favicon.ico",
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      ],
       shortcut: "/favicon-32x32.png",
       apple: "/apple-touch-icon.png",
     },

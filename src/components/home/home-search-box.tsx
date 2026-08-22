@@ -3,81 +3,49 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
-import { cn } from "@/lib/utils";
-import { createUrl } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { useEffect, useRef } from "react";
-import { useDebounce } from "use-debounce";
+import { useRef } from "react";
+import { heroConfig } from "@/config/hero";
 
-interface SearchBoxProps {
-  urlPrefix: string;
-}
-
-export default function HomeSearchBox({ urlPrefix }: SearchBoxProps) {
-  const t = useTranslations();
+/**
+ * Marketing-style hero search: submitting navigates to /search?q=<query>.
+ * ⌘K (or Ctrl+K) focuses the input.
+ */
+export default function HeroSearchBox() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams?.get("q") || "");
-  const [debouncedQuery] = useDebounce(searchQuery, 300); // 300ms debounce
-  const lastExecutedQuery = useRef(searchParams?.get("q") || "");
-  const previousQueryRef = useRef("");
-  const isUserTypingRef = useRef(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    const currentQuery = searchParams?.get("q") || "";
-    if (currentQuery !== previousQueryRef.current && !isUserTypingRef.current) {
-      setSearchQuery(currentQuery);
-      previousQueryRef.current = currentQuery;
-    }
-  }, [searchParams]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-  useEffect(() => {
-    if (debouncedQuery !== lastExecutedQuery.current) {
-      const newParams = new URLSearchParams(searchParams?.toString());
-      if (debouncedQuery) {
-        newParams.set("q", debouncedQuery);
-      } else {
-        newParams.delete("q");
-      }
-      newParams.delete("page");
-      const newUrl = createUrl(`${urlPrefix}`, newParams);
-      console.log(`useEffect, newUrl: ${newUrl}`);
-      lastExecutedQuery.current = debouncedQuery;
-      router.push(newUrl, { scroll: false });
-    }
-  }, [debouncedQuery, router, searchParams, urlPrefix]);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    isUserTypingRef.current = true;
-    setSearchQuery(e.target.value);
-    
-    // Reset the flag to allow updates after URL changes (but give enough time to complete the current input)
-    setTimeout(() => {
-      isUserTypingRef.current = false;
-    }, 500);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const q = String(data.get("q") || "").trim();
+    router.push(q ? `/search?q=${encodeURIComponent(q)}` : "/search");
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <Input
-        type="text"
-        placeholder={t("Home.searchPlaceholder")}
-        autoComplete="off"
-        value={searchQuery}
-        onChange={handleSearch}
-        className={cn(
-          "w-[320px] sm:w-[480px] md:w-[640px] h-12 rounded-r-none",
-          "focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-primary focus:border-2 focus:border-r-0",
-        )}
-      />
-      <Button type="submit" className="rounded-l-none size-12">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full items-center"
+      role="search"
+    >
+      <div className="relative flex-1">
+        <Input
+          ref={inputRef}
+          type="text"
+          name="q"
+          placeholder={heroConfig.search.placeholder}
+          autoComplete="off"
+          className="h-12 pr-16 rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-primary focus:border-2 focus:border-r-0"
+        />
+        <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 items-center gap-1 rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground sm:inline-flex">
+          {heroConfig.search.shortcut}
+        </kbd>
+      </div>
+      <Button type="submit" className="rounded-l-none size-12 shrink-0">
         <SearchIcon className="size-6" aria-hidden="true" />
-        <span className="sr-only">{t("Common.search")}</span>
+        <span className="sr-only">Search</span>
       </Button>
-    </div>
+    </form>
   );
 }

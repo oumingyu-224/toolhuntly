@@ -39,16 +39,23 @@ export type SiteConfig = {
 };
 
 export type HeroConfig = {
+  badge: {
+    text: string;
+  };
   title: {
-    first: string;
-    second: string;
+    prefix: string;
+    highlight: string;
+    suffix: string;
   };
   subtitle: string;
-  label: {
-    text: string;
-    icon: keyof typeof Icons;
-    href: string;
+  search: {
+    placeholder: string;
+    shortcut: string;
   };
+  stats: {
+    value: string;
+    label: string;
+  }[];
 };
 
 export type MarketingConfig = {

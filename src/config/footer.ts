@@ -21,15 +21,6 @@ export const footerConfig: FooterConfig = {
       ],
     },
     {
-      title: "Footer.pages",
-      items: [
-        { title: "Footer.home2", href: "/home2" },
-        { title: "Footer.home3", href: "/home3" },
-        { title: "Footer.collection1", href: "/collection/the-best-google-analytics-alternatives-in-2024" },
-        { title: "Footer.collection2", href: "/collection/the-best-alternatives-to-semrush-in-2024" },
-      ],
-    },
-    {
       title: "Footer.company",
       items: [
         { title: "Footer.aboutUs", href: "/about" },

@@ -6,7 +6,7 @@ import { siteConfig } from "@/config/site";
  *
  *   8. Organization  — name, url, logo, sameAs (Twitter / future socials)
  *   9. WebSite       — name, url, potentialAction:SearchAction with target
- *                      https://toolhuntly.com/tools?q={search_term_string}
+ *                      https://toolhuntly.com/search?q={search_term_string}
  *  10. FAQPage       — the 5 Q&A pairs from config/faq.ts
  *
  * Callers (layout.tsx) take each return value and wrap it in:
@@ -67,7 +67,7 @@ export function buildWebSiteJsonLd(): JsonLd {
     url: siteConfig.url,
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://toolhuntly.com/tools?q={search_term_string}",
+      target: `${siteConfig.url}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
