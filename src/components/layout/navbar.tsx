@@ -3,7 +3,6 @@
 import { LoginWrapper } from "@/components/auth/login-button";
 import Container from "@/components/container";
 import { Icons } from "@/components/icons/icons";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { ModeToggle } from "@/components/layout/mode-toggle";
 import { UserButton } from "@/components/layout/user-button";
 import { Button } from "@/components/ui/button";
@@ -16,12 +15,11 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, usePathname } from "@/i18n/navigation";
-import { siteConfig } from "@/config/site";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import type { DashboardConfig, MarketingConfig } from "@/types";
-import { ArrowRightIcon, MenuIcon } from "lucide-react";
+import { MenuIcon, SendIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import React from "react";
@@ -36,18 +34,14 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
   const t = useTranslations();
   const scrolled = useScroll(50);
   const user = useCurrentUser();
-  // console.log(`navbar: user:`, user);
 
   const pathname = usePathname();
-  // console.log(`Navbar, pathname: ${pathname}`);
   const links = config.menus;
-  // console.log(`Navbar, links: ${links.map((link) => link.title)}`);
 
   const isLinkActive = (href: string) => {
     if (href === "/") {
       return pathname === "/";
     }
-    // console.log(`Navbar, href: ${href}, pathname: ${pathname}`);
     return pathname.startsWith(href);
   };
 
@@ -71,19 +65,17 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
         )}
       >
         <Container className="flex h-16 items-center justify-between">
-          {/* navbar left show logo and links */}
+          {/* Left: Logo (32x32) + brand name ToolHuntly */}
           <div className="flex items-center gap-6 md:gap-10">
-            {/* logo */}
             <Link href="/" className="flex items-center space-x-2">
-              <Logo />
-
-              <span className="text-xl font-bold">{siteConfig.name}</span>
+              <Logo className="size-8" />
+              <span className="text-xl font-bold">{t("Nav.brand")}</span>
             </Link>
 
-            {/* links */}
+            {/* Middle nav menus — keep existing structure */}
             {links && links.length > 0 ? (
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="gap-1 overflow-x-auto scrollbar-none">
                   {links.map((item) => (
                     <NavigationMenuItem key={item.title}>
                       <NavigationMenuLink
@@ -107,8 +99,19 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             ) : null}
           </div>
 
-          {/* navbar right show sign in or account */}
-          <div className="flex items-center gap-x-4">
+          {/* Right actions: Submit + Log in + User menu */}
+          <div className="flex items-center gap-x-3">
+            <Link href="/submit">
+              <Button
+                className="flex items-center gap-2 px-4 rounded-full"
+                variant="default"
+                size="default"
+              >
+                <SendIcon className="size-4" />
+                <span className="font-medium">{t("Nav.submit")}</span>
+              </Button>
+            </Link>
+
             {user ? (
               <div className="flex items-center">
                 <UserButton />
@@ -116,28 +119,25 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             ) : (
               <LoginWrapper mode="modal" asChild>
                 <Button
-                  className="flex gap-2 px-5 rounded-full"
-                  variant="default"
+                  className="px-4 rounded-full"
+                  variant="secondary"
                   size="default"
                 >
-                  <span>{t("Nav.signIn")}</span>
-                  <ArrowRightIcon className="size-4" />
+                  <span className="font-medium">{t("Nav.logIn")}</span>
                 </Button>
               </LoginWrapper>
             )}
-
-            <LanguageSwitcher />
 
             {/* <ModeToggle /> */}
           </div>
         </Container>
       </header>
 
-      {/* Mobile View */}
+      {/* Mobile View — 3-part: Hamburger (left) + Logo (center) + Login (right) */}
       <header className="md:hidden flex justify-center bg-background/60 backdrop-blur-xl transition-all">
-        <div className="w-full px-4 h-16 flex items-center justify-between">
-          {/* mobile navbar left show menu icon when closed & show sheet when menu is open */}
-          <div className="flex items-center gap-x-4">
+        <div className="w-full px-4 h-16 grid grid-cols-3 items-center">
+          {/* Left: Hamburger */}
+          <div className="flex items-center">
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button
@@ -151,15 +151,14 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col p-0">
                 <div className="flex h-screen flex-col">
-                  {/* logo */}
+                  {/* Sheet header: big Logo */}
                   <Link
                     href="/"
                     className="flex items-center space-x-2 pl-4 pt-4"
                     onClick={() => setOpen(false)}
                   >
-                    <Logo />
-
-                    <span className="text-xl font-bold">{siteConfig.name}</span>
+                    <Logo className="size-8" />
+                    <span className="text-xl font-bold">{t("Nav.brand")}</span>
                   </Link>
 
                   <nav className="flex flex-1 flex-col gap-2 p-2 pt-8 font-medium">
@@ -191,21 +190,22 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                 </div>
               </SheetContent>
             </Sheet>
+          </div>
 
-            {/* logo */}
+          {/* Center: Logo */}
+          <div className="flex items-center justify-center">
             <Link
               href="/"
               className="flex items-center space-x-2"
               onClick={() => setOpen(false)}
             >
               <Logo className="size-8" />
-
-              <span className="text-xl font-bold">{siteConfig.name}</span>
+              <span className="text-xl font-bold">{t("Nav.brand")}</span>
             </Link>
           </div>
 
-          {/* mobile navbar right show sign in or account */}
-          <div className="flex items-center gap-x-4">
+          {/* Right: Login only (no language switcher here) */}
+          <div className="flex items-center justify-end gap-x-2">
             {user ? (
               <div className="flex items-center">
                 <UserButton />
@@ -213,19 +213,14 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             ) : (
               <LoginWrapper mode="redirect" asChild>
                 <Button
-                  className="flex gap-2 px-5 rounded-full"
-                  variant="default"
+                  className="px-4 rounded-full"
+                  variant="secondary"
                   size="default"
                 >
-                  <span>{t("Nav.signIn")}</span>
-                  <ArrowRightIcon className="size-4" />
+                  <span className="font-medium">{t("Nav.logIn")}</span>
                 </Button>
               </LoginWrapper>
             )}
-
-            <LanguageSwitcher />
-
-            {/* <ModeToggle /> */}
           </div>
         </div>
       </header>

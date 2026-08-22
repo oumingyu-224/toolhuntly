@@ -28,6 +28,7 @@
     "logo": "Logo"
   },
   "Nav": {
+    "brand": "ToolHuntly",
     "submit": "Submit",
     "dashboard": "Dashboard",
     "theme": "Theme",
@@ -36,6 +37,7 @@
     "dark": "Dark",
     "system": "System",
     "signIn": "Sign In",
+    "logIn": "Log in",
     "toggleNav": "Toggle navigation menu",
     "language": "Language",
     "locale": {

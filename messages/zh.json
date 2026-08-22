@@ -28,8 +28,10 @@
     "logo": "Logo"
   },
   "Nav": {
+    "brand": "ToolHuntly",
     "submit": "提交",
-    "signIn": "登录",
+    "signIn": "注册",
+    "logIn": "登录",
     "dashboard": "控制台",
     "theme": "主题",
     "toggleTheme": "切换主题",
