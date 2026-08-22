@@ -7,26 +7,29 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslations } from "next-intl";
 
 /**
- * Home FAQ section. Renders the same Q&A data as the FAQPage JSON-LD
- * (config/faq.ts) so UI and structured data stay in sync.
+ * Home FAQ section. Renders the same translated Q&A data (via faqConfig keys)
+ * as the FAQPage JSON-LD, so UI and structured data stay in sync per locale.
  */
 export default function HomeFaq() {
+  const t = useTranslations();
+
   return (
     <section className="mx-auto w-full max-w-3xl">
       <h2 className="mb-6 text-center text-2xl font-bold sm:text-3xl">
-        Frequently Asked Questions
+        {t("Home.faq.title")}
       </h2>
 
       <Accordion type="single" collapsible className="w-full">
         {faqConfig.items.map((item) => (
           <AccordionItem key={item.id} value={item.id}>
             <AccordionTrigger className="text-left font-semibold">
-              {item.question}
+              {t(item.questionKey)}
             </AccordionTrigger>
             <AccordionContent className="text-muted-foreground">
-              {item.answer}
+              {t(item.answerKey)}
             </AccordionContent>
           </AccordionItem>
         ))}

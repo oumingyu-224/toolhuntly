@@ -2,14 +2,18 @@ import { buttonVariants } from "@/components/ui/button";
 import { heroConfig } from "@/config/hero";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 import HeroSearchBox from "./home-search-box";
 
 /**
  * Huntify-style home hero:
  * badge pill → H1 (rotated brand highlight on "best") → subtitle →
- * search form + "Submit a tool" button → stats row.
+ * intro paragraphs → search form + "Submit a tool" button → stats row.
+ * All copy is translated via heroConfig message keys.
  */
-export default function HomeHero() {
+export default async function HomeHero() {
+  const t = await getTranslations();
+
   return (
     <section className="relative overflow-hidden">
       {/* background glow: radial gradient ellipse, brand color → transparent */}
@@ -22,45 +26,29 @@ export default function HomeHero() {
         <div className="flex max-w-5xl flex-col items-center gap-8 text-center">
           {/* badge pill */}
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-1.5 text-sm font-medium text-muted-foreground">
-            {heroConfig.badge.text}
+            {t(heroConfig.badgeKey)}
           </span>
 
           {/* H1 with rotated brand highlight */}
           <h1 className="max-w-4xl text-balance text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-            {heroConfig.title.prefix}{" "}
+            {t(heroConfig.title.prefixKey)}{" "}
             <span className="inline-block -rotate-2 rounded-md bg-brand px-2 text-brand-foreground">
-              {heroConfig.title.highlight}
+              {t(heroConfig.title.highlightKey)}
             </span>{" "}
-            {heroConfig.title.suffix}
+            {t(heroConfig.title.suffixKey)}
           </h1>
 
           <p className="max-w-3xl text-balance text-base text-muted-foreground">
-            {heroConfig.subtitle}
+            {t(heroConfig.subtitleKey)}
           </p>
 
-          {/* intro paragraph */}
+          {/* intro paragraphs */}
           <div className="max-w-3xl text-left text-base leading-relaxed text-muted-foreground">
-            <p>
-              ToolHuntly is a curated directory of the best AI tools on the
-              internet. Instead of burying you in an endless list of every AI
-              product ever launched, we hand-pick the tools that actually work
-              — then rank them by real-world usefulness, pricing, and community
-              reputation. Whether you need help writing better copy, generating
-              images in seconds, editing video, building software, or analyzing
-              data, you will find the right tool here, fast.
-            </p>
-            <p className="mt-3">
-              Every submission goes through editorial review before it is
-              listed. We test the product, verify the claims, and only recommend
-              tools we would genuinely use ourselves. Listings are refreshed
-              daily with new arrivals, updated pricing, and honest alternatives,
-              so when a tool stops being useful, you will know about it.
-            </p>
-            <p className="mt-3">
-              Start by searching below, browse our category rankings, or submit
-              your own tool to be reviewed. It is free to explore, and new picks
-              are added every single day.
-            </p>
+            {heroConfig.introKeys.map((key, index) => (
+              <p key={key} className={index > 0 ? "mt-3" : undefined}>
+                {t(key)}
+              </p>
+            ))}
           </div>
 
           {/* search + submit a tool */}
@@ -75,7 +63,7 @@ export default function HomeHero() {
                 "w-full sm:w-auto rounded-full px-6",
               )}
             >
-              Submit a tool
+              {t(heroConfig.submitKey)}
             </Link>
           </div>
 
@@ -83,14 +71,16 @@ export default function HomeHero() {
           <dl className="mt-4 flex w-full max-w-2xl flex-wrap items-center justify-center gap-x-10 gap-y-4">
             {heroConfig.stats.map((stat) => (
               <div
-                key={stat.label}
+                key={stat.labelKey}
                 className="flex flex-col items-center gap-0.5"
               >
-                <dt className="sr-only">{stat.label}</dt>
+                <dt className="sr-only">{t(stat.labelKey)}</dt>
                 <dd className="text-2xl font-bold text-foreground">
-                  {stat.value}
+                  {t(stat.valueKey)}
                 </dd>
-                <dd className="text-sm text-muted-foreground">{stat.label}</dd>
+                <dd className="text-sm text-muted-foreground">
+                  {t(stat.labelKey)}
+                </dd>
               </div>
             ))}
           </dl>

@@ -1,13 +1,15 @@
 import { cn } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 
 type FeaturedTier = "Sponsored" | "PRO" | "BASIC" | "FREE";
 
 type FeaturedTool = {
+  id: string;
   name: string;
   tier: FeaturedTier;
-  category: string;
+  categoryKey: string;
   domain: string;
-  description: string;
+  descriptionKey: string;
   logo: string;
   href: string;
 };
@@ -15,45 +17,46 @@ type FeaturedTool = {
 /**
  * Home "Featured tools" tiered cards (huntify-style paid tier showcase).
  * 4 cards → 4 tiers, each with distinct border / background / badge / divider.
+ * Category + description text is translated via message keys (Home.featured.*).
  */
 const featuredTools: FeaturedTool[] = [
   {
+    id: "midjourney",
     name: "Midjourney",
     tier: "Sponsored",
-    category: "Image & Design",
+    categoryKey: "Home.featured.category.imageDesign",
     domain: "midjourney.com",
-    description:
-      "Midjourney is the go-to AI image generator for artists, designers, and marketers — turning plain text prompts into stunning, high-resolution visuals in seconds. It is the most widely used AI art tool on the internet, with a huge community sharing prompts and workflows every day. The default quality bar is so high that it has become the benchmark every other image model is measured against.",
+    descriptionKey: "Home.featured.tools.midjourney.desc",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=midjourney.com",
     href: "https://www.midjourney.com",
   },
   {
+    id: "claude",
     name: "Claude",
     tier: "PRO",
-    category: "Writing & Chat",
+    categoryKey: "Home.featured.category.writingChat",
     domain: "claude.ai",
-    description:
-      "Claude is Anthropic's flagship AI assistant, built for writing, analysis, and coding with a 1M-token context window — it can read an entire book in one go. It is widely praised for careful, nuanced responses and strong reasoning on long documents. Teams use it every day for drafting, research, and refactoring large codebases.",
+    descriptionKey: "Home.featured.tools.claude.desc",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=claude.ai",
     href: "https://claude.ai",
   },
   {
+    id: "canva",
     name: "Canva",
     tier: "BASIC",
-    category: "Image & Design",
+    categoryKey: "Home.featured.category.imageDesign",
     domain: "canva.com",
-    description:
-      "Canva pairs a drag-and-drop design editor with an AI-powered magic studio, so anyone can create social posts, decks, posters, and videos without design training. Magic Write, background remover, and one-click brand kits turn rough ideas into polished visuals in minutes. With millions of templates, it is the fastest way to look professional.",
+    descriptionKey: "Home.featured.tools.canva.desc",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=canva.com",
     href: "https://www.canva.com",
   },
   {
+    id: "grammarly",
     name: "Grammarly",
     tier: "FREE",
-    category: "Writing & Text",
+    categoryKey: "Home.featured.category.writingText",
     domain: "grammarly.com",
-    description:
-      "Grammarly is the AI writing assistant that checks grammar, spelling, tone, and clarity in real time across your browser, docs, and email. Beyond basic corrections, it offers AI-generated rewrites, tone adjustments, and full-document summaries. The free tier alone catches the mistakes that hurt most casual writing.",
+    descriptionKey: "Home.featured.tools.grammarly.desc",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=grammarly.com",
     href: "https://www.grammarly.com",
   },
@@ -85,16 +88,17 @@ const tierStyles: Record<
   },
 };
 
-export default function HomeFeaturedTools() {
+export default async function HomeFeaturedTools() {
+  const t = await getTranslations();
+
   return (
     <section>
       <div className="mb-8">
-        <h2 className="text-2xl font-bold sm:text-3xl">Featured AI tools</h2>
+        <h2 className="text-2xl font-bold sm:text-3xl">
+          {t("Home.featured.title")}
+        </h2>
         <p className="mt-1 max-w-2xl text-muted-foreground">
-          A snapshot of the tools our readers reach for most — from sponsored
-          partners with priority placement to solid everyday picks. Every card
-          below is a real product we stand behind, updated as the landscape
-          changes.
+          {t("Home.featured.intro")}
         </p>
       </div>
 
@@ -103,7 +107,7 @@ export default function HomeFeaturedTools() {
           const style = tierStyles[tool.tier];
           return (
             <a
-              key={tool.name}
+              key={tool.id}
               href={tool.href}
               target="_blank"
               rel="noreferrer"
@@ -136,14 +140,14 @@ export default function HomeFeaturedTools() {
                     </span>
                   </div>
                   <p className="truncate text-sm text-muted-foreground">
-                    {tool.category}
+                    {t(tool.categoryKey)}
                   </p>
                 </div>
               </div>
 
               {/* description */}
               <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-3">
-                {tool.description}
+                {t(tool.descriptionKey)}
               </p>
 
               {/* footer: domain + CTA */}
@@ -157,8 +161,11 @@ export default function HomeFeaturedTools() {
                   {tool.domain}
                 </span>
                 <span className="flex shrink-0 items-center gap-1 text-sm font-medium text-foreground">
-                  Try it
-                  <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
+                  {t("Home.featured.try")}
+                  <span
+                    aria-hidden
+                    className="transition-transform group-hover:translate-x-0.5"
+                  >
                     →
                   </span>
                 </span>

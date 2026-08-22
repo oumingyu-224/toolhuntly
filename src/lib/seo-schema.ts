@@ -75,17 +75,21 @@ export function buildWebSiteJsonLd(): JsonLd {
 
 /** ------------------------------------------------------------------
  * 10. FAQPage (5 Q&A from faqConfig)
+ *
+ * `t` is the next-intl translate function from the request scope. When
+ * provided, question/answer keys are resolved to the active locale's copy,
+ * keeping the JSON-LD in sync with the rendered FAQ section.
  * ----------------------------------------------------------------- */
-export function buildFAQPageJsonLd(): JsonLd {
+export function buildFAQPageJsonLd(t?: (key: string) => string): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqConfig.items.map(({ question, answer }) => ({
+    mainEntity: faqConfig.items.map(({ questionKey, answerKey }) => ({
       "@type": "Question",
-      name: question,
+      name: t ? t(questionKey) : questionKey,
       acceptedAnswer: {
         "@type": "Answer",
-        text: answer,
+        text: t ? t(answerKey) : answerKey,
       },
     })),
   };

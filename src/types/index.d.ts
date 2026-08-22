@@ -39,22 +39,22 @@ export type SiteConfig = {
 };
 
 export type HeroConfig = {
-  badge: {
-    text: string;
-  };
+  badgeKey: string;
   title: {
-    prefix: string;
-    highlight: string;
-    suffix: string;
+    prefixKey: string;
+    highlightKey: string;
+    suffixKey: string;
   };
-  subtitle: string;
+  subtitleKey: string;
+  introKeys: string[];
   search: {
-    placeholder: string;
+    placeholderKey: string;
     shortcut: string;
   };
+  submitKey: string;
   stats: {
-    value: string;
-    label: string;
+    valueKey: string;
+    labelKey: string;
   }[];
 };
 
@@ -111,6 +111,6 @@ export type FAQConfig = {
 
 export type FAQItem = {
   id: string;
-  question: string;
-  answer: string;
+  questionKey: string;
+  answerKey: string;
 };

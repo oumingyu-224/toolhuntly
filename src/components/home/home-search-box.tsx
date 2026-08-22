@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "@/i18n/navigation";
 import { SearchIcon } from "lucide-react";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { heroConfig } from "@/config/hero";
 
 /**
@@ -12,6 +13,7 @@ import { heroConfig } from "@/config/hero";
  * ⌘K (or Ctrl+K) focuses the input.
  */
 export default function HeroSearchBox() {
+  const t = useTranslations();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,7 +36,7 @@ export default function HeroSearchBox() {
           ref={inputRef}
           type="text"
           name="q"
-          placeholder={heroConfig.search.placeholder}
+          placeholder={t(heroConfig.search.placeholderKey)}
           autoComplete="off"
           className="h-12 pr-16 rounded-r-none focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-primary focus:border-2 focus:border-r-0"
         />
@@ -44,7 +46,7 @@ export default function HeroSearchBox() {
       </div>
       <Button type="submit" className="rounded-l-none size-12 shrink-0">
         <SearchIcon className="size-6" aria-hidden="true" />
-        <span className="sr-only">Search</span>
+        <span className="sr-only">{t("Common.search")}</span>
       </Button>
     </form>
   );

@@ -231,7 +231,91 @@
     "featuredProducts": "Featured Products",
     "moreFeaturedProducts": "More Featured Products",
     "latestPosts": "Latest Posts",
-    "moreBlogPosts": "More Blog Posts"
+    "moreBlogPosts": "More Blog Posts",
+    "hero": {
+      "badge": "Curated daily",
+      "title": {
+        "prefix": "Discover the",
+        "highlight": "best",
+        "suffix": "AI tools & alternatives"
+      },
+      "subtitle": "From writing to coding to images — filtered to only what works.",
+      "intro1": "ToolHuntly is a curated directory of the best AI tools on the internet. Instead of burying you in an endless list of every AI product ever launched, we hand-pick the tools that actually work — then rank them by real-world usefulness, pricing, and community reputation. Whether you need help writing better copy, generating images in seconds, editing video, building software, or analyzing data, you will find the right tool here, fast.",
+      "intro2": "Every submission goes through editorial review before it is listed. We test the product, verify the claims, and only recommend tools we would genuinely use ourselves. Listings are refreshed daily with new arrivals, updated pricing, and honest alternatives, so when a tool stops being useful, you will know about it.",
+      "intro3": "Start by searching below, browse our category rankings, or submit your own tool to be reviewed. It is free to explore, and new picks are added every single day.",
+      "searchPlaceholder": "Try \"image generator\" or \"video api\"...",
+      "submit": "Submit a tool",
+      "stats": {
+        "toolsValue": "1,200+",
+        "toolsLabel": "tools listed",
+        "categoriesValue": "45+",
+        "categoriesLabel": "categories",
+        "dailyValue": "Daily",
+        "dailyLabel": "fresh picks",
+        "visitsValue": "80K+",
+        "visitsLabel": "monthly visits"
+      }
+    },
+    "featured": {
+      "title": "Featured AI tools",
+      "intro": "A snapshot of the tools our readers reach for most — from sponsored partners with priority placement to solid everyday picks. Every card below is a real product we stand behind, updated as the landscape changes.",
+      "try": "Try it",
+      "category": {
+        "imageDesign": "Image & Design",
+        "writingChat": "Writing & Chat",
+        "writingText": "Writing & Text"
+      },
+      "tools": {
+        "midjourney": {
+          "desc": "Midjourney is the go-to AI image generator for artists, designers, and marketers — turning plain text prompts into stunning, high-resolution visuals in seconds. It is the most widely used AI art tool on the internet, with a huge community sharing prompts and workflows every day. The default quality bar is so high that it has become the benchmark every other image model is measured against."
+        },
+        "claude": {
+          "desc": "Claude is Anthropic's flagship AI assistant, built for writing, analysis, and coding with a 1M-token context window — it can read an entire book in one go. It is widely praised for careful, nuanced responses and strong reasoning on long documents. Teams use it every day for drafting, research, and refactoring large codebases."
+        },
+        "canva": {
+          "desc": "Canva pairs a drag-and-drop design editor with an AI-powered magic studio, so anyone can create social posts, decks, posters, and videos without design training. Magic Write, background remover, and one-click brand kits turn rough ideas into polished visuals in minutes. With millions of templates, it is the fastest way to look professional."
+        },
+        "grammarly": {
+          "desc": "Grammarly is the AI writing assistant that checks grammar, spelling, tone, and clarity in real time across your browser, docs, and email. Beyond basic corrections, it offers AI-generated rewrites, tone adjustments, and full-document summaries. The free tier alone catches the mistakes that hurt most casual writing."
+        }
+      }
+    },
+    "ranking": {
+      "title": "Find your tool by use case",
+      "subtitle": "Top-ranked picks in the categories people search most",
+      "intro": "Rankings are recalculated daily using a blend of traffic, product quality, and user feedback — so the list reflects what actually works right now, not what was popular last year. Click any tool to open its site, or head to the full category listing to compare alternatives side by side.",
+      "columns": {
+        "writing": "Writing & Text",
+        "image": "Image & Design",
+        "video": "Video & Audio",
+        "code": "Code & Data"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": {
+        "item-1": {
+          "question": "What is ToolHuntly?",
+          "answer": "ToolHuntly is a curated directory of the best AI tools. We help you discover, compare, and pick the right AI for any job — writing, image, video, coding, audio, and more."
+        },
+        "item-2": {
+          "question": "How are tools curated?",
+          "answer": "Our editors hand-review every submission. We test the product, verify the claims, check output quality, and only list tools we'd actually recommend. No paid placement without editorial review."
+        },
+        "item-3": {
+          "question": "Is ToolHuntly free to use?",
+          "answer": "Yes. Browsing and searching is completely free. You can filter by category, use-case, price, and rating without an account. Submitting a tool is free for the basic listing; paid options exist for priority review and sponsored spots."
+        },
+        "item-4": {
+          "question": "How do I submit my tool?",
+          "answer": "Click Submit in the top navigation, fill in your tool's URL and short description, and we'll send it to editorial review. The free plan lists within 72 hours; Pro submissions go live immediately with extra benefits."
+        },
+        "item-5": {
+          "question": "How often is the directory updated?",
+          "answer": "Daily. New tools are added every day, ratings are refreshed, pricing and feature data are continuously synced, and stale listings are removed when products are no longer available."
+        }
+      }
+    }
   },
   "Home2": {
     "searchPlaceholder": "Search any products you need",

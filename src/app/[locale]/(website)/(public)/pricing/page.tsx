@@ -4,6 +4,7 @@ import { PricingFaq } from "@/components/pricing/pricing-faq";
 import { HeaderSection } from "@/components/shared/header-section";
 import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/lib/metadata";
+import { getTranslations } from "next-intl/server";
 
 export const metadata = constructMetadata({
   title: "Pricing",
@@ -12,6 +13,8 @@ export const metadata = constructMetadata({
 });
 
 export default async function PricingPage() {
+  const t = await getTranslations();
+
   return (
     <Container className="mt-8 pb-16">
       <div className="w-full flex flex-col gap-16">
@@ -44,7 +47,7 @@ export default async function PricingPage() {
           <HeaderSection
             label="FAQ"
             titleAs="h2"
-            title="Frequently Asked Questions"
+            title={t("Home.faq.title")}
           />
 
           <div className="w-full max-w-4xl mx-auto">

@@ -1,4 +1,5 @@
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { ArrowRightIcon, ChevronRightIcon } from "lucide-react";
 
 type RankingTool = {
@@ -9,17 +10,18 @@ type RankingTool = {
 };
 
 type RankingCategory = {
-  title: string;
+  titleKey: string;
   tools: RankingTool[];
 };
 
 /**
  * Home "Find your tool by use case" ranking (huntify-style).
  * 4 columns × 5 tools each; tool rows link out to their site.
+ * Column titles are translated via message keys (Home.ranking.columns.*).
  */
 const rankingCategories: RankingCategory[] = [
   {
-    title: "Writing & Text",
+    titleKey: "Home.ranking.columns.writing",
     tools: [
       {
         name: "DeepL",
@@ -54,7 +56,7 @@ const rankingCategories: RankingCategory[] = [
     ],
   },
   {
-    title: "Image & Design",
+    titleKey: "Home.ranking.columns.image",
     tools: [
       {
         name: "Midjourney",
@@ -124,7 +126,7 @@ const rankingCategories: RankingCategory[] = [
     ],
   },
   {
-    title: "Code & Data",
+    titleKey: "Home.ranking.columns.code",
     tools: [
       {
         name: "GitHub Copilot",
@@ -160,31 +162,29 @@ const rankingCategories: RankingCategory[] = [
   },
 ];
 
-export default function HomeCategoryRanking() {
+export default async function HomeCategoryRanking() {
+  const t = await getTranslations();
+
   return (
     <section>
       {/* section header */}
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-1">
           <h2 className="text-2xl font-bold sm:text-3xl">
-            Find your tool by use case
+            {t("Home.ranking.title")}
           </h2>
           <p className="text-muted-foreground">
-            Top-ranked picks in the categories people search most
+            {t("Home.ranking.subtitle")}
           </p>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            Rankings are recalculated daily using a blend of traffic, product
-            quality, and user feedback — so the list reflects what actually
-            works right now, not what was popular last year. Click any tool to
-            open its site, or head to the full category listing to compare
-            alternatives side by side.
+            {t("Home.ranking.intro")}
           </p>
         </div>
         <Link
           href="/category"
           className="group inline-flex shrink-0 items-center gap-1 text-sm font-medium text-foreground"
         >
-          All categories
+          {t("Home.allCategories")}
           <ArrowRightIcon
             aria-hidden
             className="size-4 transition-transform group-hover:translate-x-0.5"
@@ -194,9 +194,9 @@ export default function HomeCategoryRanking() {
 
       <div className="grid gap-9 sm:grid-cols-2 xl:grid-cols-4">
         {rankingCategories.map((category) => (
-          <div key={category.title}>
+          <div key={category.titleKey}>
             <h3 className="border-b-[1.5px] border-foreground pb-3 text-center text-lg font-semibold">
-              {category.title}
+              {t(category.titleKey)}
             </h3>
 
             <ol className="mt-2 flex flex-col">

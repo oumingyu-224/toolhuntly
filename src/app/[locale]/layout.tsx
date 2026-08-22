@@ -20,7 +20,7 @@ import {
 } from "@/lib/seo-schema";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { SessionProvider } from "next-auth/react";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "next-themes";
@@ -54,6 +54,7 @@ export default async function RootLayout({
   // https://youtu.be/1MTyCvS05V4?t=21464
   const session = await auth();
   const messages = await getMessages();
+  const t = await getTranslations();
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -76,7 +77,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: serializeJsonLd(buildFAQPageJsonLd()),
+            __html: serializeJsonLd(buildFAQPageJsonLd(t)),
           }}
         />
       </head>

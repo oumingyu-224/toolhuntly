@@ -1,29 +1,33 @@
 import type { HeroConfig } from "@/types";
 
 /**
- * Home hero copy (huntify-style). The highlight word "best" is rendered with
+ * Home hero copy, stored as next-intl message keys (Home.hero.*) so the hero
+ * renders in the active locale. The highlight word ("best") is rendered with
  * the rotated brand-color background in HomeHero.
  */
 export const heroConfig: HeroConfig = {
-  badge: {
-    text: "Curated daily",
-  },
+  badgeKey: "Home.hero.badge",
   title: {
-    prefix: "Discover the",
-    highlight: "best",
-    suffix: "AI tools & alternatives",
+    prefixKey: "Home.hero.title.prefix",
+    highlightKey: "Home.hero.title.highlight",
+    suffixKey: "Home.hero.title.suffix",
   },
-  subtitle:
-    "From writing to coding to images — filtered to only what works.",
+  subtitleKey: "Home.hero.subtitle",
+  introKeys: [
+    "Home.hero.intro1",
+    "Home.hero.intro2",
+    "Home.hero.intro3",
+  ],
   search: {
-    placeholder: `Try "image generator" or "video api"...`,
+    placeholderKey: "Home.hero.searchPlaceholder",
     shortcut: "⌘K",
   },
+  submitKey: "Home.hero.submit",
   // Honest initial numbers — update once real data is available.
   stats: [
-    { value: "1,200+", label: "tools listed" },
-    { value: "45+", label: "categories" },
-    { value: "Daily", label: "fresh picks" },
-    { value: "80K+", label: "monthly visits" },
+    { valueKey: "Home.hero.stats.toolsValue", labelKey: "Home.hero.stats.toolsLabel" },
+    { valueKey: "Home.hero.stats.categoriesValue", labelKey: "Home.hero.stats.categoriesLabel" },
+    { valueKey: "Home.hero.stats.dailyValue", labelKey: "Home.hero.stats.dailyLabel" },
+    { valueKey: "Home.hero.stats.visitsValue", labelKey: "Home.hero.stats.visitsLabel" },
   ],
 };
