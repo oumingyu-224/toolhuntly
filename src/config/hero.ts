@@ -23,11 +23,6 @@ export const heroConfig: HeroConfig = {
     shortcut: "⌘K",
   },
   submitKey: "Home.hero.submit",
-  // Honest initial numbers — update once real data is available.
-  stats: [
-    { valueKey: "Home.hero.stats.toolsValue", labelKey: "Home.hero.stats.toolsLabel" },
-    { valueKey: "Home.hero.stats.categoriesValue", labelKey: "Home.hero.stats.categoriesLabel" },
-    { valueKey: "Home.hero.stats.dailyValue", labelKey: "Home.hero.stats.dailyLabel" },
-    { valueKey: "Home.hero.stats.visitsValue", labelKey: "Home.hero.stats.visitsLabel" },
-  ],
+  // Honest launch note instead of fake numbers (site not launched yet).
+  launchNoteKey: "Home.hero.launchNote",
 };

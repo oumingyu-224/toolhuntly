@@ -52,10 +52,7 @@ export type HeroConfig = {
     shortcut: string;
   };
   submitKey: string;
-  stats: {
-    valueKey: string;
-    labelKey: string;
-  }[];
+  launchNoteKey: string;
 };
 
 export type MarketingConfig = {

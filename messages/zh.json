@@ -245,16 +245,7 @@
       "intro3": "从下方的搜索开始，或浏览分类排行榜，也可以提交你的工具等待审核。探索完全免费，每天都有新的精选上线。",
       "searchPlaceholder": "试试「图片生成器」或「视频 API」…",
       "submit": "提交工具",
-      "stats": {
-        "toolsValue": "1,200+",
-        "toolsLabel": "收录工具",
-        "categoriesValue": "45+",
-        "categoriesLabel": "分类",
-        "dailyValue": "每日",
-        "dailyLabel": "新鲜推荐",
-        "visitsValue": "80K+",
-        "visitsLabel": "月访问量"
-      }
+      "launchNote": "刚刚上线——今天开始精选首批工具"
     },
     "featured": {
       "title": "精选 AI 工具",

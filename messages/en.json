@@ -245,16 +245,7 @@
       "intro3": "Start by searching below, browse our category rankings, or submit your own tool to be reviewed. It is free to explore, and new picks are added every single day.",
       "searchPlaceholder": "Try \"image generator\" or \"video api\"...",
       "submit": "Submit a tool",
-      "stats": {
-        "toolsValue": "1,200+",
-        "toolsLabel": "tools listed",
-        "categoriesValue": "45+",
-        "categoriesLabel": "categories",
-        "dailyValue": "Daily",
-        "dailyLabel": "fresh picks",
-        "visitsValue": "80K+",
-        "visitsLabel": "monthly visits"
-      }
+      "launchNote": "Just launched — first tools curated today"
     },
     "featured": {
       "title": "Featured AI tools",

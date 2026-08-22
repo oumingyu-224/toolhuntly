@@ -67,23 +67,10 @@ export default async function HomeHero() {
             </Link>
           </div>
 
-          {/* stats row */}
-          <dl className="mt-4 flex w-full max-w-2xl flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {heroConfig.stats.map((stat) => (
-              <div
-                key={stat.labelKey}
-                className="flex flex-col items-center gap-0.5"
-              >
-                <dt className="sr-only">{t(stat.labelKey)}</dt>
-                <dd className="text-2xl font-bold text-foreground">
-                  {t(stat.valueKey)}
-                </dd>
-                <dd className="text-sm text-muted-foreground">
-                  {t(stat.labelKey)}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          {/* launch note (honest, no fake numbers) */}
+          <p className="mt-2 text-sm font-medium text-muted-foreground">
+            {t(heroConfig.launchNoteKey)}
+          </p>
         </div>
       </div>
     </section>
