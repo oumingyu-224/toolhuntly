@@ -33,11 +33,6 @@ export const marketingConfig: MarketingConfig = {
       icon: "pricing",
     },
     {
-      title: "Marketing.submit",
-      href: "/submit",
-      icon: "submit",
-    },
-    {
       title: "Marketing.studio",
       href: "/studio",
       icon: "studio",

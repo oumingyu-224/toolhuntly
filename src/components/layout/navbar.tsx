@@ -100,8 +100,10 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
             ) : null}
           </div>
 
-          {/* Right actions: Submit + Log in + User menu + Language */}
+          {/* Right actions: Language + Submit + Log in/User menu */}
           <div className="flex items-center gap-x-3">
+            <LanguageSwitcher />
+
             <Link href="/submit">
               <Button
                 className="flex items-center gap-2 px-4 rounded-full"
@@ -128,10 +130,6 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                 </Button>
               </LoginWrapper>
             )}
-
-            <LanguageSwitcher />
-
-            {/* <ModeToggle /> */}
           </div>
         </Container>
       </header>
