@@ -1,4 +1,4 @@
-import { sanityClient } from "@/sanity/lib/client";
+import { getSanityClient } from "@/sanity/lib/client";
 import { token } from "@/sanity/lib/token";
 import { validatePreviewUrl } from "@sanity/preview-url-secret";
 import { draftMode } from "next/headers";
@@ -17,10 +17,16 @@ import { redirect } from "next/navigation";
  *
  * 3. Preview URL Secret
  * https://www.sanity.io/docs/preview-url-secret#nextjs-app-router
+ *
+ * NOTE: `clientWithToken` is no longer evaluated at module-evaluation
+ * time to avoid crashing Next.js's "collect page data" build phase when
+ * the Sanity client can't be initialized.
  */
-const clientWithToken = sanityClient.withConfig({ token });
 
 export async function GET(request: Request) {
+  const sanityClient = getSanityClient();
+  const clientWithToken = sanityClient.withConfig({ token });
+
   const { isValid, redirectTo = "/" } = await validatePreviewUrl(
     clientWithToken,
     request.url,
