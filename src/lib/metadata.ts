@@ -6,18 +6,13 @@ import type { Metadata } from "next";
  * every `export const metadata` / `generateMetadata` at **build time** during
  * its "collect page data" phase, so we can't let `new URL(undefined)` or
  * `new URL("")` throw and kill the whole build.
- *
- * If the site URL is not configured yet (env missing, empty string, or
- * obviously invalid) we fall back to a placeholder that is a syntactically
- * valid URL. Operators can later swap the env and redeploy; the real URL
- * overrides this at runtime and through SEO metadata.
  */
 function buildMetadataBase(raw: string | undefined): URL {
-  const fallback = "https://placeholder.example.com/";
+  const fallback = "https://toolhuntly.com/";
   if (!raw) {
     if (typeof console !== "undefined") {
       console.warn(
-        "[lib/metadata] siteConfig.url (NEXT_PUBLIC_APP_URL) is empty or missing. Using a placeholder as metadataBase. Configure the env variable for production SEO.",
+        "[lib/metadata] siteConfig.url (NEXT_PUBLIC_APP_URL) is empty or missing. Falling back to https://toolhuntly.com. Configure the env for preview deployments if needed.",
       );
     }
     return new URL(fallback);
@@ -27,7 +22,7 @@ function buildMetadataBase(raw: string | undefined): URL {
   } catch {
     if (typeof console !== "undefined") {
       console.warn(
-        `[lib/metadata] siteConfig.url="${raw}" is not a valid URL (ERR_INVALID_URL). Falling back to a placeholder until NEXT_PUBLIC_APP_URL is fixed.`,
+        `[lib/metadata] siteConfig.url="${raw}" is not a valid URL (ERR_INVALID_URL). Falling back to https://toolhuntly.com.`,
       );
     }
     return new URL(fallback);
@@ -35,54 +30,139 @@ function buildMetadataBase(raw: string | undefined): URL {
 }
 
 /**
- * Construct the metadata object for the current page (in docs/guides)
+ * Given a canonical URL (full or relative), return the two hreflang
+ * alternates that the ToolHuntly site uses:
+ *   - English (x-default / en): path as-is (no locale prefix)
+ *   - Chinese (zh-Hans / zh-CN): same path but prefixed with `/cn`
+ *
+ * Examples:
+ *   canonical = https://toolhuntly.com/          => zh => https://toolhuntly.com/cn/
+ *   canonical = https://toolhuntly.com/tag/ai    => zh => https://toolhuntly.com/cn/tag/ai
+ *   canonical = /tag/ai (relative) is normalized via metadataBase first
+ */
+function buildHreflangAlternates(
+  canonical: string,
+  metadataBase: URL,
+): Record<string, string> {
+  // Normalize to absolute URL using the metadataBase origin
+  const canonicalObj = (() => {
+    try {
+      return new URL(canonical, metadataBase.origin);
+    } catch {
+      return new URL("/", metadataBase.origin);
+    }
+  })();
+
+  const origin = canonicalObj.origin;
+  // pathname always starts with "/"
+  const pathname = canonicalObj.pathname.replace(/\/+$/, "") || "/";
+  const search = canonicalObj.search;
+
+  // English: default path, no locale prefix
+  const enPath = pathname === "/" ? "/" : `${pathname}/`;
+  const enUrl = `${origin}${enPath}${search}`;
+
+  // Chinese: same path but prefixed with `/cn`
+  const zhPath =
+    pathname === "/" ? "/cn/" : `/cn${pathname}/`;
+  const zhUrl = `${origin}${zhPath}${search}`;
+
+  return {
+    "x-default": enUrl,
+    en: enUrl,
+    "zh-Hans": zhUrl,
+    "zh-CN": zhUrl,
+  };
+}
+
+const DEFAULT_HOME_TITLE =
+  "Best AI Tools Directory & Alternatives | ToolHuntly";
+
+/**
+ * Construct the metadata object for the current page.
+ *
+ * Design rules (from global Head spec):
+ *   1. Home <title>     = Best AI Tools Directory & Alternatives | ToolHuntly
+ *      Sub <title>      = <page title> | ToolHuntly
+ *   2. meta description = Default: siteConfig.description (ToolHuntly line)
+ *   3. <link canonical> = https://toolhuntly.com/ for home, page-specific for subs
+ *   4. og:*            = mirror title / description / url / image (/og.png)
+ *   5. twitter:card    = summary_large_image, rest mirrors og
+ *   6. alternates hreflang: en has no locale prefix, zh is /cn/*
  */
 export function constructMetadata({
-  title = siteConfig.name,
+  title,
   description = siteConfig.description,
   canonicalUrl,
-  image = siteConfig.image,
+  image,
   noIndex = false,
 }: {
+  /** Page-specific title (the part before `| ToolHuntly`). Leave empty for home. */
   title?: string;
   description?: string;
+  /** Explicit canonical. Falls back to siteConfig.url + "/" for home. */
   canonicalUrl?: string;
+  /** OG image URL. Defaults to siteConfig.image, which is /og.png?v=1 */
   image?: string;
   noIndex?: boolean;
 } = {}): Metadata {
-  const fullTitle = title ? `${title} - ${siteConfig.name}` : siteConfig.name;
   const metadataBase = buildMetadataBase(siteConfig.url);
-  const safeSiteUrl = metadataBase.origin;
+  const origin = metadataBase.origin;
+
+  // --- Title -------------------------------------------------------------
+  // Home uses the full exact spec line. Sub pages get "<title> | ToolHuntly".
+  const hasPageTitle = Boolean(title && title.trim() !== "");
+  const fullTitle = hasPageTitle
+    ? `${title!.trim()} | ${siteConfig.name}`
+    : DEFAULT_HOME_TITLE;
+
+  // --- Canonical ---------------------------------------------------------
+  // If the caller supplied a page-specific canonical, prefer it. Otherwise
+  // home canonical = https://toolhuntly.com/ (always with trailing slash).
+  const canonical = (() => {
+    try {
+      if (canonicalUrl && canonicalUrl.trim() !== "") {
+        const u = new URL(canonicalUrl, origin);
+        const p = u.pathname.replace(/\/+$/, "") || "/";
+        return `${u.origin}${p === "/" ? "/" : `${p}/`}${u.search}`;
+      }
+    } catch {
+      // fallthrough to home default
+    }
+    return `${origin}/`;
+  })();
+
+  // --- Image -------------------------------------------------------------
+  const ogImage = image && image.trim() !== "" ? image.trim() : siteConfig.image;
+
+  // --- Hreflang ----------------------------------------------------------
+  const languages = buildHreflangAlternates(canonical, metadataBase);
+
   return {
     title: fullTitle,
     description,
     keywords: siteConfig.keywords,
     creator: siteConfig.author,
-    authors: [
-      {
-        name: siteConfig.author,
-      },
-    ],
-    alternates: canonicalUrl
-      ? {
-          canonical: canonicalUrl,
-        }
-      : undefined,
+    authors: [{ name: siteConfig.author }],
+    alternates: {
+      canonical,
+      languages,
+    },
     openGraph: {
       type: "website",
       locale: "en_US",
-      url: safeSiteUrl,
+      url: canonical,
       title: fullTitle,
       description,
       siteName: siteConfig.name,
-      images: [image],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [image],
-      site: safeSiteUrl,
+      images: [ogImage],
+      site: canonical,
       creator: siteConfig.author,
     },
     icons: {
@@ -91,12 +171,9 @@ export function constructMetadata({
       apple: "/apple-touch-icon.png",
     },
     metadataBase,
-    manifest: `${safeSiteUrl}/site.webmanifest`,
+    manifest: `${origin}/site.webmanifest`,
     ...(noIndex && {
-      robots: {
-        index: false,
-        follow: false,
-      },
+      robots: { index: false, follow: false },
     }),
   };
 }
