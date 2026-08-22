@@ -13,7 +13,7 @@
 // import Loading from "@/app/(website)/(public)/blog/[slug]/loading";
 // import Loading from "@/app/(website)/(public)/collection/loading";
 import Container from "@/components/container";
-import Loading from "../home2/loading";
+import Loading from "../../(home)/loading";
 
 /**
  * This is a loading page for testing purposes.
