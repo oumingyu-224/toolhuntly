@@ -1,4 +1,4 @@
-import EmptySubmission from "@/components/dashboard/submission-empty";
+import { EmptySubmission } from "@/components/dashboard/submission-empty";
 import SubmissionList from "@/components/dashboard/submission-list";
 import CustomPagination from "@/components/shared/pagination";
 import { siteConfig } from "@/config/site";
