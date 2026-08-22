@@ -6,6 +6,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { getTranslations } from "next-intl/server";
 import type { ItemInfo } from "@/types";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { ChevronsUpDownIcon, HomeIcon } from "lucide-react";
