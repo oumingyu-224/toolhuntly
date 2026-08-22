@@ -1,5 +1,6 @@
 import { siteConfig } from "@/config/site";
-import { routing } from "@/i18n/routing";
+import { localeToLangTag, localeToOgLocale, routing } from "@/i18n/routing";
+import { getLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 /**
@@ -35,8 +36,8 @@ function buildMetadataBase(raw: string | undefined): URL {
  * for the site's locales. Paths are derived from src/i18n/routing.ts so they
  * always match the URLs next-intl actually generates (localePrefix:
  * "as-needed" => default locale without prefix, others with `/{locale}`):
- *   - en  => path as-is (no prefix), also x-default
- *   - zh  => same path prefixed with `/zh`
+ *   - en    => path as-is (no prefix), also x-default
+ *   - zh-CN => same path prefixed with `/zh` (hreflang uses BCP 47 tags)
  *
  * Examples:
  *   canonical = https://toolhuntly.com/          => zh => https://toolhuntly.com/zh/
@@ -63,19 +64,21 @@ function buildHreflangAlternates(
   const alternatives: Record<string, string> = {};
 
   for (const locale of routing.locales) {
+    const langTag = localeToLangTag[locale] ?? locale;
     if (locale === routing.defaultLocale) {
       // Default locale: no prefix
-      alternatives[locale] =
+      alternatives[langTag] =
         `${origin}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
     } else {
       // Non-default locale: /{locale} prefix
-      alternatives[locale] =
+      alternatives[langTag] =
         `${origin}/${locale}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
     }
   }
 
   // x-default points to the default (English) URL
-  alternatives["x-default"] = alternatives[routing.defaultLocale];
+  alternatives["x-default"] =
+    alternatives[localeToLangTag[routing.defaultLocale] ?? routing.defaultLocale];
 
   return alternatives;
 }
@@ -143,6 +146,17 @@ export function constructMetadata({
   // --- Hreflang ----------------------------------------------------------
   const languages = buildHreflangAlternates(canonical, metadataBase);
 
+  // --- OpenGraph locale --------------------------------------------------
+  // Resolve the active locale from the request scope when available
+  // (getLocale throws outside a request, e.g. module-level export metadata).
+  let metaLocale = routing.defaultLocale;
+  try {
+    metaLocale = getLocale();
+  } catch {
+    // no request scope — fall back to the default locale
+  }
+  const ogLocale = (metaLocale && localeToOgLocale[metaLocale]) || "en_US";
+
   return {
     title: fullTitle,
     description,
@@ -155,7 +169,7 @@ export function constructMetadata({
     },
     openGraph: {
       type: "website",
-      locale: "en_US",
+      locale: ogLocale,
       url: canonical,
       title: fullTitle,
       description,

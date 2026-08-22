@@ -10,7 +10,7 @@ import { auth } from "@/auth";
 import { Analytics } from "@/components/analytics/analytics";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { Toaster } from "@/components/ui/sonner";
-import { routing } from "@/i18n/routing";
+import { routing, localeToLangTag } from "@/i18n/routing";
 import { constructMetadata } from "@/lib/metadata";
 import {
   buildFAQPageJsonLd,
@@ -57,7 +57,7 @@ export default async function RootLayout({
   const t = await getTranslations();
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={localeToLangTag[locale] ?? locale} suppressHydrationWarning>
       <head>
         {/* 8. Organization schema.org JSON-LD */}
         <script
