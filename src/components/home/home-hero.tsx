@@ -38,6 +38,31 @@ export default function HomeHero() {
             {heroConfig.subtitle}
           </p>
 
+          {/* intro paragraph */}
+          <div className="max-w-3xl text-left text-base leading-relaxed text-muted-foreground">
+            <p>
+              ToolHuntly is a curated directory of the best AI tools on the
+              internet. Instead of burying you in an endless list of every AI
+              product ever launched, we hand-pick the tools that actually work
+              — then rank them by real-world usefulness, pricing, and community
+              reputation. Whether you need help writing better copy, generating
+              images in seconds, editing video, building software, or analyzing
+              data, you will find the right tool here, fast.
+            </p>
+            <p className="mt-3">
+              Every submission goes through editorial review before it is
+              listed. We test the product, verify the claims, and only recommend
+              tools we would genuinely use ourselves. Listings are refreshed
+              daily with new arrivals, updated pricing, and honest alternatives,
+              so when a tool stops being useful, you will know about it.
+            </p>
+            <p className="mt-3">
+              Start by searching below, browse our category rankings, or submit
+              your own tool to be reviewed. It is free to explore, and new picks
+              are added every single day.
+            </p>
+          </div>
+
           {/* search + submit a tool */}
           <div className="flex w-full max-w-[560px] flex-col items-center gap-3 sm:flex-row">
             <div className="w-full flex-1">

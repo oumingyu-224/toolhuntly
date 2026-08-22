@@ -23,7 +23,7 @@ const featuredTools: FeaturedTool[] = [
     category: "Image & Design",
     domain: "midjourney.com",
     description:
-      "Generate stunning, high-quality images from text prompts with the most popular AI art generator.",
+      "Midjourney is the go-to AI image generator for artists, designers, and marketers — turning plain text prompts into stunning, high-resolution visuals in seconds. It is the most widely used AI art tool on the internet, with a huge community sharing prompts and workflows every day. The default quality bar is so high that it has become the benchmark every other image model is measured against.",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=midjourney.com",
     href: "https://www.midjourney.com",
   },
@@ -33,7 +33,7 @@ const featuredTools: FeaturedTool[] = [
     category: "Writing & Chat",
     domain: "claude.ai",
     description:
-      "Anthropic's AI assistant for writing, analysis, and coding with a 1M-token context window.",
+      "Claude is Anthropic's flagship AI assistant, built for writing, analysis, and coding with a 1M-token context window — it can read an entire book in one go. It is widely praised for careful, nuanced responses and strong reasoning on long documents. Teams use it every day for drafting, research, and refactoring large codebases.",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=claude.ai",
     href: "https://claude.ai",
   },
@@ -43,7 +43,7 @@ const featuredTools: FeaturedTool[] = [
     category: "Image & Design",
     domain: "canva.com",
     description:
-      "Drag-and-drop design tool with AI-powered magic studio for social posts, decks, and more.",
+      "Canva pairs a drag-and-drop design editor with an AI-powered magic studio, so anyone can create social posts, decks, posters, and videos without design training. Magic Write, background remover, and one-click brand kits turn rough ideas into polished visuals in minutes. With millions of templates, it is the fastest way to look professional.",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=canva.com",
     href: "https://www.canva.com",
   },
@@ -53,7 +53,7 @@ const featuredTools: FeaturedTool[] = [
     category: "Writing & Text",
     domain: "grammarly.com",
     description:
-      "AI writing assistant that checks grammar, tone, and clarity across the web.",
+      "Grammarly is the AI writing assistant that checks grammar, spelling, tone, and clarity in real time across your browser, docs, and email. Beyond basic corrections, it offers AI-generated rewrites, tone adjustments, and full-document summaries. The free tier alone catches the mistakes that hurt most casual writing.",
     logo: "https://www.google.com/s2/favicons?sz=64&domain=grammarly.com",
     href: "https://www.grammarly.com",
   },
@@ -88,6 +88,16 @@ const tierStyles: Record<
 export default function HomeFeaturedTools() {
   return (
     <section>
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold sm:text-3xl">Featured AI tools</h2>
+        <p className="mt-1 max-w-2xl text-muted-foreground">
+          A snapshot of the tools our readers reach for most — from sponsored
+          partners with priority placement to solid everyday picks. Every card
+          below is a real product we stand behind, updated as the landscape
+          changes.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {featuredTools.map((tool) => {
           const style = tierStyles[tool.tier];

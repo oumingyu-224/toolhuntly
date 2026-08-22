@@ -172,6 +172,13 @@ export default function HomeCategoryRanking() {
           <p className="text-muted-foreground">
             Top-ranked picks in the categories people search most
           </p>
+          <p className="mt-2 max-w-2xl text-muted-foreground">
+            Rankings are recalculated daily using a blend of traffic, product
+            quality, and user feedback — so the list reflects what actually
+            works right now, not what was popular last year. Click any tool to
+            open its site, or head to the full category listing to compare
+            alternatives side by side.
+          </p>
         </div>
         <Link
           href="/category"
