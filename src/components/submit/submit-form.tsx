@@ -34,9 +34,10 @@ import type {
   CategoryListQueryResult,
   TagListQueryResult,
 } from "@/sanity.types";
+import { useRouter } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SmileIcon, Wand2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -55,6 +56,7 @@ interface SubmitFormProps {
  */
 export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
   const router = useRouter();
+  const t = useTranslations();
   const [isPending, startTransition] = useTransition();
   const [isUploading, setIsUploading] = useState(false);
   const [isAIProcessing, setIsAIProcessing] = useState(false);
@@ -96,7 +98,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
         })
         .catch((error) => {
           console.error("SubmitForm, error:", error);
-          toast.error("Something went wrong");
+          toast.error(t("Submit.somethingWentWrong"));
         });
     });
   });
@@ -124,7 +126,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
   const handleAIFetch = async () => {
     const link = form.getValues("link");
     if (!link) {
-      toast.error("Please enter a valid website URL first");
+      toast.error(t("Submit.pleaseEnterValidUrlFirst"));
       setDialogOpen(false);
       return;
     }
@@ -178,10 +180,10 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
         setIconUrl(data.icon);
       }
 
-      toast.success("AI fetch website info completed!");
+      toast.success(t("Submit.aiFetchCompleted"));
     } catch (error) {
       console.error("SubmitForm, handleAIFetch, error:", error);
-      toast.error("Failed to fetch website info");
+      toast.error(t("Submit.failedToFetchWebsiteInfo"));
     } finally {
       setIsAIProcessing(false);
       setDialogOpen(false);
@@ -199,11 +201,11 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                 name="link"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Link</FormLabel>
+                    <FormLabel>{t("Submit.link")}</FormLabel>
                     <div className="relative">
                       <FormControl>
                         <Input
-                          placeholder="Enter the link to your product"
+                          placeholder={t("Submit.linkPlaceholder")}
                           className={cn(SUPPORT_AI_SUBMIT && "pr-[100px]")}
                           {...field}
                         />
@@ -222,28 +224,28 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                               ) : (
                                 <Wand2Icon className="h-4 w-4" />
                               )}
-                              <span className="text-xs">AI Autofill</span>
+                              <span className="text-xs">{t("Submit.aiAutofill")}</span>
                             </Button>
                           </DialogTrigger>
                           <DialogContent>
                             <DialogHeader>
-                              <DialogTitle>AI Autofill</DialogTitle>
+                              <DialogTitle>{t("Submit.aiAutofill")}</DialogTitle>
                               <DialogDescription>
-                                Would you like AI to automatically fill in the form by the URL? It may take some time, so please wait patiently.
+                                {t("Submit.aiAutofillDescription")}
                               </DialogDescription>
                             </DialogHeader>
                             <div className="flex justify-end gap-2">
                               <Button variant="outline" onClick={() => setDialogOpen(false)}>
-                                Cancel
+                                {t("Common.cancel")}
                               </Button>
                               <Button onClick={handleAIFetch} disabled={isAIProcessing}>
                                 {isAIProcessing ? (
                                   <>
                                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                                    Analyzing...
+                                    {t("Submit.analyzing")}
                                   </>
                                 ) : (
-                                  "Analyze"
+                                  t("Submit.analyze")
                                 )}
                               </Button>
                             </div>
@@ -260,10 +262,10 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t("Submit.name")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the name of your product"
+                        placeholder={t("Submit.namePlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -279,7 +281,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                 name="categories"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Categories</FormLabel>
+                    <FormLabel>{t("Submit.categories")}</FormLabel>
                     <FormControl>
                       <MultiSelect
                         className="shadow-none"
@@ -289,7 +291,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                         }))}
                         onValueChange={(selected) => field.onChange(selected)}
                         value={field.value}
-                        placeholder="Select categories"
+                        placeholder={t("Submit.selectCategories")}
                         variant="default"
                         maxCount={3}
                       />
@@ -303,7 +305,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                 name="tags"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Tags</FormLabel>
+                    <FormLabel>{t("Submit.tags")}</FormLabel>
                     <FormControl>
                       <MultiSelect
                         className="shadow-none"
@@ -313,7 +315,7 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                         }))}
                         onValueChange={(selected) => field.onChange(selected)}
                         value={field.value}
-                        placeholder="Select tags"
+                        placeholder={t("Submit.selectTags")}
                         variant="default"
                         maxCount={3}
                       />
@@ -327,41 +329,41 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
             <FormField
               control={form.control}
               name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Enter a brief description of your product"
-                      {...field}
-                      className="resize-none"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("Submit.description")}</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={t("Submit.descriptionPlaceholder")}
+                        {...field}
+                        className="resize-none"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
             <FormField
               control={form.control}
               name="introduction"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <div className="flex items-center justify-between gap-4">
-                      <span>Introduction</span>
-                      <span className="text-xs text-muted-foreground">
-                        (Markdown supported)
-                      </span>
-                    </div>
-                  </FormLabel>
-                  <FormControl>
-                    <CustomMde {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <div className="flex items-center justify-between gap-4">
+                        <span>{t("Submit.introduction")}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {t("Submit.markdownSupported")}
+                        </span>
+                      </div>
+                    </FormLabel>
+                    <FormControl>
+                      <CustomMde {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
             <div className="flex flex-col md:flex-row md:space-x-4 space-y-6 md:space-y-0">
               {SUPPORT_ITEM_ICON && (
@@ -372,9 +374,9 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                     <FormItem className="flex-1">
                       <FormLabel>
                         <div className="flex items-center justify-between gap-4">
-                          <span>Icon</span>
+                          <span>{t("Submit.icon")}</span>
                           <span className="text-xs text-muted-foreground">
-                            (1:1, PNG or JPEG, max 1MB)
+                            {t("Submit.iconHint")}
                           </span>
                         </div>
                       </FormLabel>
@@ -399,9 +401,9 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
                   <FormItem className="flex-1">
                     <FormLabel>
                       <div className="flex items-center justify-between gap-4">
-                        <span>Image</span>
+                        <span>{t("Submit.image")}</span>
                         <span className="text-xs text-muted-foreground">
-                          (16:9, PNG or JPEG, max 1MB)
+                          {t("Submit.imageHint")}
                         </span>
                       </div>
                     </FormLabel>
@@ -437,15 +439,15 @@ export function SubmitForm({ tagList, categoryList }: SubmitFormProps) {
               )}
               <span>
                 {isPending
-                  ? "Submitting..."
+                  ? t("Submit.submitting")
                   : isUploading
-                    ? "Uploading image..."
-                    : "Submit"}
+                    ? t("Submit.uploadingImage")
+                    : t("Common.submit")}
               </span>
             </Button>
             <div className="text-sm text-muted-foreground flex items-center justify-center sm:justify-start gap-2">
               <SmileIcon className="h-6 w-4" />
-              <span>No worries, you can change these information later.</span>
+              <span>{t("Submit.changeLaterHint")}</span>
             </div>
           </CardFooter>
         </Card>

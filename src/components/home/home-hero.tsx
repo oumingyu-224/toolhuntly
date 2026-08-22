@@ -1,8 +1,8 @@
 import { Icons } from "@/components/icons/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { heroConfig } from "@/config/hero";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import HomeSearchBox from "./home-search-box";
 
 export default function HomeHero() {

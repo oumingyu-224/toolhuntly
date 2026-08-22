@@ -105,6 +105,7 @@
     "mdast-util-toc": "^7.1.0",
     "next": "14.2.35",
     "next-auth": "5.0.0-beta.18",
+    "next-intl": "^4.13.7",
     "next-mdx-remote-client": "^1.0.3",
     "next-sanity": "^9.4.5",
     "next-themes": "^0.3.0",

@@ -2,6 +2,7 @@
 
 import type { CategoryListQueryResult } from "@/sanity.types";
 import { LayoutListIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { Drawer } from "vaul";
@@ -12,6 +13,7 @@ export type CategoryListMobileProps = {
 };
 
 export function CategoryListMobile({ categoryList }: CategoryListMobileProps) {
+  const t = useTranslations();
   const [open, setOpen] = useState(false);
   const { slug } = useParams() as { slug?: string };
   const category = categoryList.find(
@@ -33,10 +35,10 @@ export function CategoryListMobile({ categoryList }: CategoryListMobileProps) {
           <div className="flex items-center justify-between w-full gap-4">
             <div className="flex items-center gap-2">
               <LayoutListIcon className="size-5" />
-              <span className="text-sm">Category</span>
+              <span className="text-sm">{t("Category.label")}</span>
             </div>
             <span className="text-sm">
-              {category?.name ? `${category?.name}` : "All"}
+              {category?.name ? `${category?.name}` : t("Common.all")}
             </span>
           </div>
         </Drawer.Trigger>
@@ -46,14 +48,14 @@ export function CategoryListMobile({ categoryList }: CategoryListMobileProps) {
         />
         <Drawer.Portal>
           <Drawer.Content className="fixed inset-x-0 bottom-0 z-50 mt-24 overflow-hidden rounded-t-[10px] border bg-background">
-            <Drawer.Title className="sr-only">Category</Drawer.Title>
+            <Drawer.Title className="sr-only">{t("Category.label")}</Drawer.Title>
             <div className="sticky top-0 z-20 flex w-full items-center justify-center bg-inherit">
               <div className="my-3 h-1.5 w-16 rounded-full bg-muted-foreground/20" />
             </div>
 
             <ul className="mb-14 w-full p-3 text-muted-foreground">
               <FilterItemMobile
-                title="All"
+                title={t("Common.all")}
                 href="/category"
                 active={!slug}
                 clickAction={closeDrawer}

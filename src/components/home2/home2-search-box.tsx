@@ -2,12 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function HomeSearchBox() {
+  const t = useTranslations();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -21,7 +23,7 @@ export default function HomeSearchBox() {
     <form onSubmit={handleSearch} className="flex items-center justify-center">
       <Input
         type="text"
-        placeholder="Search any products you need"
+        placeholder={t("Home2.searchPlaceholder")}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         className={cn(
@@ -31,7 +33,7 @@ export default function HomeSearchBox() {
       />
       <Button type="submit" className="rounded-l-none size-12">
         <SearchIcon className="size-6" aria-hidden="true" />
-        <span className="sr-only">Search</span>
+        <span className="sr-only">{t("Common.search")}</span>
       </Button>
     </form>
   );

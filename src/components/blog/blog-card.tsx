@@ -2,15 +2,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { urlForImage } from "@/lib/image";
 import { getLocaleDate } from "@/lib/utils";
 import type { BlogPostInfo } from "@/types";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { UserAvatar } from "../shared/user-avatar";
 
 type BlogCardProps = {
   post: BlogPostInfo;
 };
 
-export default function BlogCard({ post }: BlogCardProps) {
+export default async function BlogCard({ post }: BlogCardProps) {
+  const t = await getTranslations();
   const imageProps = post?.image ? urlForImage(post.image) : null;
   const imageBlurDataURL = post?.image?.blurDataURL || null;
   const publishDate = post.publishDate || post._createdAt;
@@ -26,8 +28,8 @@ export default function BlogCard({ post }: BlogCardProps) {
             <div className="relative w-full h-full">
               <Image
                 src={imageProps.src}
-                alt={post.image.alt || "image for blog post"}
-                title={post.image.alt || "image for blog post"}
+                alt={post.image.alt || t("Blog.imageAlt")}
+                title={post.image.alt || t("Blog.imageAlt")}
                 className="object-cover image-scale"
                 fill
                 {...(imageBlurDataURL && {

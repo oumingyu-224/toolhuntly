@@ -8,6 +8,7 @@ import { PricePlans } from "@/lib/submission";
 import { cn } from "@/lib/utils";
 import type { ItemInfo, PricePlan } from "@/types/index";
 import { CheckIcon, XIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { SponsorPlanButton } from "../payment/sponsor-plan-button";
 
 interface PricingPlansProps {
@@ -37,12 +38,13 @@ interface PricingPlanCardProps {
 }
 
 const PricingPlanCard = ({ item, pricePlan }: PricingPlanCardProps) => {
+  const t = useTranslations();
   return (
     <div className="relative pt-4">
       {isProPlan(pricePlan) && (
         <div className="absolute top-0.5 left-1/2 transform -translate-x-1/2 z-10">
           <div className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
-            POPULAR
+            {t("DashboardNS.popular")}
           </div>
         </div>
       )}

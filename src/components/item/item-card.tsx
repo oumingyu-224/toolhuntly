@@ -4,8 +4,9 @@ import { urlForImage } from "@/lib/image";
 import { cn, getItemTargetLinkInWebsite } from "@/lib/utils";
 import type { ItemInfo } from "@/types";
 import { ArrowRightIcon, AwardIcon, HashIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Skeleton } from "../ui/skeleton";
 
 type ItemCardProps = {
@@ -16,6 +17,7 @@ type ItemCardProps = {
  * ItemCard shows item cover image
  */
 export default function ItemCard({ item }: ItemCardProps) {
+  const t = useTranslations();
   const imageProps = item?.image ? urlForImage(item.image) : null;
   const imageBlurDataURL = item?.image?.blurDataURL || null;
   // console.log(`ItemCard, imageBlurDataURL:${imageBlurDataURL}`);
@@ -37,8 +39,8 @@ export default function ItemCard({ item }: ItemCardProps) {
             <div className="relative w-full h-full">
               <Image
                 src={imageProps?.src}
-                alt={item.image.alt || `image of ${item.name}`}
-                title={item.image.alt || `image of ${item.name}`}
+                alt={item.image.alt || t("Item.imageAlt", { name: item.name })}
+                title={item.image.alt || t("Item.imageAlt", { name: item.name })}
                 fill
                 className="object-cover image-scale"
                 {...(imageBlurDataURL && {
@@ -78,7 +80,7 @@ export default function ItemCard({ item }: ItemCardProps) {
                 className="text-white text-lg font-semibold 
                       opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
-                Visit Website
+                {t("Item.visitWebsite")}
               </span>
             </Link>
           ) : null}
@@ -106,7 +108,7 @@ export default function ItemCard({ item }: ItemCardProps) {
                 </span>
               </h3>
               <div className="flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 shrink-0">
-                <span className="">Details</span>
+                <span className="">{t("Item.details")}</span>
                 <ArrowRightIcon className={cn("size-4 icon-scale", "")} />
               </div>
             </div>

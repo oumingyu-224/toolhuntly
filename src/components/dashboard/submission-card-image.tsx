@@ -4,7 +4,8 @@ import { urlForImage } from "@/lib/image";
 import type { ItemInfo } from "@/types";
 import { HashIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 type SubmissionCardImageProps = {
   item: ItemInfo;
@@ -13,6 +14,7 @@ type SubmissionCardImageProps = {
 export default function SubmissionCardImage({
   item,
 }: SubmissionCardImageProps) {
+  const t = useTranslations();
   // console.log('SubmissionCard, item:', item);
   const imageProps = item?.image ? urlForImage(item.image) : null;
   const imageBlurDataURL = item?.image?.blurDataURL || null;
@@ -81,10 +83,10 @@ export default function SubmissionCardImage({
                     bg-opacity-0 group-hover:bg-opacity-50 transition-opacity duration-300"
         >
           <span
-            className="text-white text-lg font-semibold 
+            className="text-white text-lg font-semibold
                       opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
-            View on site
+            {t("DashboardNS.viewOnSite")}
           </span>
         </Link>
       ) : null}

@@ -18,11 +18,13 @@ import { Input } from "@/components/ui/input";
 import { NewPasswordSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 
 export const NewPasswordForm = () => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -56,15 +58,15 @@ export const NewPasswordForm = () => {
         })
         .catch(() => {
           console.log("newPassword, error:", error);
-          setError("Something went wrong");
+          setError(t("Auth.somethingWentWrong"));
         });
     });
   };
 
   return (
     <AuthCard
-      headerLabel="Reset password"
-      bottomButtonLabel="Back to login"
+      headerLabel={t("Auth.resetPassword")}
+      bottomButtonLabel={t("Auth.backToLogin")}
       bottomButtonHref="/auth/login"
       className="border-none"
     >
@@ -76,7 +78,7 @@ export const NewPasswordForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t("Auth.password")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -103,7 +105,7 @@ export const NewPasswordForm = () => {
             ) : (
               ""
             )}
-            <span>Reset password</span>
+            <span>{t("Auth.resetPassword")}</span>
           </Button>
         </form>
       </Form>

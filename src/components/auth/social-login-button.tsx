@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaBrandsGitHub } from "../icons/github";
 import { FaBrandsGoogle } from "../icons/google";
@@ -13,6 +14,7 @@ import { FaBrandsGoogle } from "../icons/google";
  * social login buttons
  */
 export const SocialLoginButton = () => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const [isLoading, setIsLoading] = useState<"google" | "github" | null>(null);
@@ -40,7 +42,7 @@ export const SocialLoginButton = () => {
         ) : (
           <FaBrandsGoogle className="size-5 mr-2" />
         )}
-        <span>Login with Google</span>
+        <span>{t("Auth.loginWithGoogle")}</span>
       </Button>
       <Button
         size="lg"
@@ -54,7 +56,7 @@ export const SocialLoginButton = () => {
         ) : (
           <FaBrandsGitHub className="size-5 mr-2" />
         )}
-        <span>Login with GitHub</span>
+        <span>{t("Auth.loginWithGitHub")}</span>
       </Button>
     </div>
   );

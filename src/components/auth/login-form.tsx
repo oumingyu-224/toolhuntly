@@ -17,19 +17,21 @@ import {
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type * as z from "zod";
 
 export const LoginForm = ({ className }: { className?: string }) => {
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "Email already in use with different provider!"
+      ? t("Auth.emailInUseDifferentProvider")
       : "";
 
   const [error, setError] = useState<string | undefined>("");
@@ -71,15 +73,15 @@ export const LoginForm = ({ className }: { className?: string }) => {
         })
         .catch((error) => {
           console.log("login, error:", error);
-          setError("Something went wrong");
+          setError(t("Auth.somethingWentWrong"));
         });
     });
   };
 
   return (
     <AuthCard
-      headerLabel="Welcome back"
-      bottomButtonLabel="Don't have an account? Sign up"
+      headerLabel={t("Auth.welcomeBack")}
+      bottomButtonLabel={t("Auth.dontHaveAccountSignUp")}
       bottomButtonHref="/auth/register"
       showSocialLoginButton
       className={cn("border-none", className)}
@@ -92,7 +94,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t("Auth.email")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -111,7 +113,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
               render={({ field }) => (
                 <FormItem>
                   <div className="flex justify-between items-center">
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>{t("Auth.password")}</FormLabel>
                     <Button
                       size="sm"
                       variant="link"
@@ -119,7 +121,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
                       className="px-0 font-normal text-muted-foreground"
                     >
                       <Link href="/auth/reset" className="text-xs underline">
-                        Forgot password?
+                        {t("Auth.forgotPassword")}
                       </Link>
                     </Button>
                   </div>
@@ -149,7 +151,7 @@ export const LoginForm = ({ className }: { className?: string }) => {
             ) : (
               ""
             )}
-            <span>Login</span>
+            <span>{t("Auth.login")}</span>
           </Button>
         </form>
       </Form>

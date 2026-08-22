@@ -2,11 +2,13 @@
 
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export function Logo({ className }: { className?: string }) {
+  const t = useTranslations();
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const logoLight = siteConfig.logo;
@@ -24,8 +26,8 @@ export function Logo({ className }: { className?: string }) {
   return (
     <Image
       src={logo}
-      alt="Logo"
-      title="Logo"
+      alt={t("Common.logo")}
+      title={t("Common.logo")}
       width={96}
       height={96}
       className={cn("size-8 rounded-md", className)}

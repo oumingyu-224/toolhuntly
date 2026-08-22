@@ -8,18 +8,20 @@ import {
   itemListOfFeaturedQuery,
   itemListOfLatestQuery,
 } from "@/sanity/lib/queries";
+import { Link } from "@/i18n/navigation";
 import {
   ArrowRightIcon,
   FileTextIcon,
   SparklesIcon,
   StarIcon,
 } from "lucide-react";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import BlogGrid from "../blog/blog-grid";
 import ItemGrid from "../item/item-grid";
 import { Button } from "../ui/button";
 
 export async function HomeContent() {
+  const t = await getTranslations();
   const [featuredItems, latestItems, latestBlogPosts] = await Promise.all([
     sanityFetch<ItemListQueryResult>({
       query: itemListOfFeaturedQuery,
@@ -44,7 +46,7 @@ export async function HomeContent() {
             <div className="flex items-center gap-2">
               <SparklesIcon className="w-4 h-4 text-indigo-500" />
               <h2 className="text-lg tracking-wider font-semibold text-gradient_indigo-purple">
-                Latest Products
+                {t("Home.latestProducts")}
               </h2>
             </div>
 
@@ -61,7 +63,7 @@ export async function HomeContent() {
               href="/search"
               className="text-lg font-semibold px-16 group flex items-center gap-2"
             >
-              <span className="tracking-wider">More Latest Products</span>
+              <span className="tracking-wider">{t("Home.moreLatestProducts")}</span>
               <ArrowRightIcon className="size-4 icon-scale" />
             </Link>
           </Button>
@@ -75,7 +77,7 @@ export async function HomeContent() {
             <div className="flex items-center gap-2">
               <StarIcon className="w-4 h-4 text-indigo-500" />
               <h2 className="text-lg tracking-wider font-semibold text-gradient_indigo-purple">
-                Featured Products
+                {t("Home.featuredProducts")}
               </h2>
             </div>
 
@@ -92,7 +94,7 @@ export async function HomeContent() {
               href="/search"
               className="text-lg font-semibold px-16 group flex items-center gap-2"
             >
-              <span className="tracking-wider">More Featured Products</span>
+              <span className="tracking-wider">{t("Home.moreFeaturedProducts")}</span>
               <ArrowRightIcon className="size-4 icon-scale" />
             </Link>
           </Button>
@@ -106,7 +108,7 @@ export async function HomeContent() {
             <div className="flex items-center gap-2">
               <FileTextIcon className="w-4 h-4 text-indigo-500" />
               <h2 className="text-lg tracking-wider font-semibold text-gradient_indigo-purple">
-                Latest Posts
+                {t("Home.latestPosts")}
               </h2>
             </div>
 
@@ -123,7 +125,7 @@ export async function HomeContent() {
               href="/blog"
               className="text-lg font-semibold px-16 group flex items-center gap-2"
             >
-              <span className="tracking-wider">More Blog Posts</span>
+              <span className="tracking-wider">{t("Home.moreBlogPosts")}</span>
               <ArrowRightIcon className="size-4 icon-scale" />
             </Link>
           </Button>

@@ -3,17 +3,17 @@ import type { UserButtonConfig } from "@/types";
 export const userButtonConfig: UserButtonConfig = {
   menus: [
     {
-      title: "Dashboard",
+      title: "UserButton.dashboard",
       href: "/dashboard",
       icon: "dashboard",
     },
     {
-      title: "Settings",
+      title: "UserButton.settings",
       href: "/settings",
       icon: "settings",
     },
     {
-      title: "Submit",
+      title: "UserButton.submit",
       href: "/submit",
       icon: "submit",
     },

@@ -9,6 +9,7 @@ import {
   StepperTitle,
   StepperTrigger,
 } from "@/components/shared/stepper";
+import { useTranslations } from "next-intl";
 import React, { useState } from "react";
 
 interface SubmitStepperProps {
@@ -16,12 +17,13 @@ interface SubmitStepperProps {
 }
 
 export function SubmitStepper({ initialStep = 1 }: SubmitStepperProps) {
+  const t = useTranslations();
   const [currentStep, setCurrentStep] = useState(initialStep);
 
   const steps = [
-    { title: "Details", description: "Enter product information" },
-    { title: "Payment", description: "Select pricing plan" },
-    { title: "Publish", description: "Publish your product" },
+    { title: t("Submit.stepDetails"), description: t("Submit.stepDetailsDescription") },
+    { title: t("Submit.stepPayment"), description: t("Submit.stepPaymentDescription") },
+    { title: t("Submit.stepPublish"), description: t("Submit.stepPublishDescription") },
   ];
 
   return (

@@ -3,10 +3,11 @@
 import { publish } from "@/actions/publish";
 import { Icons } from "@/components/icons/icons";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "@/i18n/navigation";
 import type { ItemInfo } from "@/types";
 import confetti from "canvas-confetti";
 import { RocketIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -18,6 +19,7 @@ interface PublishNowButtonProps {
 
 export function PublishNowButton({ item }: PublishNowButtonProps) {
   const router = useRouter();
+  const t = useTranslations();
   const [isPending, startTransition] = useTransition();
 
   const publishAction = () => {
@@ -37,7 +39,7 @@ export function PublishNowButton({ item }: PublishNowButtonProps) {
         })
         .catch((error) => {
           console.error("publishAction, error:", error);
-          toast.error("Failed to publish");
+          toast.error(t("Publish.failedToPublish"));
         });
     });
   };
@@ -53,12 +55,12 @@ export function PublishNowButton({ item }: PublishNowButtonProps) {
       {isPending ? (
         <div className="flex items-center justify-center">
           <Icons.spinner className="mr-2 size-4 animate-spin" />
-          <span>Publishing...</span>
+          <span>{t("Publish.publishing")}</span>
         </div>
       ) : (
         <div className="flex items-center justify-center">
           <RocketIcon className="mr-2 size-4 icon-scale" />
-          <span>Publish Now</span>
+          <span>{t("Publish.publishNow")}</span>
         </div>
       )}
     </Button>

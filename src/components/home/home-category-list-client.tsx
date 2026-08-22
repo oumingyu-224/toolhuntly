@@ -1,7 +1,9 @@
 "use client";
 
 import type { CategoryListQueryResult } from "@/sanity.types";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { DEFAULT_FILTER_VALUE } from "../shared/combobox";
 import HomeCategoryListItem from "./home-category-list-item";
 
@@ -14,12 +16,13 @@ export function HomeCategoryListClient({
   categoryList,
   urlPrefix,
 }: HomeCategoryListClientProps) {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") || DEFAULT_FILTER_VALUE;
 
   const categoryFilterItemList = [
-    { value: DEFAULT_FILTER_VALUE, label: "All Categories" },
+    { value: DEFAULT_FILTER_VALUE, label: t("Home.allCategories") },
     ...categoryList.map((item) => ({
       value: item.slug.current,
       label: item.name,

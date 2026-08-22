@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { createUrl } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useEffect, useRef } from "react";
@@ -16,6 +17,7 @@ interface SearchBoxProps {
 }
 
 export default function HomeSearchBox({ urlPrefix }: SearchBoxProps) {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams?.get("q") || "");
@@ -63,7 +65,7 @@ export default function HomeSearchBox({ urlPrefix }: SearchBoxProps) {
     <div className="flex items-center justify-center">
       <Input
         type="text"
-        placeholder="Search any products you need"
+        placeholder={t("Home.searchPlaceholder")}
         autoComplete="off"
         value={searchQuery}
         onChange={handleSearch}
@@ -74,7 +76,7 @@ export default function HomeSearchBox({ urlPrefix }: SearchBoxProps) {
       />
       <Button type="submit" className="rounded-l-none size-12">
         <SearchIcon className="size-6" aria-hidden="true" />
-        <span className="sr-only">Search</span>
+        <span className="sr-only">{t("Common.search")}</span>
       </Button>
     </div>
   );

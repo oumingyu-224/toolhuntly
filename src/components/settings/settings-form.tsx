@@ -20,13 +20,15 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BellRingIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import type * as z from "zod";
 
 export default function SettingsForm() {
+  const t = useTranslations();
   const router = useRouter();
   const user = useCurrentUser();
   // console.log('SettingsForm, user:', user);
@@ -68,7 +70,7 @@ export default function SettingsForm() {
           }
         })
         .catch(() => {
-          toast.error("Something went wrong");
+          toast.error(t("Settings.somethingWentWrong"));
         });
     });
   };
@@ -83,7 +85,7 @@ export default function SettingsForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t("Settings.name")}</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="name" disabled={isPending} />
                   </FormControl>
@@ -97,11 +99,11 @@ export default function SettingsForm() {
               name="link"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Link</FormLabel>
+                  <FormLabel>{t("Settings.link")}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder="Link (e.g. https://x.com/username)"
+                      placeholder={t("Settings.linkExamplePlaceholder")}
                       disabled={isPending}
                     />
                   </FormControl>
@@ -117,7 +119,7 @@ export default function SettingsForm() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t("Settings.password")}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -136,7 +138,7 @@ export default function SettingsForm() {
                   name="newPassword"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>New Password</FormLabel>
+                      <FormLabel>{t("Settings.newPassword")}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -167,14 +169,14 @@ export default function SettingsForm() {
               {isPending && (
                 <Icons.spinner className="mr-2 h-6 w-4 animate-spin" />
               )}
-              Save Changes
+              {t("Settings.saveChanges")}
             </Button>
 
             {user?.isOAuth === false && (
               <div className="text-muted-foreground flex items-center justify-center sm:justify-start gap-4">
                 <BellRingIcon className="h-5 w-5 sm:h-6 sm:w-4 flex-shrink-0" />
                 <span className="text-sm">
-                  Password is optional when changing name or link.
+                  {t("Settings.passwordOptionalNotice")}
                 </span>
               </div>
             )}

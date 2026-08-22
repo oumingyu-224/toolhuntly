@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { getPublishable } from "@/lib/submission";
 import type { ItemInfo } from "@/types";
 import { ArrowUpToLineIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { useTransition } from "react";
 import { toast } from "sonner";
@@ -16,6 +17,7 @@ interface PublishButtonProps {
 }
 
 export function PublishButton({ item }: PublishButtonProps) {
+  const t = useTranslations();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -44,7 +46,7 @@ export function PublishButton({ item }: PublishButtonProps) {
         })
         .catch((error) => {
           console.error("publishAction, error:", error);
-          toast.error("Failed to publish");
+          toast.error(t("DashboardNS.failedToPublish"));
         });
     });
   };
@@ -59,12 +61,12 @@ export function PublishButton({ item }: PublishButtonProps) {
       {isPending ? (
         <div className="flex items-center justify-center">
           <Icons.spinner className="mr-2 w-4 h-4 animate-spin" />
-          <span>Publish</span>
+          <span>{t("DashboardNS.publish")}</span>
         </div>
       ) : (
         <div className="flex items-center justify-center">
           <ArrowUpToLineIcon className="mr-2 w-4 h-4 icon-scale" />
-          <span>Publish</span>
+          <span>{t("DashboardNS.publish")}</span>
         </div>
       )}
     </Button>

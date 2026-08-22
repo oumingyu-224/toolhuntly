@@ -30,7 +30,8 @@ import type {
 import type { ItemFullInfo } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BellRingIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -50,6 +51,7 @@ interface EditFormProps {
  */
 export function EditForm({ item, tagList, categoryList }: EditFormProps) {
   const router = useRouter();
+  const t = useTranslations();
   const [isPending, startTransition] = useTransition();
   const [isUploading, setIsUploading] = useState(false);
 
@@ -95,7 +97,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
         })
         .catch((error) => {
           console.error("EditForm, error:", error);
-          toast.error("Something went wrong");
+          toast.error(t("Edit.somethingWentWrong"));
         });
     });
   });
@@ -131,10 +133,10 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                 name="link"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Link</FormLabel>
+                    <FormLabel>{t("Edit.link")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the link to your product"
+                        placeholder={t("Edit.linkPlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -147,10 +149,10 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                 name="name"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t("Edit.name")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter the name of your product"
+                        placeholder={t("Edit.namePlaceholder")}
                         {...field}
                       />
                     </FormControl>
@@ -166,7 +168,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                 name="categories"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Categories</FormLabel>
+                    <FormLabel>{t("Edit.categories")}</FormLabel>
                     <FormControl>
                       <MultiSelect
                         className="shadow-none"
@@ -176,7 +178,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                         }))}
                         onValueChange={(selected) => field.onChange(selected)}
                         value={field.value}
-                        placeholder="Select categories"
+                        placeholder={t("Edit.selectCategories")}
                         variant="default"
                         maxCount={3}
                       />
@@ -190,7 +192,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                 name="tags"
                 render={({ field }) => (
                   <FormItem className="flex-1">
-                    <FormLabel>Tags</FormLabel>
+                    <FormLabel>{t("Edit.tags")}</FormLabel>
                     <FormControl>
                       <MultiSelect
                         className="shadow-none"
@@ -200,7 +202,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                         }))}
                         onValueChange={(selected) => field.onChange(selected)}
                         value={field.value}
-                        placeholder="Select tags"
+                        placeholder={t("Edit.selectTags")}
                         variant="default"
                         maxCount={3}
                       />
@@ -214,34 +216,34 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
             <FormField
               control={form.control}
               name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Enter a brief description of your product"
-                      {...field}
-                      className="resize-none"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("Edit.description")}</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={t("Edit.descriptionPlaceholder")}
+                        {...field}
+                        className="resize-none"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
             <FormField
               control={form.control}
               name="introduction"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <div className="flex items-center justify-between gap-4">
-                      <span>Introduction</span>
-                      <span className="text-sm text-muted-foreground">
-                        (Markdown supported)
-                      </span>
-                    </div>
-                  </FormLabel>
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      <div className="flex items-center justify-between gap-4">
+                        <span>{t("Edit.introduction")}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {t("Edit.markdownSupported")}
+                        </span>
+                      </div>
+                    </FormLabel>
                   <FormControl>
                     <CustomMde {...field} />
                   </FormControl>
@@ -259,9 +261,9 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                     <FormItem className="flex-1">
                       <FormLabel>
                         <div className="flex items-center justify-between gap-4">
-                          <span>Icon</span>
+                          <span>{t("Edit.icon")}</span>
                           <span className="text-sm text-muted-foreground">
-                            (1:1, PNG or JPEG, max 1MB)
+                            {t("Edit.iconHint")}
                           </span>
                         </div>
                       </FormLabel>
@@ -286,9 +288,9 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
                   <FormItem className="flex-1">
                     <FormLabel>
                       <div className="flex items-center justify-between gap-4">
-                        <span>Image</span>
+                        <span>{t("Edit.image")}</span>
                         <span className="text-sm text-muted-foreground">
-                          (16:9,PNG or JPEG, max 1MB)
+                          {t("Edit.imageHint")}
                         </span>
                       </div>
                     </FormLabel>
@@ -324,10 +326,10 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
               )}
               <span>
                 {isPending
-                  ? "Updating..."
+                  ? t("Edit.updating")
                   : isUploading
-                    ? "Uploading image..."
-                    : "Update"}
+                    ? t("Edit.uploadingImage")
+                    : t("Edit.update")}
               </span>
             </Button>
 
@@ -336,8 +338,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
               <div className="text-muted-foreground flex items-center justify-center sm:justify-start gap-4">
                 <BellRingIcon className="h-5 w-5 sm:h-6 sm:w-4 flex-shrink-0" />
                 <span className="text-sm">
-                  Your submission will be reviewed again and remain unpublished
-                  until approved.
+                  {t("Edit.freePlanReviewNotice")}
                 </span>
               </div>
             )}
@@ -347,8 +348,7 @@ export function EditForm({ item, tagList, categoryList }: EditFormProps) {
               <div className="text-muted-foreground flex items-center justify-center sm:justify-start gap-4">
                 <BellRingIcon className="h-5 w-5 sm:h-6 sm:w-4 flex-shrink-0" />
                 <span className="text-sm">
-                  Your changes will be visible on the site until the cache
-                  refreshes (usually takes 1 minute).
+                  {t("Edit.proPlanCacheNotice")}
                 </span>
               </div>
             )}

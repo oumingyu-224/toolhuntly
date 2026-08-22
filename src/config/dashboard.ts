@@ -3,22 +3,22 @@ import type { DashboardConfig } from "@/types";
 export const dashboardConfig: DashboardConfig = {
   menus: [
     {
-      title: "Homepage",
+      title: "Dashboard.homepage",
       href: "/",
       icon: "home",
     },
     {
-      title: "Dashboard",
+      title: "Dashboard.dashboard",
       href: "/dashboard",
       icon: "dashboard",
     },
     {
-      title: "Settings",
+      title: "Dashboard.settings",
       href: "/settings",
       icon: "settings",
     },
     {
-      title: "Submit",
+      title: "Dashboard.submit",
       href: "/submit",
       icon: "submit",
     },

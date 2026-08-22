@@ -1,8 +1,10 @@
 "use client";
 
 import { createUrl } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 import { SearchIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDebounce } from "use-debounce";
 
@@ -11,6 +13,7 @@ interface SearchBoxProps {
 }
 
 export default function SearchBox({ urlPrefix }: SearchBoxProps) {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams?.get("q") || "");
@@ -53,7 +56,7 @@ export default function SearchBox({ urlPrefix }: SearchBoxProps) {
         <input
           type="text"
           name="search"
-          placeholder="Search..."
+          placeholder={t("Search.searchPlaceholder")}
           autoComplete="off"
           value={searchQuery}
           onChange={handleSearch}

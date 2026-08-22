@@ -4,8 +4,9 @@ import { urlForIcon } from "@/lib/image";
 import { cn, getItemTargetLinkInWebsite } from "@/lib/utils";
 import type { ItemInfo } from "@/types";
 import { ArrowUpRightIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button } from "../ui/button";
 
 type SponsorItemCardProps = {
@@ -16,6 +17,7 @@ type SponsorItemCardProps = {
  * SponsorItemCard shows item icon
  */
 export default function SponsorItemCard({ item }: SponsorItemCardProps) {
+  const t = useTranslations();
   const iconProps = item?.icon ? urlForIcon(item.icon) : null;
   const iconBlurDataURL = item?.icon?.blurDataURL || null;
   // console.log(`SponsorItemCard, iconBlurDataURL:${iconBlurDataURL}`);
@@ -38,8 +40,8 @@ export default function SponsorItemCard({ item }: SponsorItemCardProps) {
           {iconProps && (
             <Image
               src={iconProps?.src}
-              alt={item.icon.alt || `icon of ${item.name}`}
-              title={item.icon.alt || `icon of ${item.name}`}
+              alt={item.icon.alt || t("Item.iconAlt", { name: item.name })}
+              title={item.icon.alt || t("Item.iconAlt", { name: item.name })}
               width={32}
               height={32}
               className="object-cover image-scale rounded-md"
@@ -63,7 +65,7 @@ export default function SponsorItemCard({ item }: SponsorItemCardProps) {
             </div>
 
             <span className="text-sm text-sky-500 border border-sky-500 rounded-md px-2 py-0.5 shrink-0">
-              AD
+              {t("Item.ad")}
             </span>
           </div>
         </div>
@@ -86,7 +88,7 @@ export default function SponsorItemCard({ item }: SponsorItemCardProps) {
           )}
         >
           <div className="flex items-center justify-center gap-2">
-            <span className="text-white font-semibold">Visit Website</span>
+            <span className="text-white font-semibold">{t("Item.visitWebsite")}</span>
             <ArrowUpRightIcon className="text-white font-semibold size-4 transition-transform group-hover:translate-x-1" />
           </div>
         </Button>

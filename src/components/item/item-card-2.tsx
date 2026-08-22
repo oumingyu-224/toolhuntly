@@ -4,8 +4,9 @@ import { urlForIcon } from "@/lib/image";
 import { cn } from "@/lib/utils";
 import type { ItemInfo } from "@/types";
 import { HashIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { buttonVariants } from "../ui/button";
 import { Skeleton } from "../ui/skeleton";
 
@@ -17,6 +18,7 @@ type ItemCard2Props = {
  * ItemCard2 shows item icon
  */
 export default function ItemCard2({ item }: ItemCard2Props) {
+  const t = useTranslations();
   const iconProps = item?.icon ? urlForIcon(item.icon) : null;
   const iconBlurDataURL = item?.icon?.blurDataURL || null;
   // console.log(`ItemCard2, iconBlurDataURL:${iconBlurDataURL}`);
@@ -39,8 +41,8 @@ export default function ItemCard2({ item }: ItemCard2Props) {
           {iconProps && (
             <Image
               src={iconProps?.src}
-              alt={item.icon.alt || `icon of ${item.name}`}
-              title={item.icon.alt || `icon of ${item.name}`}
+              alt={item.icon.alt || t("Item.iconAlt", { name: item.name })}
+              title={item.icon.alt || t("Item.iconAlt", { name: item.name })}
               width={32}
               height={32}
               className="object-cover image-scale rounded-md shrink-0"

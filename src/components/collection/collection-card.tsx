@@ -3,8 +3,9 @@
 import { urlForIcon } from "@/lib/image";
 import { cn } from "@/lib/utils";
 import type { CollectionInfo } from "@/types";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Skeleton } from "../ui/skeleton";
 
 type CollectionCardProps = {
@@ -15,6 +16,7 @@ type CollectionCardProps = {
  * CollectionCard
  */
 export default function CollectionCard({ collection }: CollectionCardProps) {
+  const t = useTranslations();
   const iconProps = collection?.icon ? urlForIcon(collection.icon) : null;
   const iconBlurDataURL = collection?.icon?.blurDataURL || null;
   // console.log(`CollectionCard, iconBlurDataURL:${iconBlurDataURL}`);
@@ -34,8 +36,8 @@ export default function CollectionCard({ collection }: CollectionCardProps) {
           {iconProps && (
             <Image
               src={iconProps?.src}
-              alt={collection.icon.alt || `icon of ${collection.name}`}
-              title={collection.icon.alt || `icon of ${collection.name}`}
+              alt={collection.icon.alt || t("Collection.iconAlt", { name: collection.name })}
+              title={collection.icon.alt || t("Collection.iconAlt", { name: collection.name })}
               width={32}
               height={32}
               className="object-cover image-scale rounded-md"

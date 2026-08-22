@@ -9,12 +9,14 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 import { type UserLinkData, UserLinkSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Icons } from "../icons/icons";
 
 export function UserLinkForm() {
+  const t = useTranslations();
   const user = useCurrentUser();
   // console.log('UserLinkForm, user:', user);
   const { update } = useSession();
@@ -49,7 +51,7 @@ export function UserLinkForm() {
           }
         })
         .catch(() => {
-          toast.error("Something went wrong");
+          toast.error(t("Settings.somethingWentWrong"));
         });
     });
   });
@@ -57,19 +59,19 @@ export function UserLinkForm() {
   return (
     <form onSubmit={onSubmit}>
       <SectionColumns
-        title="Your Link"
-        description="Please enter your portfolio link"
+        title={t("Settings.yourLink")}
+        description={t("Settings.pleaseEnterPortfolioLink")}
       >
         <div className="flex w-full items-center gap-2">
           <Label className="sr-only" htmlFor="name">
-            Link
+            {t("Settings.link")}
           </Label>
           <Input
             id="link"
             className="flex-1"
             size={128}
             {...form.register("link")}
-            placeholder="Enter your link, max 128 characters"
+            placeholder={t("Settings.linkPlaceholder")}
             onChange={(e) => checkUpdate(e.target.value)}
           />
           <Button
@@ -80,12 +82,12 @@ export function UserLinkForm() {
             {isPending ? (
               <div className="flex items-center gap-2">
                 <Icons.spinner className="size-4 animate-spin" />
-                <p>Saving...</p>
+                <p>{t("Settings.saving")}</p>
               </div>
             ) : (
               <p>
-                Save
-                <span className="hidden sm:inline-flex">&nbsp;Changes</span>
+                {t("Common.save")}
+                <span className="hidden sm:inline-flex">&nbsp;{t("Settings.changes")}</span>
               </p>
             )}
           </Button>
@@ -97,7 +99,7 @@ export function UserLinkForm() {
             </p>
           )}
           <p className="text-[13px] text-muted-foreground">
-            Max 128 characters
+            {t("Settings.max128Characters")}
           </p>
         </div>
       </SectionColumns>

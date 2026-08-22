@@ -3,11 +3,12 @@
 import { createCheckoutSession } from "@/actions/create-checkout-session";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { useRouter } from "@/i18n/navigation";
 import { PricePlans, ProPlanStatus, SponsorPlanStatus } from "@/lib/submission";
 import { cn } from "@/lib/utils";
 import type { ItemInfo, PricePlan } from "@/types";
 import { ArrowRightIcon, ArrowUpLeftIcon, CheckCircleIcon, RocketIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { Icons } from "../icons/icons";
@@ -25,6 +26,7 @@ export function SponsorPlanButton({
 }: SponsorPlanButtonProps) {
   // console.log('SponsorPlanButton, item:', item);
   const router = useRouter();
+  const t = useTranslations();
 
   const [isPending, startTransition] = useTransition();
 
@@ -37,7 +39,7 @@ export function SponsorPlanButton({
         })
         .catch((error) => {
           console.error("createCheckoutSession, error:", error);
-          toast.error("Failed to create checkout session");
+          toast.error(t("Payment.failedToCreateCheckoutSession"));
         });
     });
   };
@@ -97,34 +99,34 @@ export function SponsorPlanButton({
     >
       {!item ? (
         <div className="flex items-center justify-center gap-2">
-          <span>Go Submit</span>
+          <span>{t("Payment.goSubmit")}</span>
           <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-1" />
         </div>
       ) : isPending ? (
         // when creating checkout session
         <div className="flex items-center justify-center">
           <Icons.spinner className="mr-2 size-4 animate-spin" />
-          <span>Loading...</span>
+          <span>{t("Common.loading")}</span>
         </div>
       ) : item.sponsorPlanStatus === SponsorPlanStatus.SUCCESS ? (
         // maybe published already(pay success or approved in free plan)
         item.publishDate ? (
           <div className="flex items-center justify-center">
             <ArrowUpLeftIcon className="mr-2 size-4 icon-scale" />
-            <span>Go Dashboard</span>
+            <span>{t("Payment.goDashboard")}</span>
           </div>
         ) : (
           // maybe pay success but not published yet
           <div className="flex items-center justify-center">
             <CheckCircleIcon className="mr-2 size-4 icon-scale" />
-            <span>Go Publish</span>
+            <span>{t("Payment.goPublish")}</span>
           </div>
         )
       ) : (
         // not paid success yet
         <div className="flex items-center justify-center">
           <RocketIcon className="mr-2 size-4 icon-scale" />
-          <span>Pay & Publish Right Now</span>
+          <span>{t("Payment.payAndPublishNow")}</span>
         </div>
       )}
     </Button>

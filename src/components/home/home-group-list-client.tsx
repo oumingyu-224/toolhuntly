@@ -8,7 +8,9 @@ import {
 } from "@/components/ui/collapsible";
 import type { GroupListQueryResult } from "@/sanity.types";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DEFAULT_FILTER_VALUE } from "../shared/combobox";
 
@@ -21,6 +23,7 @@ export function HomeGroupListClient({
   groupList,
   urlPrefix,
 }: HomeGroupListClientProps) {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category") || DEFAULT_FILTER_VALUE;
@@ -42,8 +45,8 @@ export function HomeGroupListClient({
   }, [selectedCategory, groupList]);
 
   const categoryFilterItemList = [
-    { value: DEFAULT_FILTER_VALUE, 
-      label: "All Categories",
+    { value: DEFAULT_FILTER_VALUE,
+      label: t("Home.allCategories"),
       subCategories: []
     },
     ...groupList.map((item) => ({

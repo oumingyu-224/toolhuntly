@@ -3,6 +3,7 @@
 import { FormError } from "@/components/shared/form-error";
 import { useCurrentRole } from "@/hooks/use-current-role";
 import type { UserRole } from "@/types/user-role";
+import { useTranslations } from "next-intl";
 
 interface RoleGateProps {
   children: React.ReactNode;
@@ -10,11 +11,12 @@ interface RoleGateProps {
 }
 
 export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
+  const t = useTranslations();
   const role = useCurrentRole();
 
   if (role !== allowedRole) {
     return (
-      <FormError message="You do not have permission to view this content!" />
+      <FormError message={t("Auth.noPermissionViewContent")} />
     );
   }
 

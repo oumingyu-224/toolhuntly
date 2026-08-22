@@ -9,7 +9,8 @@ import { getPublishable } from "@/lib/submission";
 import { getLocaleDate } from "@/lib/utils";
 import type { ItemInfo } from "@/types";
 import { EditIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import SubmissionCardImage from "./submission-card-image";
 import SubmissionStatus from "./submission-status";
 
@@ -18,6 +19,7 @@ type SubmissionCardProps = {
 };
 
 export default function SubmissionCard({ item }: SubmissionCardProps) {
+  const t = useTranslations();
   // console.log('SubmissionCard, item:', item);
   const publishable = getPublishable(item);
 
@@ -47,28 +49,28 @@ export default function SubmissionCard({ item }: SubmissionCardProps) {
 
             <div className="grid grid-cols-2 gap-4 text-sm pt-2">
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground">Plan:</span>
+                <span className="text-muted-foreground">{t("DashboardNS.planLabel")}</span>
                 <span className="capitalize">{item.pricePlan}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground">Status:</span>
+                <span className="text-muted-foreground">{t("DashboardNS.statusLabel")}</span>
                 <SubmissionStatus item={item} />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm pt-2">
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground">Publish Date:</span>
+                <span className="text-muted-foreground">{t("DashboardNS.publishDateLabel")}</span>
                 {item.publishDate ? (
                   <span className="font-medium">
                     {getLocaleDate(item.publishDate)}
                   </span>
                 ) : (
-                  <span className="font-semibold">Not published</span>
+                  <span className="font-semibold">{t("DashboardNS.notPublished")}</span>
                 )}
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground">Created Date:</span>
+                <span className="text-muted-foreground">{t("DashboardNS.createdDateLabel")}</span>
                 <span className="">{getLocaleDate(item._createdAt)}</span>
               </div>
             </div>
@@ -83,7 +85,7 @@ export default function SubmissionCard({ item }: SubmissionCardProps) {
             <Button asChild variant="outline" className="group overflow-hidden">
               <Link href={`/edit/${item._id}`}>
                 <EditIcon className="w-4 h-6 mr-2 icon-scale" />
-                Edit
+                {t("Common.edit")}
               </Link>
             </Button>
 

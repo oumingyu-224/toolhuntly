@@ -22,7 +22,8 @@ interface ItemBreadCrumbProps {
 /**
  * breadcrumb for item
  */
-export default function ItemBreadCrumb({ item }: ItemBreadCrumbProps) {
+export default async function ItemBreadCrumb({ item }: ItemBreadCrumbProps) {
+  const t = await getTranslations();
   return (
     <Breadcrumb className="text-base">
       <BreadcrumbList>
@@ -30,14 +31,14 @@ export default function ItemBreadCrumb({ item }: ItemBreadCrumbProps) {
           <BreadcrumbLink href={"/"}>
             <div className="flex items-center gap-1">
               <HomeIcon className="w-4 h-4" />
-              <span>Home</span>
+              <span>{t("Item.home")}</span>
             </div>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href={"/category"}>
-            <span>Category</span>
+            <span>{t("Item.category")}</span>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

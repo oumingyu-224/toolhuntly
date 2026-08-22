@@ -3,9 +3,10 @@
 import { PublishNowButton } from "@/components/publish/publish-now-button";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Link } from "@/i18n/navigation";
 import type { ItemInfo } from "@/types";
 import { CalendarDaysIcon, PartyPopperIcon } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import SubmissionCardImage from "../dashboard/submission-card-image";
 import { Card } from "../ui/card";
 
@@ -16,6 +17,7 @@ type SubmissionCardInPublishPageProps = {
 export default function SubmissionCardInPublishPage({
   item,
 }: SubmissionCardInPublishPageProps) {
+  const t = useTranslations();
   return (
     <Card className="flex flex-col items-center w-full p-4">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-5 md:gap-8 w-full">
@@ -49,7 +51,7 @@ export default function SubmissionCardInPublishPage({
                         className="flex items-center justify-center space-x-2"
                       >
                         <PartyPopperIcon className="w-4 h-6 icon-scale" />
-                        <span className="">View on site</span>
+                        <span className="">{t("Publish.viewOnSite")}</span>
                       </Link>
                     </Button>
                   </div>
@@ -73,7 +75,7 @@ export default function SubmissionCardInPublishPage({
                           className="flex items-center justify-center space-x-2"
                         >
                           <CalendarDaysIcon className="w-4 h-6 icon-scale" />
-                          <span className="">Schedule ad time</span>
+                          <span className="">{t("Publish.scheduleAdTime")}</span>
                         </Link>
                       ) : (
                         <Link
@@ -81,7 +83,7 @@ export default function SubmissionCardInPublishPage({
                           className="flex items-center justify-center space-x-2"
                         >
                           <CalendarDaysIcon className="w-4 h-6 icon-scale" />
-                          <span className="">Publish Later</span>
+                          <span className="">{t("Publish.publishLater")}</span>
                         </Link>
                       )}
                     </Button>

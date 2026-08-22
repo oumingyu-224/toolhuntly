@@ -3,10 +3,12 @@
 import { useCurrentRole } from "@/hooks/use-current-role";
 import { UserRole } from "@/types/user-role";
 import { LayoutDashboardIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
 
 export const DashboardButton = () => {
+  const t = useTranslations();
   const role = useCurrentRole();
   if (role !== UserRole.ADMIN) {
     return null;
@@ -26,7 +28,7 @@ export const DashboardButton = () => {
         className="flex items-center justify-center space-x-2"
       >
         <LayoutDashboardIcon className="w-4 h-4" />
-        <span>Studio</span>
+        <span>{t("DashboardNS.studio")}</span>
       </Link>
     </Button>
   );

@@ -9,8 +9,8 @@ import {
   CardFooter,
   CardHeader
 } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { Logo } from "@/components/logo";
 
 interface AuthCardProps {

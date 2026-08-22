@@ -7,7 +7,9 @@ import {
   type QueryFilterItem,
   type SortFilterItem,
 } from "@/lib/constants";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { DEFAULT_FILTER_VALUE, ResponsiveComboBox } from "../shared/combobox";
 import { MultiSelect } from "../shared/multi-select";
 
@@ -51,6 +53,7 @@ export function HomeSearchFilterClient({
   filterList,
   urlPrefix,
 }: SearchFilterProps) {
+  const t = useTranslations();
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedCategory = searchParams.get("category");
@@ -75,7 +78,7 @@ export function HomeSearchFilterClient({
   };
 
   const categoryFilterItemList = [
-    { value: DEFAULT_FILTER_VALUE, label: "All Categories" },
+    { value: DEFAULT_FILTER_VALUE, label: t("Home.allCategories") },
     ...categoryList.map((item) => ({
       value: item.slug,
       label: item.name,
@@ -112,8 +115,8 @@ export function HomeSearchFilterClient({
       <div className="flex md:hidden">
         <ResponsiveComboBox
           filterItemList={categoryFilterItemList}
-          placeholder="All Categories"
-          labelPrefix="Category: "
+          placeholder={t("Home.allCategories")}
+          labelPrefix={t("Home.categoryLabelPrefix")}
           selectedValue={selectedCategory || DEFAULT_FILTER_VALUE}
           onValueChange={(value) => handleFilterChange("category", value)}
         />
@@ -142,7 +145,7 @@ export function HomeSearchFilterClient({
           )
         }
         value={selectedTag ? selectedTag.split(",") : []}
-        placeholder="Select tags"
+        placeholder={t("Home.selectTags")}
         variant="default"
         maxCount={1}
       />
@@ -162,7 +165,7 @@ export function HomeSearchFilterClient({
       />
 
       <Button variant="outline" onClick={handleResetFilters}>
-        Reset
+        {t("Home.reset")}
       </Button>
     </div>
   );

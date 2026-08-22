@@ -3,6 +3,7 @@
 import { LoginWrapper } from "@/components/auth/login-button";
 import Container from "@/components/container";
 import { Icons } from "@/components/icons/icons";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { ModeToggle } from "@/components/layout/mode-toggle";
 import { UserButton } from "@/components/layout/user-button";
 import { Button } from "@/components/ui/button";
@@ -14,14 +15,14 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Link, usePathname } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { useScroll } from "@/hooks/use-scroll";
 import { cn } from "@/lib/utils";
 import type { DashboardConfig, MarketingConfig } from "@/types";
 import { ArrowRightIcon, MenuIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Logo } from "../logo";
@@ -32,6 +33,7 @@ interface NavBarProps {
 }
 
 export function Navbar({ scroll = false, config }: NavBarProps) {
+  const t = useTranslations();
   const scrolled = useScroll(50);
   const user = useCurrentUser();
   // console.log(`navbar: user:`, user);
@@ -96,7 +98,7 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                           item.disabled && "cursor-not-allowed opacity-80",
                         )}
                       >
-                        {item.title}
+                        {t(item.title)}
                       </NavigationMenuLink>
                     </NavigationMenuItem>
                   ))}
@@ -118,11 +120,13 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                   variant="default"
                   size="default"
                 >
-                  <span>Sign In</span>
+                  <span>{t("Nav.signIn")}</span>
                   <ArrowRightIcon className="size-4" />
                 </Button>
               </LoginWrapper>
             )}
+
+            <LanguageSwitcher />
 
             {/* <ModeToggle /> */}
           </div>
@@ -142,7 +146,7 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                   className="size-9 shrink-0"
                 >
                   <MenuIcon className="size-5" />
-                  <span className="sr-only">Toggle navigation menu</span>
+                  <span className="sr-only">{t("Nav.toggleNav")}</span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col p-0">
@@ -179,7 +183,7 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                           )}
                         >
                           <Icon className="size-5" />
-                          {item.title}
+                          {t(item.title)}
                         </Link>
                       );
                     })}
@@ -213,11 +217,13 @@ export function Navbar({ scroll = false, config }: NavBarProps) {
                   variant="default"
                   size="default"
                 >
-                  <span>Sign In</span>
+                  <span>{t("Nav.signIn")}</span>
                   <ArrowRightIcon className="size-4" />
                 </Button>
               </LoginWrapper>
             )}
+
+            <LanguageSwitcher />
 
             {/* <ModeToggle /> */}
           </div>
