@@ -1,6 +1,6 @@
 "use server";
 
-import { resend } from "@/lib/mail";
+import { getResend } from "@/lib/mail";
 import { type NewsletterFormData, NewsletterFormSchema } from "@/lib/schemas";
 
 export type ServerActionResponse = {
@@ -15,6 +15,14 @@ export async function unsubscribeToNewsletter(
     const validatedInput = NewsletterFormSchema.safeParse(formdata);
     if (!validatedInput.success) {
       return { status: "error", message: "Invalid input" };
+    }
+
+    const resend = getResend();
+    if (!resend) {
+      return {
+        status: "error",
+        message: "Email services are currently unavailable. Please try again later.",
+      };
     }
 
     const unsubscribedResult = await resend.contacts.remove({
