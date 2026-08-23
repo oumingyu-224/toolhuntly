@@ -20,12 +20,21 @@ import {
 } from "@/lib/seo-schema";
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
+import type { Metadata } from "next";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { SessionProvider } from "next-auth/react";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "next-themes";
 
-export const metadata = constructMetadata();
+// Locale-aware metadata so each language version renders its own
+// title / description / canonical / og:* / twitter:* in the <head>.
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  return constructMetadata({ locale: params.locale });
+}
 
 // Enable static rendering for all locales
 export function generateStaticParams() {

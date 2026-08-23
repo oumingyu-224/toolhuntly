@@ -4,11 +4,21 @@ import HomeFeaturedTools from "@/components/home/home-featured-tools";
 import HomeHero from "@/components/home/home-hero";
 import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/lib/metadata";
+import type { Metadata } from "next";
 
-export const metadata = constructMetadata({
-  title: "",
-  canonicalUrl: `${siteConfig.url}/`,
-});
+// Locale-aware home metadata so /zh-CN gets Chinese title/description and a
+// canonical that points to https://toolhuntly.com/zh-CN/ instead of the EN home.
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  return constructMetadata({
+    title: "",
+    canonicalUrl: `${siteConfig.url}/`,
+    locale: params.locale,
+  });
+}
 
 /**
  * Marketing-style home page (huntify layout):

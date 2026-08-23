@@ -82,8 +82,16 @@ function buildHreflangAlternates(
   return alternatives;
 }
 
-const DEFAULT_HOME_TITLE =
-  "Best AI Tools Directory & Alternatives | ToolHuntly";
+const DEFAULT_HOME_TITLES: Record<string, string> = {
+  en: "Best AI Tools Directory & Alternatives | ToolHuntly",
+  "zh-CN": "AI 工具导航与最佳替代方案 | ToolHuntly",
+};
+
+const DEFAULT_HOME_DESCRIPTIONS: Record<string, string> = {
+  en: siteConfig.description,
+  "zh-CN":
+    "发现最好用的 AI 工具——每日精选。在 ToolHuntly 浏览写作、图片、视频、编程等 AI 工具。",
+};
 
 /**
  * Construct the metadata object for the current page.
@@ -99,7 +107,7 @@ const DEFAULT_HOME_TITLE =
  */
 export function constructMetadata({
   title,
-  description = siteConfig.description,
+  description,
   canonicalUrl,
   image,
   noIndex = false,
@@ -119,12 +127,24 @@ export function constructMetadata({
   const metadataBase = buildMetadataBase(siteConfig.url);
   const origin = metadataBase.origin;
 
+  // Locale-aware fallbacks for the home page, used when no page-specific
+  // title / description is provided. Locale comes from generateMetadata.
+  const homeTitle =
+    DEFAULT_HOME_TITLES[locale] ?? DEFAULT_HOME_TITLES[routing.defaultLocale];
+  const homeDescription =
+    DEFAULT_HOME_DESCRIPTIONS[locale] ??
+    DEFAULT_HOME_DESCRIPTIONS[routing.defaultLocale];
+
   // --- Title -------------------------------------------------------------
-  // Home uses the full exact spec line. Sub pages get "<title> | ToolHuntly".
+  // Home uses the full localized spec line. Sub pages get "<title> | ToolHuntly".
   const hasPageTitle = Boolean(title && title.trim() !== "");
   const fullTitle = hasPageTitle
     ? `${title!.trim()} | ${siteConfig.name}`
-    : DEFAULT_HOME_TITLE;
+    : homeTitle;
+
+  // --- Description -------------------------------------------------------
+  // Default to the localized home description unless the page provides one.
+  const finalDescription = description ?? homeDescription;
 
   // --- Canonical ---------------------------------------------------------
   // If the caller supplied a page-specific canonical, prefer it. Otherwise
@@ -142,6 +162,26 @@ export function constructMetadata({
     return `${origin}/`;
   })();
 
+  // Non-default locales get the canonical prefixed with /{locale} (e.g.
+  // https://toolhuntly.com/zh-CN/). Skip when the caller already prefixed it.
+  const localizedCanonical = (() => {
+    if (locale === routing.defaultLocale) {
+      return canonical;
+    }
+    try {
+      const u = new URL(canonical, origin);
+      const p = u.pathname.replace(/\/+$/, "");
+      // Already prefixed with this locale → keep as-is
+      if (p === `/${locale}` || p.startsWith(`/${locale}/`)) {
+        return canonical;
+      }
+      const keepSlash = u.pathname.endsWith("/");
+      return `${u.origin}/${locale}${p}${keepSlash ? "/" : ""}${u.search}`;
+    } catch {
+      return canonical;
+    }
+  })();
+
   // --- Image -------------------------------------------------------------
   const ogImage = image && image.trim() !== "" ? image.trim() : siteConfig.image;
 
@@ -153,29 +193,29 @@ export function constructMetadata({
 
   return {
     title: fullTitle,
-    description,
+    description: finalDescription,
     keywords: siteConfig.keywords,
     creator: siteConfig.author,
     authors: [{ name: siteConfig.author }],
     alternates: {
-      canonical,
+      canonical: localizedCanonical,
       languages,
     },
     openGraph: {
       type: "website",
       locale: ogLocale,
-      url: canonical,
+      url: localizedCanonical,
       title: fullTitle,
-      description,
+      description: finalDescription,
       siteName: siteConfig.name,
       images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
-      description,
+      description: finalDescription,
       images: [ogImage],
-      site: canonical,
+      site: localizedCanonical,
       creator: siteConfig.author,
     },
     icons: {
