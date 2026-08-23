@@ -21,7 +21,11 @@ export default {
   // trustHost: true,
   providers: [
     // https://authjs.dev/getting-started/authentication/oauth
-    GitHub,
+    // GitHub rolled out RFC 9207 (iss param in OAuth callback), so an explicit
+    // issuer is required to match the `iss=https://github.com/login/oauth` value
+    GitHub({
+      issuer: "https://github.com/login/oauth",
+    }),
     Google,
     // https://authjs.dev/getting-started/authentication/credentials
     // https://youtu.be/1MTyCvS05V4?t=11279
