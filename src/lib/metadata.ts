@@ -9,7 +9,7 @@ import type { Metadata } from "next";
  * `new URL("")` throw and kill the whole build.
  */
 function buildMetadataBase(raw: string | undefined): URL {
-  const fallback = "https://toolhuntly.com/";
+  const fallback = "https://www.toolhuntly.com/";
   if (!raw) {
     if (typeof console !== "undefined") {
       console.warn(
@@ -23,7 +23,7 @@ function buildMetadataBase(raw: string | undefined): URL {
   } catch {
     if (typeof console !== "undefined") {
       console.warn(
-        `[lib/metadata] siteConfig.url="${raw}" is not a valid URL (ERR_INVALID_URL). Falling back to https://toolhuntly.com.`,
+        `[lib/metadata] siteConfig.url="${raw}" is not a valid URL (ERR_INVALID_URL). Falling back to https://www.toolhuntly.com.`,
       );
     }
     return new URL(fallback);
@@ -69,9 +69,10 @@ function buildHreflangAlternates(
       alternatives[langTag] =
         `${origin}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
     } else {
-      // Non-default locale: /{locale} prefix
+      // Non-default locale: /{locale} prefix, no trailing slash
+      // (e.g. zh-CN home is /zh-CN, not /zh-CN/)
       alternatives[langTag] =
-        `${origin}/${locale}${pathname === "/" ? "/" : `${pathname}/`}${search}`;
+        `${origin}/${locale}${pathname === "/" ? "" : pathname}${search}`;
     }
   }
 
@@ -162,8 +163,9 @@ export function constructMetadata({
     return `${origin}/`;
   })();
 
-  // Non-default locales get the canonical prefixed with /{locale} (e.g.
-  // https://toolhuntly.com/zh-CN/). Skip when the caller already prefixed it.
+  // Non-default locales get the canonical prefixed with /{locale}, without a
+  // trailing slash (e.g. https://toolhuntly.com/zh-CN). Skip when the caller
+  // already prefixed it.
   const localizedCanonical = (() => {
     if (locale === routing.defaultLocale) {
       return canonical;
@@ -175,8 +177,7 @@ export function constructMetadata({
       if (p === `/${locale}` || p.startsWith(`/${locale}/`)) {
         return canonical;
       }
-      const keepSlash = u.pathname.endsWith("/");
-      return `${u.origin}/${locale}${p}${keepSlash ? "/" : ""}${u.search}`;
+      return `${u.origin}/${locale}${p}${u.search}`;
     } catch {
       return canonical;
     }

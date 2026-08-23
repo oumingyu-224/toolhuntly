@@ -3,14 +3,31 @@ import type { SiteConfig } from "@/types";
 /**
  * NOTE: NEXT_PUBLIC_APP_URL is honored when provided (e.g. for preview
  * deployments), but the ToolHuntly production site is always anchored to
- * `https://toolhuntly.com`, so we fall back to it when the env is missing /
+ * `https://www.toolhuntly.com`, so we fall back to it when the env is missing /
  * empty instead of letting downstream callers crash with `new URL("")`.
  */
-const RAW_SITE_URL = process.env.NEXT_PUBLIC_APP_URL;
-const SITE_URL =
-  RAW_SITE_URL && RAW_SITE_URL.trim() !== ""
-    ? RAW_SITE_URL.replace(/\/+$/, "")
-    : "https://toolhuntly.com";
+/**
+ * 站点 URL 统一使用 www 主域（非 www 会被 301，避免每个落点多跟一次跳转）：
+ * - 生产固定为 https://www.toolhuntly.com（NEXT_PUBLIC_APP_URL 缺失/为空时回退到它）
+ * - 显式传入的 toolhuntly.com（无 www）也规范化为 www
+ * - Preview 部署的域名（非 toolhuntly.com）保持原样
+ */
+function normalizeSiteUrl(raw: string | undefined): string {
+  if (!raw || raw.trim() === "") {
+    return "https://www.toolhuntly.com";
+  }
+  try {
+    const u = new URL(raw.trim().replace(/\/+$/, ""));
+    if (u.hostname === "toolhuntly.com") {
+      return "https://www.toolhuntly.com";
+    }
+    return u.origin;
+  } catch {
+    return "https://www.toolhuntly.com";
+  }
+}
+
+const SITE_URL = normalizeSiteUrl(process.env.NEXT_PUBLIC_APP_URL);
 
 export const siteConfig: SiteConfig = {
   name: "ToolHuntly",

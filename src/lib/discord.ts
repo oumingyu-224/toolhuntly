@@ -25,7 +25,7 @@ export async function sendMessageToDiscord(
     const message = {
       // You can customize these values later
       username: "ToolHuntly Bot",
-      avatar_url: "https://toolhuntly.com/logo.png",
+      avatar_url: "https://www.toolhuntly.com/logo.png",
       embeds: [
         {
           title: "🎉 New Purchase",

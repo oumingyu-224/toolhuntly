@@ -19,9 +19,11 @@ import {
   tagListQueryForSitemap,
 } from "@/sanity/lib/queries";
 import collection from "@/sanity/schemas/documents/directory/collection";
+import { siteConfig } from "@/config/site";
 import type { MetadataRoute } from "next";
 
-const site_url = process.env.NEXT_PUBLIC_APP_URL;
+// 统一使用 www 主域，输出绝对 URL（协议要求）
+const site_url = siteConfig.url;
 
 /**
  * Google's limit is 50,000 URLs per sitemap
@@ -34,63 +36,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const sitemapList: MetadataRoute.Sitemap = []; // final result
 
-  const sitemapRoutes: MetadataRoute.Sitemap = [
-    {
-      url: "", // home
-      lastModified: new Date(),
-    },
-    {
-      url: "search",
-      lastModified: new Date(),
-    },
-    {
-      url: "category",
-      lastModified: new Date(),
-    },
-    {
-      url: "tag",
-      lastModified: new Date(),
-    },
-    {
-      url: "collection",
-      lastModified: new Date(),
-    },
-    {
-      url: "blog",
-      lastModified: new Date(),
-    },
-    {
-      url: "pricing",
-      lastModified: new Date(),
-    },
-    {
-      url: "auth/login",
-      lastModified: new Date(),
-    },
-    {
-      url: "auth/register",
-      lastModified: new Date(),
-    },
-    {
-      url: "about",
-      lastModified: new Date(),
-    },
-    {
-      url: "privacy",
-      lastModified: new Date(),
-    },
-    {
-      url: "terms",
-      lastModified: new Date(),
-    },
+  // 静态路由：en + zh-CN 各一份（登录/注册页不收录）
+  const staticRoutes: { en: string; zh: string; lastModified: Date }[] = [
+    { en: "", zh: "zh-CN", lastModified: new Date() },
+    { en: "search", zh: "zh-CN/search", lastModified: new Date() },
+    { en: "category", zh: "zh-CN/category", lastModified: new Date() },
+    { en: "tag", zh: "zh-CN/tag", lastModified: new Date() },
+    { en: "collection", zh: "zh-CN/collection", lastModified: new Date() },
+    { en: "blog", zh: "zh-CN/blog", lastModified: new Date() },
+    { en: "pricing", zh: "zh-CN/pricing", lastModified: new Date() },
+    { en: "about", zh: "zh-CN/about", lastModified: new Date() },
+    { en: "privacy", zh: "zh-CN/privacy", lastModified: new Date() },
+    { en: "terms", zh: "zh-CN/terms", lastModified: new Date() },
   ];
 
-  for (const route of sitemapRoutes) {
-    // console.log(`sitemap, url:${site_url}/${route.url}`);
-    sitemapList.push({
-      url: `${site_url}/${route.url}`,
-      lastModified: new Date(route.lastModified).toISOString(),
-    });
+  for (const route of staticRoutes) {
+    const lastModified = new Date(route.lastModified).toISOString();
+    sitemapList.push(
+      {
+        url: route.en === "" ? `${site_url}/` : `${site_url}/${route.en}`,
+        lastModified,
+      },
+      {
+        url: `${site_url}/${route.zh}`,
+        lastModified,
+      },
+    );
   }
 
   const [
@@ -140,12 +111,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const item of itemListQueryResult) {
     if (item.slug) {
-      const routeUrl = `/item/${item.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(item._updatedAt).toISOString(),
-      });
+      const lastModified = new Date(item._updatedAt).toISOString();
+      sitemapList.push(
+        { url: `${site_url}/item/${item.slug}`, lastModified },
+        { url: `${site_url}/zh-CN/item/${item.slug}`, lastModified },
+      );
     } else {
       console.warn(`sitemap, item slug invalid, id:${item._id}`);
     }
@@ -154,30 +124,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const pageCount = Math.ceil(itemListQueryResult.length / ITEMS_PER_PAGE);
   console.log(`sitemap, item count:${itemListQueryResult.length}, pageCount:${pageCount}`);
   for (let i = 2; i <= pageCount; i++) {
-    const routeUrl = `/?page=${i}`;
-    sitemapList.push({
-      url: `${site_url}${routeUrl}`,
-      lastModified: new Date().toISOString(),
-    });
+    const lastModified = new Date().toISOString();
+    sitemapList.push(
+      { url: `${site_url}/?page=${i}`, lastModified },
+      { url: `${site_url}/zh-CN/?page=${i}`, lastModified },
+    );
   }
 
   for (const category of categoryListQueryResult) {
     if (category.slug) {
+      const lastModified = new Date(category._updatedAt).toISOString();
       const routeUrl = `/category/${category.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(category._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
 
       const pageCount = Math.ceil(category.count / ITEMS_PER_PAGE);
       console.log(`sitemap, category:${category.slug}, count:${category.count}, pageCount:${pageCount}`);
       for (let i = 2; i <= pageCount; i++) {
-        const routeUrl = `/category/${category.slug}?page=${i}`;
-        sitemapList.push({
-          url: `${site_url}${routeUrl}`,
-          lastModified: new Date(category._updatedAt).toISOString(),
-        });
+        const paginatedUrl = `/category/${category.slug}?page=${i}`;
+        sitemapList.push(
+          { url: `${site_url}${paginatedUrl}`, lastModified },
+          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
+        );
       }
     } else {
       console.warn(`sitemap, category slug invalid, id:${category._id}`);
@@ -186,21 +156,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const tag of tagListQueryResult) {
     if (tag.slug) {
+      const lastModified = new Date(tag._updatedAt).toISOString();
       const routeUrl = `/tag/${tag.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(tag._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
 
       const pageCount = Math.ceil(tag.count / ITEMS_PER_PAGE);
       console.log(`sitemap, tag:${tag.slug}, count:${tag.count}, pageCount:${pageCount}`);
       for (let i = 2; i <= pageCount; i++) {
-        const routeUrl = `/tag/${tag.slug}?page=${i}`;
-        sitemapList.push({
-          url: `${site_url}${routeUrl}`,
-          lastModified: new Date(tag._updatedAt).toISOString(),
-        });
+        const paginatedUrl = `/tag/${tag.slug}?page=${i}`;
+        sitemapList.push(
+          { url: `${site_url}${paginatedUrl}`, lastModified },
+          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
+        );
       }
     } else {
       console.warn(`sitemap, tag slug invalid, id:${tag._id}`);
@@ -209,21 +179,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const collection of collectionListQueryResult) {
     if (collection.slug) {
+      const lastModified = new Date(collection._updatedAt).toISOString();
       const routeUrl = `/collection/${collection.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(collection._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
 
       const pageCount = Math.ceil(collection.count / COLLECTIONS_PER_PAGE);
       console.log(`sitemap, collection:${collection.slug}, count:${collection.count}, pageCount:${pageCount}`);
       for (let i = 2; i <= pageCount; i++) {
-        const routeUrl = `/collection/${collection.slug}?page=${i}`;
-        sitemapList.push({
-          url: `${site_url}${routeUrl}`,
-          lastModified: new Date(collection._updatedAt).toISOString(),
-        });
+        const paginatedUrl = `/collection/${collection.slug}?page=${i}`;
+        sitemapList.push(
+          { url: `${site_url}${paginatedUrl}`, lastModified },
+          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
+        );
       }
     } else {
       console.warn(`sitemap, collection slug invalid, id:${collection._id}`);
@@ -232,12 +202,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const blog of blogListQueryResult) {
     if (blog.slug) {
+      const lastModified = new Date(blog._updatedAt).toISOString();
       const routeUrl = `/blog/${blog.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(blog._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
     } else {
       console.warn(`sitemap, blog post slug invalid, id:${blog._id}`);
     }
@@ -245,21 +215,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const blogCategory of blogCategoryListQueryResult) {
     if (blogCategory.slug) {
+      const lastModified = new Date(blogCategory._updatedAt).toISOString();
       const routeUrl = `/blog/category/${blogCategory.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(blogCategory._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
 
       const pageCount = Math.ceil(blogCategory.count / ITEMS_PER_PAGE);
       console.log(`sitemap, blog category:${blogCategory.slug}, count:${blogCategory.count}, pageCount:${pageCount}`);
       for (let i = 2; i <= pageCount; i++) {
-        const routeUrl = `/blog/category/${blogCategory.slug}?page=${i}`;
-        sitemapList.push({
-          url: `${site_url}${routeUrl}`,
-          lastModified: new Date(blogCategory._updatedAt).toISOString(),
-        });
+        const paginatedUrl = `/blog/category/${blogCategory.slug}?page=${i}`;
+        sitemapList.push(
+          { url: `${site_url}${paginatedUrl}`, lastModified },
+          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
+        );
       }
     } else {
       console.warn(
@@ -270,12 +240,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const page of pageListQueryResult) {
     if (page.slug) {
+      const lastModified = new Date(page._updatedAt).toISOString();
       const routeUrl = `/page/${page.slug}`;
-      // console.log(`sitemap, url:${site_url}${routeUrl}`);
-      sitemapList.push({
-        url: `${site_url}${routeUrl}`,
-        lastModified: new Date(page._updatedAt).toISOString(),
-      });
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
     } else {
       console.warn(`sitemap, page slug invalid, id:${page._id}`);
     }
