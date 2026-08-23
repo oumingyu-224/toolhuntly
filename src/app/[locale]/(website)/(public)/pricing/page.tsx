@@ -30,7 +30,7 @@ export default async function PricingPage() {
             <PricingPlans />
           </div>
 
-          {/* add tips only for Mkdirs demo directory website */}
+          {/* add tips only for demo directory website */}
           {siteConfig.name === "Directory" && (
             <p className="text-center text-sm text-muted-foreground leading-normal">
               This is in <span className="font-bold">TEST</span> environment.

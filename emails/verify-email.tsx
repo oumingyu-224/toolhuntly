@@ -95,7 +95,7 @@ export const VerifyEmail = ({ confirmLink }: VerifyEmailProps) => {
 };
 
 VerifyEmail.PreviewProps = {
-  confirmLink: "https://demo.mkdirs.com",
+  confirmLink: "https://toolhuntly.com",
 } as VerifyEmailProps;
 
 export default VerifyEmail;

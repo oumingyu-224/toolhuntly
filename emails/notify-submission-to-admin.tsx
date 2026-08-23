@@ -92,8 +92,8 @@ export const NotifySubmissionEmail = ({
 };
 
 NotifySubmissionEmail.PreviewProps = {
-  itemName: "Mkdirs",
-  reviewLink: "https://demo.mkdirs.com",
+  itemName: "ToolHuntly",
+  reviewLink: "https://toolhuntly.com",
 } as NotifySubmissionEmailProps;
 
 export default NotifySubmissionEmail;

@@ -69,13 +69,11 @@
     "copyright": "© {year} ToolHuntly 版权所有。"
   },
   "Site": {
-    "tagline": "这是一个 Mkdirs 的演示站点，最棒的目录网站模板"
+    "tagline": "AI 工具导航与最佳替代方案"
   },
   "Hero": {
     "titleFirst": "最棒的",
-    "titleSecond": "目录网站模板",
-    "subtitle": "这是一个使用 Mkdirs 构建的演示目录网站",
-    "label": "Mkdirs 发布于"
+    "titleSecond": "目录网站模板"
   },
   "Marketing": {
     "home2": "首页2",

@@ -103,7 +103,7 @@ export const ResetPasswordEmail = ({
 
 ResetPasswordEmail.PreviewProps = {
   userName: "Javayhu",
-  resetLink: "https://demo.mkdirs.com",
+  resetLink: "https://toolhuntly.com",
 } as ResetPasswordEmailProps;
 
 export default ResetPasswordEmail;

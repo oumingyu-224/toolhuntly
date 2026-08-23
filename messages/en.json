@@ -69,13 +69,11 @@
     "copyright": "© {year} ToolHuntly. All rights reserved."
   },
   "Site": {
-    "tagline": "This is a demo site for Mkdirs, the best directory website template"
+    "tagline": "Best AI Tools Directory & Alternatives"
   },
   "Hero": {
     "titleFirst": "The Best",
-    "titleSecond": "Directory Website Template",
-    "subtitle": "This is a demo directory website built with Mkdirs",
-    "label": "Introducing Mkdirs on"
+    "titleSecond": "Directory Website Template"
   },
   "Marketing": {
     "home2": "Home2",

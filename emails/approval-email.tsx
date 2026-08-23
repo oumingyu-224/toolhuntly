@@ -113,7 +113,7 @@ export const ApprovalEmail = ({
 
 ApprovalEmail.PreviewProps = {
   userName: "Javayhu",
-  itemLink: "https://demo.mkdirs.com",
+  itemLink: "https://toolhuntly.com",
 } as ApprovalEmailProps;
 
 export default ApprovalEmail;
