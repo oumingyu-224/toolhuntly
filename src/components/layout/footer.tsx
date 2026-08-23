@@ -90,13 +90,23 @@ export async function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                 (link) =>
                   link.href && (
                     <li key={link.title}>
-                      <Link
-                        href={link.href}
-                        target={link.external ? "_blank" : undefined}
-                        className="text-sm text-muted-foreground hover:text-primary"
-                      >
-                        {t(link.title)}
-                      </Link>
+                      {link.href === "/sitemap.xml" ? (
+                        // sitemap.xml 是站点根目录的全局文件，不能加语言前缀
+                        <a
+                          href="/sitemap.xml"
+                          className="text-sm text-muted-foreground hover:text-primary"
+                        >
+                          {t(link.title)}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          target={link.external ? "_blank" : undefined}
+                          className="text-sm text-muted-foreground hover:text-primary"
+                        >
+                          {t(link.title)}
+                        </Link>
+                      )}
                     </li>
                   ),
               )}
