@@ -8,7 +8,6 @@ import { getTranslations } from "next-intl/server";
 import type * as React from "react";
 import Container from "../container";
 import { Logo } from "../logo";
-import BuiltWithButton from "../shared/built-with-button";
 
 export async function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
   const t = await getTranslations();
@@ -75,8 +74,6 @@ export async function Footer({ className }: React.HTMLAttributes<HTMLElement>) {
                 </Link>
               )}
             </div>
-
-            <BuiltWithButton />
           </div>
         </div>
 
