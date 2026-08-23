@@ -22,7 +22,7 @@ export const DashboardButton = () => {
       className="group whitespace-nowrap"
     >
       <Link
-        href="/studio"
+        href="/admin"
         target="_blank"
         prefetch={false}
         className="flex items-center justify-center space-x-2"

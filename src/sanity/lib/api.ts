@@ -1,7 +1,7 @@
 /**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
  */
-export const studioUrl = "/studio";
+export const studioUrl = "/admin";
 
 /**
  * Used to configure the Preview URL

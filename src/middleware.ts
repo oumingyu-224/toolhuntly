@@ -77,7 +77,7 @@ export default auth((req) => {
 
   // Sanity Studio routes do not need locale handling or NextAuth gate;
   // it lives outside /[locale] and relies on Sanity's own auth (CORS + token).
-  if (pathname.startsWith("/studio")) {
+  if (pathname.startsWith("/admin")) {
     return null;
   }
 

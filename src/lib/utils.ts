@@ -97,7 +97,7 @@ export function getDashboardLink() {
  * NOTICE: change this link if the item page in Sanity Studio is changed
  */
 export function getItemLinkInStudio(slug: string) {
-  return `${siteConfig.url}/studio/structure/itemManagement;item;${slug}`;
+  return `${siteConfig.url}/admin/structure/itemManagement;item;${slug}`;
 }
 
 /**

@@ -5,7 +5,7 @@
  */
 export const publicRoutes = [
   "/",
-  "/studio(/.*)?",
+  "/admin(/.*)?",
 
   "/search(/.*)?",
   "/collection(/.*)?",

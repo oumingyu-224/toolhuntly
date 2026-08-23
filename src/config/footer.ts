@@ -17,7 +17,7 @@ export const footerConfig: FooterConfig = {
         { title: "Footer.blog", href: "/blog" },
         { title: "Footer.pricing", href: "/pricing" },
         { title: "Footer.submit", href: "/submit" },
-        { title: "Footer.studio", href: "/studio", external: true },
+        { title: "Footer.studio", href: "/admin", external: true },
       ],
     },
     {
