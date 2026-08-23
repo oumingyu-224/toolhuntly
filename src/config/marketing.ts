@@ -32,11 +32,5 @@ export const marketingConfig: MarketingConfig = {
       href: "/pricing",
       icon: "pricing",
     },
-    {
-      title: "Marketing.studio",
-      href: "/admin",
-      icon: "studio",
-      external: true,
-    },
   ],
 };
