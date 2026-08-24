@@ -53,6 +53,12 @@ export default auth((req) => {
 
   // API routes do not need locale handling — only run the original auth check
   if (pathname.startsWith("/api")) {
+    // /api 根路径没有任何接口，直接放行让路由层返回 404。
+    // 避免未登录访问时被强制跳转到登录页（Google Safe Browsing 误判来源）。
+    if (pathname === "/api") {
+      return null;
+    }
+
     if (pathname.startsWith(apiAuthPrefix)) {
       return null;
     }
