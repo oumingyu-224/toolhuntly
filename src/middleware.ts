@@ -122,8 +122,21 @@ export default auth((req) => {
     new RegExp(`^${route}$`).test(pathnameWithoutLocale),
   );
 
-  // redirect to login if not logged in and not on public routes
-  if (!isLoggedIn && !isPublicRoute) {
+  // 仅受保护的功能页（需要登录的）未登录才跳登录；
+  // 其它路径（包括不存在的页面）未登录直接放行，由路由层返回 404 或渲染。
+  const protectedPrefixes = [
+    "/dashboard",
+    "/settings",
+    "/submit",
+    "/edit",
+    "/publish",
+    "/payment",
+  ];
+  const isProtectedPage = protectedPrefixes.some(
+    (p) => pathnameWithoutLocale === p || pathnameWithoutLocale.startsWith(`${p}/`),
+  );
+
+  if (!isLoggedIn && !isPublicRoute && isProtectedPage) {
     let callbackUrl = pathname;
     if (nextUrl.search) {
       callbackUrl += nextUrl.search;
