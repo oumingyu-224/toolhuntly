@@ -241,7 +241,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const page of pageListQueryResult) {
     if (page.slug) {
       const lastModified = new Date(page._updatedAt).toISOString();
-      const routeUrl = `/page/${page.slug}`;
+      // Page 页面在顶级 [slug] 路由（如 /about），不是 /page/about
+      const routeUrl = `/${page.slug}`;
       sitemapList.push(
         { url: `${site_url}${routeUrl}`, lastModified },
         { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
