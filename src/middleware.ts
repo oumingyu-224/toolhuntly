@@ -8,6 +8,7 @@ import {
 } from "@/routes";
 import NextAuth from "next-auth";
 import createMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
 
 /**
  * https://www.youtube.com/watch?v=1MTyCvS05V4
@@ -50,35 +51,6 @@ export default auth((req) => {
   const { nextUrl } = req;
   const pathname = nextUrl.pathname;
   const isLoggedIn = !!req.auth;
-
-  // API routes do not need locale handling — only run the original auth check
-  if (pathname.startsWith("/api")) {
-    // /api 根路径没有对应接口，直接返回 404（不跳登录、不空白）
-    if (pathname === "/api") {
-      return new Response("Not Found", { status: 404 });
-    }
-
-    if (pathname.startsWith(apiAuthPrefix)) {
-      return null;
-    }
-
-    const isPublicApiRoute = publicRoutes.some((route) =>
-      new RegExp(`^${route}$`).test(pathname),
-    );
-
-    if (!isLoggedIn && !isPublicApiRoute) {
-      let callbackUrl = pathname;
-      if (nextUrl.search) {
-        callbackUrl += nextUrl.search;
-      }
-      const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-      return Response.redirect(
-        new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
-      );
-    }
-
-    return null;
-  }
 
   // Sanity Studio routes do not need locale handling or NextAuth gate;
   // it lives outside /[locale] and relies on Sanity's own auth (CORS + token).
