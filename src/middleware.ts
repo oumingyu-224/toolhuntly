@@ -53,6 +53,11 @@ export default auth((req) => {
 
   // API routes do not need locale handling — only run the original auth check
   if (pathname.startsWith("/api")) {
+    // /api 根路径没有对应接口，直接返回 404（不跳登录、不空白）
+    if (pathname === "/api") {
+      return new Response("Not Found", { status: 404 });
+    }
+
     if (pathname.startsWith(apiAuthPrefix)) {
       return null;
     }
