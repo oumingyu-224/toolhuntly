@@ -23,6 +23,7 @@ export const groupFields = /* groq */ `
   "categories": *[_type=='category' && references(^._id)] | order(priority desc, _createdAt asc)
   { 
     ..., 
+    "count": count(*[_type == "item" && defined(publishDate) && forceHidden != true && sponsor != true && references(^._id)])
   }
 `;
 
