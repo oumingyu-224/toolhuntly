@@ -1757,6 +1757,17 @@ export type CategoryListQueryResult = Array<{
   name?: string;
   slug?: Slug;
   description?: string;
+  whatIs?: string;
+  whatDoes?: Array<string>;
+  whoUses?: Array<{
+    title?: string;
+    description?: string;
+  }>;
+  howItWorks?: string;
+  faqs?: Array<{
+    question?: string;
+    answer?: string;
+  }>;
   group?: {
     _ref: string;
     _type: "reference";
@@ -1776,6 +1787,17 @@ export type CategoryQueryResult = {
   name?: string;
   slug?: Slug;
   description?: string;
+  whatIs?: string;
+  whatDoes?: Array<string>;
+  whoUses?: Array<{
+    title?: string;
+    description?: string;
+  }>;
+  howItWorks?: string;
+  faqs?: Array<{
+    question?: string;
+    answer?: string;
+  }>;
   group?: {
     _ref: string;
     _type: "reference";

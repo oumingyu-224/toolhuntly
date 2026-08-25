@@ -45,19 +45,11 @@ type CategoryWithCount = CategoryListQueryResult[number] & {
 
 type CategoryWithInfo = CategoryQueryResult & {
   whatIs?: string | null;
-  whatDoes?: string | null;
-  whoUses?: string | null;
+  whatDoes?: Array<string> | null;
+  whoUses?: Array<{ title?: string; description?: string }> | null;
   howItWorks?: string | null;
   faqs?: Array<{ question?: string | null; answer?: string | null }> | null;
 };
-
-function parseLines(text?: string | null): string[] {
-  if (!text) return [];
-  return text
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
-}
 
 function CategoryInfoSections({
   category,
@@ -66,8 +58,8 @@ function CategoryInfoSections({
 }) {
   if (!category) return null;
 
-  const coreFeatures = parseLines(category.whatDoes);
-  const whoUsesItems = parseLines(category.whoUses);
+  const coreFeatures = category.whatDoes ?? [];
+  const whoUsesItems = category.whoUses ?? [];
   const hasWhatIs = !!category.whatIs;
   const hasCoreFeatures = coreFeatures.length > 0;
   const hasWhoUses = whoUsesItems.length > 0;
@@ -128,9 +120,16 @@ function CategoryInfoSections({
                 <div className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-lime-100 text-xs font-semibold text-lime-700">
                   {String(index + 1).padStart(2, "0")}
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {item}
-                </p>
+                {item.title && (
+                  <p className="font-medium leading-tight">
+                    {item.title}
+                  </p>
+                )}
+                {item.description && (
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                )}
               </div>
             ))}
           </div>

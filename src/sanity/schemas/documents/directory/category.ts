@@ -38,17 +38,37 @@ export default defineType({
     }),
     defineField({
       name: "whatDoes",
-      title: "What does it do",
-      description: "What does this category of tools do?",
-      type: "text",
-      rows: 3,
+      title: "Core features",
+      description: "Core features to look for in this category of tools.",
+      type: "array",
+      of: [{ type: "string" }],
     }),
     defineField({
       name: "whoUses",
       title: "Who uses it",
-      description: "Who uses this category of tools?",
-      type: "text",
-      rows: 3,
+      description: "Who uses this category of tools, and how.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "whoUseItem",
+          title: "Who use item",
+          fields: [
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 3,
+            },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "howItWorks",
