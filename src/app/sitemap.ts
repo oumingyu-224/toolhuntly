@@ -62,16 +62,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const route of staticRoutes) {
     const lastModified = new Date(route.lastModified).toISOString();
-    sitemapList.push(
-      {
-        url: route.en === "" ? `${site_url}/` : `${site_url}/${route.en}`,
-        lastModified,
-      },
-      {
+    sitemapList.push({
+      url: route.en === "" ? `${site_url}/` : `${site_url}/${route.en}`,
+      lastModified,
+    });
+    // 分类页面（category/group）内容尚未国际化，暂时只生成英文地址
+    if (route.en !== "category" && route.en !== "group") {
+      sitemapList.push({
         url: `${site_url}/${route.zh}`,
         lastModified,
-      },
-    );
+      });
+    }
   }
 
   const [
@@ -128,7 +129,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const lastModified = new Date(item._updatedAt).toISOString();
       sitemapList.push(
         { url: `${site_url}/item/${item.slug}`, lastModified },
-        { url: `${site_url}/zh-CN/item/${item.slug}`, lastModified },
       );
     } else {
       console.warn(`sitemap, item slug invalid, id:${item._id}`);
@@ -151,7 +151,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const routeUrl = `/category/${category.slug}`;
       sitemapList.push(
         { url: `${site_url}${routeUrl}`, lastModified },
-        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
       );
 
       const pageCount = Math.ceil(category.count / ITEMS_PER_PAGE);
@@ -160,7 +159,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const paginatedUrl = `/category/${category.slug}?page=${i}`;
         sitemapList.push(
           { url: `${site_url}${paginatedUrl}`, lastModified },
-          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
         );
       }
     } else {
@@ -174,7 +172,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const routeUrl = `/group/${group.slug}`;
       sitemapList.push(
         { url: `${site_url}${routeUrl}`, lastModified },
-        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
       );
 
       const pageCount = Math.ceil((group.count ?? 0) / ITEMS_PER_PAGE);
@@ -183,7 +180,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const paginatedUrl = `/group/${group.slug}?page=${i}`;
         sitemapList.push(
           { url: `${site_url}${paginatedUrl}`, lastModified },
-          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
         );
       }
     } else {
