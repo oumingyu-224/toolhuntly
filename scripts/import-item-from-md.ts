@@ -226,10 +226,31 @@ async function main() {
         _key: index.toString(),
       }));
 
+    // planLabel 作为 tag 导入：查找或创建 tag 文档（按 name），再引用到 item.tags
+    const tagRefs: { _type: "reference"; _ref: string; _key: string }[] = [];
+    if (item.planLabel) {
+      const existingTag = await client.fetch<{ _id: string } | null>(
+        `*[_type == "tag" && name == $name][0] { _id }`,
+        { name: item.planLabel },
+      );
+      let tagId = existingTag?._id;
+      if (!tagId) {
+        const createdTag = await client.create({
+          _type: "tag",
+          name: item.planLabel,
+          slug: { _type: "slug", current: slugify(item.planLabel) },
+        });
+        tagId = createdTag._id;
+        console.log(`[tag created] ${item.planLabel}`);
+      }
+      tagRefs.push({ _type: "reference", _ref: tagId, _key: "0" });
+    }
+
     // 项目标准写法：_key 只需在数组内唯一，用 index 作为 _key（参照 src/actions/edit.ts）
     const contentFields = {
       description: item.description || null,
       categories: categoryRefs,
+      tags: tagRefs,
       planLabel: item.planLabel || null,
       platforms: item.platforms,
       whatIs: item.whatIs || null,
