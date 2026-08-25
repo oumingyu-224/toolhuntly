@@ -20,7 +20,12 @@ import {
   categoryQuery,
   sponsorItemListQuery,
 } from "@/sanity/lib/queries";
-import { Link } from "@/i18n/navigation";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -30,7 +35,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { HomeIcon } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Check, HomeIcon } from "lucide-react";
 import type { Metadata } from "next";
 
 type CategoryWithCount = CategoryListQueryResult[number] & {
@@ -45,6 +51,14 @@ type CategoryWithInfo = CategoryQueryResult & {
   faqs?: Array<{ question?: string | null; answer?: string | null }> | null;
 };
 
+function parseLines(text?: string | null): string[] {
+  if (!text) return [];
+  return text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
+}
+
 function CategoryInfoSections({
   category,
 }: {
@@ -52,46 +66,106 @@ function CategoryInfoSections({
 }) {
   if (!category) return null;
 
-  const sections: { title: string; body?: string | null }[] = [
-    { title: "What is", body: category.whatIs },
-    { title: "What does it do", body: category.whatDoes },
-    { title: "Who uses it", body: category.whoUses },
-    { title: "How it works", body: category.howItWorks },
-  ];
-
-  const hasBodySections = sections.some((s) => s.body);
+  const coreFeatures = parseLines(category.whatDoes);
+  const whoUsesItems = parseLines(category.whoUses);
+  const hasWhatIs = !!category.whatIs;
+  const hasCoreFeatures = coreFeatures.length > 0;
+  const hasWhoUses = whoUsesItems.length > 0;
+  const hasHowItWorks = !!category.howItWorks;
   const hasFaqs = (category.faqs ?? []).length > 0;
 
-  if (!hasBodySections && !hasFaqs) return null;
+  if (
+    !hasWhatIs &&
+    !hasCoreFeatures &&
+    !hasWhoUses &&
+    !hasHowItWorks &&
+    !hasFaqs
+  )
+    return null;
+
+  const displayName = category.name ?? "category";
 
   return (
-    <div className="flex flex-col gap-6">
-      {hasBodySections &&
-        sections.map((section) =>
-          section.body ? (
-            <div key={section.title}>
-              <h2 className="text-xl font-bold md:text-2xl">
-                {section.title} {category.name}?
-              </h2>
-              <p className="mt-2 text-muted-foreground">{section.body}</p>
-            </div>
-          ) : null,
-        )}
-
-      {hasFaqs && (
-        <div>
-          <h2 className="text-xl font-bold md:text-2xl">
-            {category.name} FAQ
+    <div className="flex flex-col gap-16">
+      {hasWhatIs && (
+        <section>
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            What is {displayName}?
           </h2>
-          <div className="mt-2 flex flex-col gap-4">
-            {(category.faqs ?? []).map((faq, index) => (
-              <div key={index}>
-                <p className="font-medium">{faq.question}</p>
-                <p className="mt-1 text-muted-foreground">{faq.answer}</p>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            {category.whatIs}
+          </p>
+        </section>
+      )}
+
+      {hasCoreFeatures && (
+        <section>
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            Core features to look for
+          </h2>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            {coreFeatures.map((feature, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <Check className="mt-0.5 h-5 w-5 shrink-0 text-lime-500" />
+                <span className="text-muted-foreground">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {hasWhoUses && (
+        <section>
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            Who uses {displayName}, and how
+          </h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {whoUsesItems.map((item, index) => (
+              <div
+                key={index}
+                className="rounded-xl border bg-card p-5"
+              >
+                <div className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-lime-100 text-xs font-semibold text-lime-700">
+                  {String(index + 1).padStart(2, "0")}
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {item}
+                </p>
               </div>
             ))}
           </div>
-        </div>
+        </section>
+      )}
+
+      {hasHowItWorks && (
+        <section>
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            How does {displayName} work?
+          </h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            {category.howItWorks}
+          </p>
+        </section>
+      )}
+
+      {hasFaqs && (
+        <section>
+          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+            Frequently asked questions
+          </h2>
+          <Accordion type="single" collapsible className="mt-6 w-full">
+            {(category.faqs ?? []).map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger className="text-left text-base font-medium hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
       )}
     </div>
   );
@@ -166,7 +240,7 @@ export default async function CategoryPage({
   const year = new Date().getFullYear();
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-16">
       {/* 1. Breadcrumb */}
       <Breadcrumb>
         <BreadcrumbList>
@@ -254,20 +328,15 @@ export default async function CategoryPage({
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
-      {/* 6. Info Sections (What is / What does it do / Who uses it / How it works / FAQ) */}
-      <CategoryInfoSections category={category} />
-
-      {/* 7. List Section Title */}
+      {/* 6. List Section Title */}
       <h2 className="text-xl font-bold md:text-2xl">
         All {category?.name} tools
       </h2>
 
-      {/* List + Pagination (preserved) */}
+      {/* 7. Tool Grid + Pagination */}
       <div>
-        {/* when no items are found */}
         {items?.length === 0 && <EmptyGrid />}
 
-        {/* when items are found */}
         {items && items.length > 0 && (
           <section>
             <ItemGrid
@@ -285,6 +354,9 @@ export default async function CategoryPage({
           </section>
         )}
       </div>
+
+      {/* 8. Info Sections */}
+      <CategoryInfoSections category={category} />
     </div>
   );
 }
