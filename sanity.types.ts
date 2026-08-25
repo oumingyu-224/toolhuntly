@@ -1149,6 +1149,44 @@ export type ItemFullInfoBySlugQueryResult = {
     slug?: Slug;
     description?: string;
   }> | null;
+  planLabel: "Free" | "Freemium" | "Premium" | "Paid" | "Open Source" | null;
+  platforms: Array<string> | null;
+  whatIs: string | null;
+  coreFeatures: Array<{
+    title?: string;
+    description?: string;
+  }> | null;
+  useCases: Array<{
+    title?: string;
+    description?: string;
+  }> | null;
+  quickFacts: {
+    domainRating?: string;
+    platforms?: string;
+    languages?: string;
+  } | null;
+  faqs: Array<{
+    question?: string;
+    answer?: string;
+  }> | null;
+  alternatives: Array<{
+    _id: string;
+    _type: "item";
+    name?: string;
+    slug?: Slug;
+    description?: string;
+    icon?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      _type: "image";
+      blurDataURL: string | null;
+      imageColor: string | null;
+    };
+  }> | null;
 } | null;
 // Variable: itemListQuery
 // Query: *[_type == "item" && defined(slug.current)   && defined(publishDate)  && forceHidden != true  && sponsor != true]  | order(coalesce(featured, false) desc, publishDate desc) {      _id,  _createdAt,  name,  slug,  description,  link,  affiliateLink,  sponsor,  sponsorStartDate,  sponsorEndDate,  note,  featured,  icon {    ...,    "blurDataURL": asset->metadata.lqip,    "imageColor": asset->metadata.palette.dominant.background,  },  image {    ...,    "blurDataURL": asset->metadata.lqip,    "imageColor": asset->metadata.palette.dominant.background,  },  publishDate,  paid,  order,  pricePlan,  freePlanStatus,  proPlanStatus,  sponsorPlanStatus,  rejectionReason,  submitter->,  collections[]->,  categories[]->,  tags[]->,}

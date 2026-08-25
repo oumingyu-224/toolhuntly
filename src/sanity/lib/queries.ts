@@ -82,6 +82,14 @@ const itemFields = /* groq */ `
 // auto generate related items
 const itemFieldsWithRelated = /* groq */ `
   introduction,
+  planLabel,
+  platforms,
+  whatIs,
+  coreFeatures,
+  useCases,
+  quickFacts,
+  faqs,
+  alternatives[]->,
   "related": *[_type == "item" && defined(slug.current) 
     && defined(publishDate) 
     && forceHidden != true

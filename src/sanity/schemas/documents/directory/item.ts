@@ -316,6 +316,167 @@ export default defineType({
       type: "string",
       group: "sponsor",
     }),
+    // display fields for detail page
+    defineField({
+      name: "planLabel",
+      title: "Plan Label",
+      description: "Displayed as a pill badge (e.g. Freemium, Premium, Free)",
+      type: "string",
+      options: {
+        list: ["Free", "Freemium", "Premium", "Paid", "Open Source"],
+        layout: "radio",
+        direction: "horizontal",
+      },
+    }),
+    defineField({
+      name: "platforms",
+      title: "Platforms",
+      description: "Platforms the tool supports (e.g. Web, API, iOS, Android)",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        list: [
+          "Web",
+          "API",
+          "iOS",
+          "Android",
+          "Windows",
+          "macOS",
+          "Linux",
+          "Chrome Extension",
+          "Firefox Extension",
+          "Discord",
+          "Slack",
+        ],
+      },
+    }),
+    defineField({
+      name: "whatIs",
+      title: "What is this tool?",
+      description: "Short paragraph explaining what the tool is",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "coreFeatures",
+      title: "Core Features",
+      description: "Numbered feature list shown as cards",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "feature",
+          title: "Feature",
+          fields: [
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 2,
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "useCases",
+      title: "Use Cases",
+      description: "Quote-style use cases with title and description",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "useCase",
+          title: "Use Case",
+          fields: [
+            {
+              name: "title",
+              title: "Title",
+              type: "string",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "description",
+              title: "Description",
+              type: "text",
+              rows: 2,
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "quickFacts",
+      title: "Quick Facts",
+      description: "Quick facts table shown on the detail page",
+      type: "object",
+      fields: [
+        {
+          name: "domainRating",
+          title: "Domain Rating",
+          type: "string",
+          description: "e.g. DR 72",
+        },
+        {
+          name: "platforms",
+          title: "Platforms",
+          type: "string",
+          description: "e.g. Web, API",
+        },
+        {
+          name: "languages",
+          title: "Languages",
+          type: "string",
+          description: "e.g. English, German, Spanish",
+        },
+      ],
+    }),
+    defineField({
+      name: "faqs",
+      title: "FAQs",
+      description: "Frequently asked questions for this tool",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "faq",
+          title: "FAQ",
+          fields: [
+            {
+              name: "question",
+              title: "Question",
+              type: "string",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "answer",
+              title: "Answer",
+              type: "text",
+              rows: 3,
+              validation: (rule) => rule.required(),
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: "alternatives",
+      title: "Alternatives",
+      description: "Alternative tools shown at the bottom of the detail page",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "item" }],
+        },
+      ],
+    }),
   ],
   // https://www.sanity.io/docs/previews-list-views
   // Configure and customize how documents are displayed
