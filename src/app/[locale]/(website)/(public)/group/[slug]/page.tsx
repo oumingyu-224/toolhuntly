@@ -21,6 +21,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { HomeIcon } from "lucide-react";
 import type { Metadata } from "next";
 
 type CategoryWithCount = {
@@ -163,6 +165,15 @@ export default async function GroupPage({
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
+              <Link href="/" className="flex items-center gap-1">
+                <HomeIcon className="h-4 w-4" />
+                <span>Home</span>
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
               <Link href="/category">All AI Tool Categories</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
@@ -203,29 +214,35 @@ export default async function GroupPage({
       </div>
 
       {/* 4. Sub-category filter bar */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <Link
-          href={`/group/${params.slug}`}
-          className="inline-flex h-9 items-center gap-1.5 rounded-full bg-foreground px-4 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
-        >
-          <span>All</span>
-          <span className="tabular-nums text-xs opacity-80">
-            {totalCount}
-          </span>
-        </Link>
-        {categories.map((cat) => (
-          <Link
-            key={cat._id}
-            href={`/category/${cat.slug?.current}`}
-            className="inline-flex h-9 items-center gap-1.5 rounded-full px-1 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <span>{cat.name}</span>
-            <span className="tabular-nums text-xs opacity-60">
-              {cat.count ?? 0}
-            </span>
-          </Link>
-        ))}
-      </div>
+      <ScrollArea className="w-full pb-2">
+        <ul className="flex gap-x-2">
+          <li>
+            <Link
+              href={`/group/${params.slug}`}
+              className="inline-flex h-9 items-center gap-1.5 rounded-full bg-foreground px-4 text-sm font-medium text-background transition-colors hover:bg-foreground/90"
+            >
+              <span>All</span>
+              <span className="tabular-nums text-xs opacity-80">
+                {totalCount}
+              </span>
+            </Link>
+          </li>
+          {categories.map((cat) => (
+            <li key={cat._id}>
+              <Link
+                href={`/category/${cat.slug?.current}`}
+                className="inline-flex h-9 items-center gap-1.5 rounded-full border px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <span>{cat.name}</span>
+                <span className="tabular-nums text-xs opacity-60">
+                  {cat.count ?? 0}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
 
       {/* Grid + Pagination */}
       <div>
