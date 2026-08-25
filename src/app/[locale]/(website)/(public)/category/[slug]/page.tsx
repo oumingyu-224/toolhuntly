@@ -37,12 +37,72 @@ type CategoryWithCount = CategoryListQueryResult[number] & {
   count?: number;
 };
 
+type CategoryWithInfo = CategoryQueryResult & {
+  whatIs?: string | null;
+  whatDoes?: string | null;
+  whoUses?: string | null;
+  howItWorks?: string | null;
+  faqs?: Array<{ question?: string | null; answer?: string | null }> | null;
+};
+
+function CategoryInfoSections({
+  category,
+}: {
+  category: CategoryWithInfo | null;
+}) {
+  if (!category) return null;
+
+  const sections: { title: string; body?: string | null }[] = [
+    { title: "What is", body: category.whatIs },
+    { title: "What does it do", body: category.whatDoes },
+    { title: "Who uses it", body: category.whoUses },
+    { title: "How it works", body: category.howItWorks },
+  ];
+
+  const hasBodySections = sections.some((s) => s.body);
+  const hasFaqs = (category.faqs ?? []).length > 0;
+
+  if (!hasBodySections && !hasFaqs) return null;
+
+  return (
+    <div className="flex flex-col gap-6">
+      {hasBodySections &&
+        sections.map((section) =>
+          section.body ? (
+            <div key={section.title}>
+              <h2 className="text-xl font-bold md:text-2xl">
+                {section.title} {category.name}?
+              </h2>
+              <p className="mt-2 text-muted-foreground">{section.body}</p>
+            </div>
+          ) : null,
+        )}
+
+      {hasFaqs && (
+        <div>
+          <h2 className="text-xl font-bold md:text-2xl">
+            {category.name} FAQ
+          </h2>
+          <div className="mt-2 flex flex-col gap-4">
+            {(category.faqs ?? []).map((faq, index) => (
+              <div key={index}>
+                <p className="font-medium">{faq.question}</p>
+                <p className="mt-1 text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: { locale: string; slug: string };
 }): Promise<Metadata | undefined> {
-  const category = await sanityFetch<CategoryQueryResult>({
+  const category = await sanityFetch<CategoryWithInfo>({
     query: categoryQuery,
     params: { slug: params.slug },
   });
@@ -194,7 +254,10 @@ export default async function CategoryPage({
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
-      {/* 6. List Section Title */}
+      {/* 6. Info Sections (What is / What does it do / Who uses it / How it works / FAQ) */}
+      <CategoryInfoSections category={category} />
+
+      {/* 7. List Section Title */}
       <h2 className="text-xl font-bold md:text-2xl">
         All {category?.name} tools
       </h2>

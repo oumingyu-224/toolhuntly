@@ -30,6 +30,62 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: "whatIs",
+      title: "What is",
+      description: "What is this category? (e.g. What is AI Video Editor?)",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "whatDoes",
+      title: "What does it do",
+      description: "What does this category of tools do?",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "whoUses",
+      title: "Who uses it",
+      description: "Who uses this category of tools?",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "howItWorks",
+      title: "How it works",
+      description: "How do these tools work?",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "faqs",
+      title: "FAQs",
+      description: "Frequently asked questions for this category",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "faq",
+          title: "FAQ",
+          fields: [
+            {
+              name: "question",
+              title: "Question",
+              type: "string",
+              validation: (rule) => rule.required(),
+            },
+            {
+              name: "answer",
+              title: "Answer",
+              type: "text",
+              rows: 3,
+              validation: (rule) => rule.required(),
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: "group",
       title: "Group",
       type: "reference",
