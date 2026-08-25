@@ -151,13 +151,20 @@ async function main() {
       { name: cat.name },
     );
 
+    // 项目标准写法：_key 只需在数组内唯一，用 index 作为 _key（参照 src/actions/edit.ts）
     const contentFields = {
       description: cat.description || null,
       whatIs: cat.whatIs || null,
       whatDoes: cat.whatDoes,
-      whoUses: cat.whoUses,
+      whoUses: cat.whoUses.map((item, index) => ({
+        _key: index.toString(),
+        ...item,
+      })),
       howItWorks: cat.howItWorks || null,
-      faqs: cat.faqs,
+      faqs: cat.faqs.map((item, index) => ({
+        _key: index.toString(),
+        ...item,
+      })),
     };
 
     if (existing) {

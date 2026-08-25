@@ -80,18 +80,18 @@ function CategoryInfoSections({
   return (
     <div className="flex flex-col gap-16">
       {hasWhatIs && (
-        <section>
+        <section className="mx-auto w-full max-w-3xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             What is {displayName}?
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
             {category.whatIs}
           </p>
         </section>
       )}
 
       {hasCoreFeatures && (
-        <section>
+        <section className="mx-auto w-full max-w-3xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             Core features to look for
           </h2>
@@ -107,7 +107,7 @@ function CategoryInfoSections({
       )}
 
       {hasWhoUses && (
-        <section>
+        <section className="mx-auto w-full max-w-3xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             Who uses {displayName}, and how
           </h2>
@@ -137,18 +137,18 @@ function CategoryInfoSections({
       )}
 
       {hasHowItWorks && (
-        <section>
+        <section className="mx-auto w-full max-w-3xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             How does {displayName} work?
           </h2>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground md:text-lg">
             {category.howItWorks}
           </p>
         </section>
       )}
 
       {hasFaqs && (
-        <section>
+        <section className="mx-auto w-full max-w-3xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
             Frequently asked questions
           </h2>
