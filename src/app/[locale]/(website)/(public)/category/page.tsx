@@ -1,73 +1,45 @@
-import ItemGrid from "@/components/item/item-grid";
-import EmptyGrid from "@/components/shared/empty-grid";
-import CustomPagination from "@/components/shared/pagination";
+import { Link } from "@/i18n/navigation";
 import { siteConfig } from "@/config/site";
-import { getItems } from "@/data/item";
-import {
-  DEFAULT_SORT,
-  ITEMS_PER_PAGE,
-  SORT_FILTER_LIST,
-} from "@/lib/constants";
 import { constructMetadata } from "@/lib/metadata";
-import type { SponsorItemListQueryResult } from "@/sanity.types";
+import type { GroupListQueryResult } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { sponsorItemListQuery } from "@/sanity/lib/queries";
+import { groupListQuery } from "@/sanity/lib/queries";
+
 export const metadata = constructMetadata({
-  title: "Category",
-  description: "Explore by category",
+  title: "All AI Tool Categories",
+  description: "Browse the full directory of AI tools by category",
   canonicalUrl: `${siteConfig.url}/category`,
 });
 
-export default async function CategoryIndexPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  const sponsorItems =
-    (await sanityFetch<SponsorItemListQueryResult>({
-      query: sponsorItemListQuery,
+export default async function CategoryIndexPage() {
+  const groups =
+    (await sanityFetch<GroupListQueryResult>({
+      query: groupListQuery,
     })) || [];
-  // console.log("CategoryIndexPage, sponsorItems", sponsorItems);
-  const showSponsor = true;
-  const hasSponsorItem = showSponsor && sponsorItems.length > 0;
-
-  const { sort, page } = searchParams as { [key: string]: string };
-  const { sortKey, reverse } =
-    SORT_FILTER_LIST.find((item) => item.slug === sort) || DEFAULT_SORT;
-  const currentPage = page ? Number(page) : 1;
-  const { items, totalCount } = await getItems({
-    sortKey,
-    reverse,
-    currentPage,
-    hasSponsorItem,
-  });
-  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
-  console.log(
-    "CategoryIndexPage, totalCount",
-    totalCount,
-    ", totalPages",
-    totalPages,
-  );
 
   return (
-    <div>
-      {/* when no items are found */}
-      {items?.length === 0 && <EmptyGrid />}
+    <div className="flex flex-col gap-10">
+      {groups.map((group) => (
+        <section key={group._id}>
+          <h2 className="mb-4 text-2xl font-bold">{group.name}</h2>
 
-      {/* when items are found */}
-      {items && items.length > 0 && (
-        <section className="">
-          <ItemGrid
-            items={items}
-            sponsorItems={sponsorItems}
-            showSponsor={showSponsor}
-          />
-
-          <div className="mt-8 flex items-center justify-center">
-            <CustomPagination routePrefix="/category" totalPages={totalPages} />
-          </div>
+          {group.categories.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {group.categories.map((category) => (
+                <Link
+                  key={category._id}
+                  href={`/category/${category.slug?.current}`}
+                  className="rounded-full border px-4 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  {category.name}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">No categories yet</p>
+          )}
         </section>
-      )}
+      ))}
     </div>
   );
 }
