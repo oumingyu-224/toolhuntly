@@ -167,6 +167,7 @@ export const groupListQuery = groq`*[_type=="group"] | order(priority desc, _cre
 export const categoryListQuery = defineQuery(`*[_type == "category" && defined(slug.current)] 
   | order(priority desc) {
     ${categoryFields}
+    "count": count(*[_type == "item" && defined(publishDate) && forceHidden != true && sponsor != true && references(^._id)])
 }`);
 
 export const categoryQuery = defineQuery(`*[_type == "category" && slug.current == $slug][0] {

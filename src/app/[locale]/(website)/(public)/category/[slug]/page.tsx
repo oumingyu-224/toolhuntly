@@ -10,12 +10,32 @@ import {
 } from "@/lib/constants";
 import { constructMetadata } from "@/lib/metadata";
 import type {
+  CategoryListQueryResult,
   CategoryQueryResult,
   SponsorItemListQueryResult,
 } from "@/sanity.types";
 import { sanityFetch } from "@/sanity/lib/fetch";
-import { categoryQuery, sponsorItemListQuery } from "@/sanity/lib/queries";
+import {
+  categoryListQuery,
+  categoryQuery,
+  sponsorItemListQuery,
+} from "@/sanity/lib/queries";
+import { Link } from "@/i18n/navigation";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { HomeIcon } from "lucide-react";
 import type { Metadata } from "next";
+
+type CategoryWithCount = CategoryListQueryResult[number] & {
+  count?: number;
+};
 
 export async function generateMetadata({
   params,
@@ -54,11 +74,20 @@ export default async function CategoryPage({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const category = await sanityFetch<CategoryQueryResult>({
+    query: categoryQuery,
+    params: { slug: params.slug },
+  });
+
+  const allCategories =
+    ((await sanityFetch<CategoryWithCount[]>({
+      query: categoryListQuery,
+    })) as CategoryWithCount[]) || [];
+
   const sponsorItems =
     (await sanityFetch<SponsorItemListQueryResult>({
       query: sponsorItemListQuery,
     })) || [];
-  // console.log("CategoryPage, sponsorItems", sponsorItems);
   const showSponsor = true;
   const hasSponsorItem = showSponsor && sponsorItems.length > 0;
 
@@ -74,35 +103,125 @@ export default async function CategoryPage({
     hasSponsorItem,
   });
   const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
-  console.log(
-    "CategoryPage, totalCount",
-    totalCount,
-    ", totalPages",
-    totalPages,
-  );
+  const year = new Date().getFullYear();
 
   return (
-    <div>
-      {/* when no items are found */}
-      {items?.length === 0 && <EmptyGrid />}
+    <div className="flex flex-col gap-8">
+      {/* 1. Breadcrumb */}
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/" className="flex items-center gap-1">
+                <HomeIcon className="h-4 w-4" />
+                <span>Home</span>
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href="/category">All AI Tool Categories</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage className="font-medium">
+              {category?.name}
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      {/* when items are found */}
-      {items && items.length > 0 && (
-        <section className="">
-          <ItemGrid
-            items={items}
-            sponsorItems={sponsorItems}
-            showSponsor={showSponsor}
-          />
+      {/* 2. Category Badge */}
+      <div className="flex justify-center">
+        <div className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-1.5 text-sm font-medium text-background">
+          <span className="h-2 w-2 rounded-full bg-lime-400" />
+          <span>{category?.name}</span>
+          <span className="opacity-60">·</span>
+          <span className="tabular-nums opacity-80">{totalCount} tools</span>
+        </div>
+      </div>
 
-          <div className="mt-8 flex items-center justify-center">
-            <CustomPagination
-              routePrefix={`/category/${params.slug}`}
-              totalPages={totalPages}
-            />
-          </div>
-        </section>
+      {/* 3. H1 Title */}
+      <h1 className="text-center text-3xl font-bold tracking-tight md:text-5xl">
+        Best {category?.name} Tools ({year})
+      </h1>
+
+      {/* 4. Description */}
+      {category?.description && (
+        <p className="mx-auto max-w-2xl text-center text-base text-muted-foreground md:text-lg">
+          {category.description}
+        </p>
       )}
+
+      {/* 5. Horizontal Category Filter Bar */}
+      <ScrollArea className="w-full pb-2">
+        <ul className="flex gap-x-2">
+          <li>
+            <Link
+              href="/category"
+              className="inline-flex h-9 items-center rounded-full border px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              All
+            </Link>
+          </li>
+          {allCategories.map((cat) => {
+            const isActive = cat.slug?.current === params.slug;
+            return (
+              <li key={cat._id}>
+                <Link
+                  href={`/category/${cat.slug?.current}`}
+                  className={`inline-flex h-9 items-center gap-1.5 rounded-full border px-4 text-sm font-medium transition-colors ${
+                    isActive
+                      ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
+                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  }`}
+                >
+                  <span>{cat.name}</span>
+                  <span
+                    className={`tabular-nums text-xs ${
+                      isActive ? "opacity-80" : "opacity-60"
+                    }`}
+                  >
+                    {cat.count ?? 0}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
+
+      {/* 6. List Section Title */}
+      <h2 className="text-xl font-bold md:text-2xl">
+        All {category?.name} tools
+      </h2>
+
+      {/* List + Pagination (preserved) */}
+      <div>
+        {/* when no items are found */}
+        {items?.length === 0 && <EmptyGrid />}
+
+        {/* when items are found */}
+        {items && items.length > 0 && (
+          <section>
+            <ItemGrid
+              items={items}
+              sponsorItems={sponsorItems}
+              showSponsor={showSponsor}
+            />
+
+            <div className="mt-8 flex items-center justify-center">
+              <CustomPagination
+                routePrefix={`/category/${params.slug}`}
+                totalPages={totalPages}
+              />
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
