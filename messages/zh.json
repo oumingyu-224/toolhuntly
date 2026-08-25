@@ -100,6 +100,13 @@
     "signOut": "退出登录"
   },
   "Pricing": {
+    "pageTitle": "定价",
+    "pageDescription": "选择套餐方案来提交你的产品",
+    "choosePlan": "选择一个定价方案",
+    "faq": "常见问题",
+    "testNotice1": "这是测试环境。",
+    "testNotice2": "你可以使用 Stripe 测试卡模拟付费提交流程。",
+    "testNotice3": "Stripe 测试卡号：4242 4242 4242 4242",
     "forBeginners": "适合初学者",
     "forProUsers": "适合专业用户",
     "forSponsors": "适合赞助商",

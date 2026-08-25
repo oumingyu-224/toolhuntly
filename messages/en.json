@@ -100,6 +100,13 @@
     "signOut": "Sign out"
   },
   "Pricing": {
+    "pageTitle": "Pricing",
+    "pageDescription": "Choose a pricing plan for submitting your product",
+    "choosePlan": "Choose a pricing plan",
+    "faq": "FAQ",
+    "testNotice1": "This is in TEST environment.",
+    "testNotice2": "You can use Stripe test card to simulate the paid submission process.",
+    "testNotice3": "Stripe test card number: 4242 4242 4242 4242",
     "forBeginners": "For Beginners",
     "forProUsers": "For Pro Users",
     "forSponsors": "For Sponsors",

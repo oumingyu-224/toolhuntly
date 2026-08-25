@@ -6,11 +6,14 @@ import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/lib/metadata";
 import { getTranslations } from "next-intl/server";
 
-export const metadata = constructMetadata({
-  title: "Pricing",
-  description: "Choose a pricing plan for submitting your product",
-  canonicalUrl: `${siteConfig.url}/pricing`,
-});
+export async function generateMetadata() {
+  const t = await getTranslations("Pricing");
+  return constructMetadata({
+    title: t("pageTitle"),
+    description: t("pageDescription"),
+    canonicalUrl: `${siteConfig.url}/pricing`,
+  });
+}
 
 export default async function PricingPage() {
   const t = await getTranslations();
@@ -21,9 +24,9 @@ export default async function PricingPage() {
         <section className="w-full flex flex-col gap-8 justify-center">
           <HeaderSection
             labelAs="h1"
-            label="Pricing"
+            label={t("Pricing.pageTitle")}
             titleAs="h2"
-            title="Choose a pricing plan"
+            title={t("Pricing.choosePlan")}
           />
 
           <div className="w-full mx-auto">
@@ -33,19 +36,18 @@ export default async function PricingPage() {
           {/* add tips only for demo directory website */}
           {siteConfig.name === "Directory" && (
             <p className="text-center text-sm text-muted-foreground leading-normal">
-              This is in <span className="font-bold">TEST</span> environment.
+              {t("Pricing.testNotice1")}
               <br />
-              You can use Stripe test card to simulate the paid submission
-              process.
+              {t("Pricing.testNotice2")}
               <br />
-              Stripe test card number: 4242 4242 4242 4242
+              {t("Pricing.testNotice3")}
             </p>
           )}
         </section>
 
         <section className="w-full flex flex-col gap-8 justify-center">
           <HeaderSection
-            label="FAQ"
+            label={t("Pricing.faq")}
             titleAs="h2"
             title={t("Home.faq.title")}
           />

@@ -39,6 +39,8 @@ interface PricingPlanCardProps {
 
 const PricingPlanCard = ({ item, pricePlan }: PricingPlanCardProps) => {
   const t = useTranslations();
+  // planKey 用于定位翻译 key：Pricing.free / Pricing.pro / Pricing.sponsor
+  const planKey = pricePlan.title.toLowerCase();
   return (
     <div className="relative pt-4">
       {isProPlan(pricePlan) && (
@@ -57,14 +59,14 @@ const PricingPlanCard = ({ item, pricePlan }: PricingPlanCardProps) => {
         {/* price plan title and price */}
         <div className="bg-muted/50 p-6 pr-10 border-b flex flex-row items-center justify-between">
           <span className="text-2xl font-bold uppercase tracking-wider">
-            {pricePlan.title}
+            {t(`Pricing.${planKey}`)}
           </span>
           <div className="flex items-baseline gap-2">
             <div className="text-4xl font-semibold font-workSans leading-relaxed text-primary">
               ${pricePlan.price}
             </div>
             <div className="text-sm font-semibold font-workSans leading-relaxed text-muted-foreground">
-              {pricePlan.priceSuffix}
+              {pricePlan.priceSuffix && t("Pricing.perWeek")}
             </div>
           </div>
         </div>
@@ -73,17 +75,19 @@ const PricingPlanCard = ({ item, pricePlan }: PricingPlanCardProps) => {
         <div className="flex flex-col flex-grow px-6 py-8">
           <div className="flex-grow space-y-4">
             <div className="grid grid-cols-1 gap-4 text-left text-sm leading-normal">
-              {pricePlan.benefits.map((feature) => (
+              {pricePlan.benefits.map((feature, index) => (
                 <div key={feature} className="flex items-start gap-x-4">
                   <CheckIcon className="text-primary size-4 shrink-0 text-primary-500 mt-0.5" />
-                  <p>{feature}</p>
+                  <p>{t(`Pricing.benefits.${planKey}.${index}`)}</p>
                 </div>
               ))}
 
-              {pricePlan.limitations.map((feature) => (
+              {pricePlan.limitations.map((feature, index) => (
                 <div key={feature} className="flex items-start gap-x-4">
                   <XIcon className="size-4 shrink-0 mt-0.5" />
-                  <p className="text-muted-foreground">{feature}</p>
+                  <p className="text-muted-foreground">
+                    {t(`Pricing.limitations.${planKey}.${index}`)}
+                  </p>
                 </div>
               ))}
             </div>
