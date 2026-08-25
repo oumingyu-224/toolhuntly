@@ -397,4 +397,11 @@ export const pageListQueryForSitemap = groq`*[_type == "page" && defined(slug.cu
   "slug": slug.current,
 }`;
 
+export const groupListQueryForSitemap = groq`*[_type == "group" && defined(slug.current)] | order(_createdAt asc) {
+  _id,  
+  _updatedAt,
+  "slug": slug.current,
+  "count": count(*[_type == "item" && defined(publishDate) && forceHidden != true && references(*[_type == "category" && references(^._id)]._id)])
+}`;
+
 // ======================================================================================================================

@@ -14,6 +14,7 @@ import {
   blogListQueryForSitemap,
   categoryListQueryForSitemap,
   collectionListQueryForSitemap,
+  groupListQueryForSitemap,
   itemListQueryForSitemap,
   pageListQueryForSitemap,
   tagListQueryForSitemap,
@@ -21,6 +22,14 @@ import {
 import collection from "@/sanity/schemas/documents/directory/collection";
 import { siteConfig } from "@/config/site";
 import type { MetadataRoute } from "next";
+
+// 本地类型：groupListQueryForSitemap 为新增查询，sanity.types.ts 尚未生成对应 Result
+type GroupListQueryForSitemapResult = Array<{
+  _id: string;
+  _updatedAt: string;
+  slug: string | null;
+  count?: number;
+}>;
 
 // 统一使用 www 主域，输出绝对 URL（协议要求）
 const site_url = siteConfig.url;
@@ -41,6 +50,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { en: "", zh: "zh-CN", lastModified: new Date() },
     { en: "search", zh: "zh-CN/search", lastModified: new Date() },
     { en: "category", zh: "zh-CN/category", lastModified: new Date() },
+    { en: "group", zh: "zh-CN/group", lastModified: new Date() },
     { en: "tag", zh: "zh-CN/tag", lastModified: new Date() },
     { en: "collection", zh: "zh-CN/collection", lastModified: new Date() },
     { en: "blog", zh: "zh-CN/blog", lastModified: new Date() },
@@ -72,6 +82,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     blogListQueryResult,
     blogCategoryListQueryResult,
     pageListQueryResult,
+    groupListQueryResult,
   ] = await Promise.all([
     sanityFetch<ItemListQueryForSitemapResult>({
       query: itemListQueryForSitemap,
@@ -93,6 +104,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
     sanityFetch<PageListQueryForSitemapResult>({
       query: pageListQueryForSitemap,
+    }),
+    sanityFetch<GroupListQueryForSitemapResult>({
+      query: groupListQueryForSitemap,
     }),
   ]);
 
@@ -151,6 +165,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     } else {
       console.warn(`sitemap, category slug invalid, id:${category._id}`);
+    }
+  }
+
+  for (const group of groupListQueryResult) {
+    if (group.slug) {
+      const lastModified = new Date(group._updatedAt).toISOString();
+      const routeUrl = `/group/${group.slug}`;
+      sitemapList.push(
+        { url: `${site_url}${routeUrl}`, lastModified },
+        { url: `${site_url}/zh-CN${routeUrl}`, lastModified },
+      );
+
+      const pageCount = Math.ceil((group.count ?? 0) / ITEMS_PER_PAGE);
+      console.log(`sitemap, group:${group.slug}, count:${group.count}, pageCount:${pageCount}`);
+      for (let i = 2; i <= pageCount; i++) {
+        const paginatedUrl = `/group/${group.slug}?page=${i}`;
+        sitemapList.push(
+          { url: `${site_url}${paginatedUrl}`, lastModified },
+          { url: `${site_url}/zh-CN${paginatedUrl}`, lastModified },
+        );
+      }
+    } else {
+      console.warn(`sitemap, group slug invalid, id:${group._id}`);
     }
   }
 
