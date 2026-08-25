@@ -1,6 +1,5 @@
 import { BlogCategoryFilter } from "@/components/blog/blog-category-filter";
 import Container from "@/components/container";
-import { NewsletterCard } from "@/components/newsletter/newsletter-card";
 import { HeaderSection } from "@/components/shared/header-section";
 
 export default async function BlogListLayout({
@@ -20,10 +19,6 @@ export default async function BlogListLayout({
       </div>
 
       <Container className="mt-8">{children}</Container>
-
-      <Container className="mt-8">
-        <NewsletterCard />
-      </Container>
     </div>
   );
 }
