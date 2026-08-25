@@ -183,7 +183,6 @@ export default defineType({
         layout: "radio",
         direction: "horizontal",
       },
-      readOnly: true,
     }),
     defineField({
       name: "freePlanStatus",
