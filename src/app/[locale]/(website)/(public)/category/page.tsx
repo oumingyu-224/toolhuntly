@@ -131,13 +131,12 @@ export default async function CategoryIndexPage() {
         <aside className="lg:w-56 lg:shrink-0">
           <nav className="sticky top-24 flex flex-row gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0">
             {groups.map((group) => {
-              const groupId = slugifyId(group.name || "");
               const Icon = getIconForGroup(group.name || "");
               const iconColor = getColorForGroup(group.name || "");
               return (
                 <Link
                   key={group._id}
-                  href={`/category#${groupId}`}
+                  href={`/group/${group.slug?.current ?? ""}`}
                   className="group flex shrink-0 items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:rounded-lg"
                 >
                   <Icon className={`h-5 w-5 shrink-0 ${iconColor}`} />
@@ -157,7 +156,7 @@ export default async function CategoryIndexPage() {
             return (
               <section key={group._id} id={groupId} className="scroll-mt-24">
                 <Link
-                  href={`/category#${groupId}`}
+                  href={`/group/${group.slug?.current ?? ""}`}
                   className="mb-4 flex items-center gap-3 border-b pb-3 transition-colors hover:text-foreground/80"
                 >
                   <Icon className={`h-6 w-6 ${iconColor}`} />

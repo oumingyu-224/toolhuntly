@@ -164,6 +164,10 @@ export const groupListQuery = groq`*[_type=="group"] | order(priority desc, _cre
   ${groupFields}
 }`;
 
+export const groupQuery = groq`*[_type=="group" && slug.current == $slug][0] {
+  ${groupFields}
+}`;
+
 export const categoryListQuery = defineQuery(`*[_type == "category" && defined(slug.current)] 
   | order(priority desc) {
     ${categoryFields}

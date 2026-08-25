@@ -54,6 +54,7 @@ export async function getItemInfoById(id: string) {
 export async function getItems({
   collection,
   category,
+  group,
   tag,
   sortKey,
   reverse,
@@ -64,6 +65,7 @@ export async function getItems({
 }: {
   collection?: string;
   category?: string;
+  group?: string;
   tag?: string;
   sortKey?: string;
   reverse?: boolean;
@@ -77,6 +79,8 @@ export async function getItems({
     collection,
     "category",
     category,
+    "group",
+    group,
     "tag",
     tag,
     "hasSponsorItem",
@@ -89,6 +93,7 @@ export async function getItems({
   const { countQuery, dataQuery } = buildQuery(
     collection,
     category,
+    group,
     tag,
     sortKey,
     reverse,
@@ -110,6 +115,7 @@ export async function getItems({
 const buildQuery = (
   collection?: string,
   category?: string,
+  group?: string,
   tag?: string,
   sortKey?: string,
   reverse?: boolean,
@@ -138,6 +144,9 @@ const buildQuery = (
   const categoryCondition = category
     ? `&& references(*[_type == "category" && slug.current == "${category}"]._id)`
     : "";
+  const groupCondition = group
+    ? `&& references(*[_type == "category" && references(*[_type == "group" && slug.current == "${group}"]._id)]._id)`
+    : "";
   // condition for single tag
   // const tagCondition = tag ? `&& "${tag}" in tags[]->slug.current` : "";
   // condition for multiple tags
@@ -153,11 +162,11 @@ const buildQuery = (
   // @sanity-typegen-ignore
   const countQuery = `count(*[_type == "item" && defined(slug.current) 
       && defined(publishDate) && forceHidden != true && sponsor != true
-      ${queryCondition} ${collectionCondition} ${categoryCondition} ${tagCondition}])`;
+      ${queryCondition} ${collectionCondition} ${categoryCondition} ${groupCondition} ${tagCondition}])`;
   // @sanity-typegen-ignore
   const dataQuery = `*[_type == "item" && defined(slug.current) 
       && defined(publishDate) && forceHidden != true && sponsor != true
-      ${queryCondition} ${collectionCondition} ${categoryCondition} ${tagCondition}] ${sortOrder} 
+      ${queryCondition} ${collectionCondition} ${categoryCondition} ${groupCondition} ${tagCondition}] ${sortOrder} 
       [${offsetStart}...${offsetEnd}] {
       ${itemSimpleFields}
     }`;
