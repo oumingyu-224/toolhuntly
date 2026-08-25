@@ -86,6 +86,13 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "group",
+      title: "Group",
+      type: "reference",
+      to: [{ type: "group" }],
+      description: "The group of the item belongs to",
+    }),
+    defineField({
       name: "tags",
       title: "Tags",
       description: "The tags of the item, may have multiple tags",
