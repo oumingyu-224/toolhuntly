@@ -137,7 +137,7 @@ export default async function CategoryIndexPage() {
               return (
                 <Link
                   key={group._id}
-                  href={`#${groupId}`}
+                  href={`/category#${groupId}`}
                   className="group flex shrink-0 items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:rounded-lg"
                 >
                   <Icon className={`h-5 w-5 shrink-0 ${iconColor}`} />
@@ -156,12 +156,15 @@ export default async function CategoryIndexPage() {
             const iconColor = getColorForGroup(group.name || "");
             return (
               <section key={group._id} id={groupId} className="scroll-mt-24">
-                <div className="mb-4 flex items-center gap-3 border-b pb-3">
+                <Link
+                  href={`/category#${groupId}`}
+                  className="mb-4 flex items-center gap-3 border-b pb-3 transition-colors hover:text-foreground/80"
+                >
                   <Icon className={`h-6 w-6 ${iconColor}`} />
                   <h2 className="text-xl font-bold md:text-2xl">
                     {group.name}
                   </h2>
-                </div>
+                </Link>
 
                 {group.categories.length > 0 ? (
                   <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 md:grid-cols-3">
