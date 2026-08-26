@@ -429,7 +429,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
         </div>
 
         {/* Right Sidebar */}
-        <aside className="flex flex-col gap-6">
+        <aside className="flex h-fit flex-col gap-6 lg:sticky lg:top-24">
           {/* Sponsor */}
           {sponsorItem && <SponsorItemCard item={sponsorItem} />}
 
