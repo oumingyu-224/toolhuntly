@@ -1,4 +1,5 @@
 import SponsorItemCard from "@/components/item/item-card-sponsor";
+import ItemShareActions from "@/components/item/item-share-actions";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -24,16 +25,11 @@ import type { ItemFullInfo } from "@/types";
 import {
   ArrowLeft,
   Check,
-  Copy,
   GlobeIcon,
-  Heart,
   HomeIcon,
   Link as LinkIcon,
   MessageCircle,
   Quote,
-  Share2,
-  Twitter,
-  Flag,
 } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -489,41 +485,8 @@ export default async function ItemPage({ params }: ItemPageProps) {
             </Button>
           </div>
 
-          {/* Like / Report */}
-          <div className="rounded-lg border">
-            <div className="flex border-b">
-              <button className="flex flex-1 items-center justify-center gap-2 py-3 text-sm hover:bg-muted/50">
-                <Heart className="h-4 w-4" />
-                Like
-              </button>
-              <button className="flex flex-1 items-center justify-center gap-2 border-l py-3 text-sm hover:bg-muted/50">
-                <Flag className="h-4 w-4" />
-                Report
-              </button>
-            </div>
-            <div className="flex">
-              <button className="flex flex-1 items-center justify-center gap-2 py-3 text-sm hover:bg-muted/50">
-                <Copy className="h-4 w-4" />
-                Copy Link
-              </button>
-              <div className="flex flex-1 items-center justify-center gap-2 border-l py-3 text-sm">
-                <span className="text-xs text-muted-foreground">Share</span>
-                <div className="flex items-center gap-1">
-                  <Link
-                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(itemLink)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded p-1 hover:bg-muted"
-                  >
-                    <Twitter className="h-3 w-3" />
-                  </Link>
-                  <button className="rounded p-1 hover:bg-muted">
-                    <Share2 className="h-3 w-3" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Copy Link + Share */}
+          <ItemShareActions itemLink={itemLink} />
         </aside>
       </div>
     </div>
