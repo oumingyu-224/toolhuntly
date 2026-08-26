@@ -149,102 +149,132 @@ export default async function ItemPage({ params }: ItemPageProps) {
         </nav>
       </div>
 
-      {/* Header section */}
-      <div className="rounded-xl border bg-card">
-        <div className="p-6">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-            {/* Left: icon + name + tags + platforms */}
-            <div className="flex-1">
-              <div className="flex items-center gap-4">
-                {iconProps && (
-                  <Image
-                    src={iconProps?.src}
-                    alt={item.icon.alt || `icon of ${item.name}`}
-                    title={item.icon.alt || `icon of ${item.name}`}
-                    width={48}
-                    height={48}
-                    className="rounded-lg border object-cover image-scale"
-                    {...(iconBlurDataURL && {
-                      placeholder: "blur",
-                      blurDataURL: iconBlurDataURL,
-                    })}
-                  />
-                )}
-                <h1 className="text-3xl font-bold tracking-tight">
-                  {item.name}
-                </h1>
-              </div>
-
-              {/* Plan label + platforms */}
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                {item.planLabel && (
-                  <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium text-foreground">
-                    {item.planLabel}
-                  </span>
-                )}
-                {item.platforms?.map((platform) => (
-                  <span
-                    key={platform}
-                    className="inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground"
-                  >
-                    {platform}
-                  </span>
-                ))}
-              </div>
-
-              <p className="mt-4 text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
-            </div>
-
-            {/* Right: action buttons */}
-            <div className="flex shrink-0 items-center gap-2">
-              <Button variant="outline" className="gap-2">
-                <LinkIcon className="h-4 w-4" />
-                Claim
-              </Button>
-              <Button asChild className="gap-2">
-                <Link
-                  href={itemLink}
-                  target="_blank"
-                  prefetch={false}
-                  className="flex items-center"
-                >
-                  <GlobeIcon className="h-4 w-4" />
-                  Visit
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Preview image */}
-        {imageProps && (
-          <div className="relative border-t bg-muted/30 p-4">
-            <div className="mx-auto max-w-5xl overflow-hidden rounded-lg border bg-background shadow-lg">
-              <div className="relative aspect-video w-full">
-                <Image
-                  src={imageProps.src}
-                  alt={item.image?.alt || `image for ${item.name}`}
-                  title={item.image?.alt || `image for ${item.name}`}
-                  loading="eager"
-                  fill
-                  className="object-cover image-scale"
-                  {...(imageBlurDataURL && {
-                    placeholder: "blur",
-                    blurDataURL: imageBlurDataURL,
-                  })}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Content + Sidebar */}
+      {/* 整体左右两列布局 */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
-        {/* Main content */}
+        {/* 左列：Header卡片 + 全部正文 */}
         <div className="flex flex-col gap-10">
+          {/* Header section */}
+          <div className="rounded-xl border bg-card">
+            <div className="p-6">
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                {/* Left: icon + name + tags + platforms */}
+                <div className="flex-1">
+                  <div className="flex items-center gap-4">
+                    {iconProps && (
+                      <Image
+                        src={iconProps?.src}
+                        alt={item.icon.alt || `icon of ${item.name}`}
+                        title={item.icon.alt || `icon of ${item.name}`}
+                        width={48}
+                        height={48}
+                        className="rounded-lg border object-cover image-scale"
+                        {...(iconBlurDataURL && {
+                          placeholder: "blur",
+                          blurDataURL: iconBlurDataURL,
+                        })}
+                      />
+                    )}
+                    <h1 className="text-3xl font-bold tracking-tight">
+                      {item.name}
+                    </h1>
+                  </div>
+
+                  {/* Plan label + platforms */}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    {item.planLabel && (
+                      <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium text-foreground">
+                        {item.planLabel}
+                      </span>
+                    )}
+                    {item.platforms?.map((platform) => (
+                      <span
+                        key={platform}
+                        className="inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs text-muted-foreground"
+                      >
+                        {platform}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                {/* Right: action buttons */}
+                <div className="flex shrink-0 items-center gap-2">
+                  <Button variant="outline" className="gap-2">
+                    <LinkIcon className="h-4 w-4" />
+                    Claim
+                  </Button>
+                  <Button asChild className="gap-2">
+                    <Link
+                      href={itemLink}
+                      target="_blank"
+                      prefetch={false}
+                      className="flex items-center"
+                    >
+                      <GlobeIcon className="h-4 w-4" />
+                      Visit
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Preview image with hover effect */}
+            {imageProps && (
+              <div className="group relative border-t bg-muted/30 p-4">
+                <div className="mx-auto overflow-hidden rounded-lg border bg-background shadow-lg">
+                  <div className="relative aspect-video w-full">
+                    <Image
+                      src={imageProps.src}
+                      alt={item.image?.alt || `image for ${item.name}`}
+                      title={item.image?.alt || `image for ${item.name}`}
+                      loading="eager"
+                      fill
+                      className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                      {...(imageBlurDataURL && {
+                        placeholder: "blur",
+                        blurDataURL: imageBlurDataURL,
+                      })}
+                    />
+                    {/* Hover 遮罩 + Visit 按钮 */}
+                    <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/40">
+                      <Link
+                        href={itemLink}
+                        target="_blank"
+                        prefetch={false}
+                        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white px-5 py-2.5 text-sm font-medium text-foreground opacity-0 shadow-lg backdrop-blur-sm transition-all duration-300 hover:bg-white/90 group-hover:opacity-100"
+                      >
+                        <GlobeIcon className="h-4 w-4" />
+                        Visit website
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Categories */}
+          {categories.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Categories
+              </span>
+              {categories.map((cat) => (
+                <Link
+                  key={cat._id}
+                  href={`/category/${cat.slug.current}`}
+                  className="rounded-full border px-3 py-1 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  #{cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
           {/* What is this tool? */}
           {item.whatIs && (
             <section className="space-y-4">
@@ -428,7 +458,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
           )}
         </div>
 
-        {/* Right Sidebar */}
+        {/* 右列：sticky 置顶侧栏 */}
         <aside className="flex h-fit flex-col gap-6 lg:sticky lg:top-24">
           {/* Sponsor */}
           {sponsorItem && <SponsorItemCard item={sponsorItem} />}
