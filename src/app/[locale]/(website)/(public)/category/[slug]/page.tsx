@@ -290,7 +290,7 @@ export default async function CategoryPage({
 
       {/* 5. Horizontal Category Filter Bar */}
       <ScrollArea className="w-full pb-2">
-        <ul className="flex gap-x-2">
+        <ul className="flex w-max gap-x-2">
           <li>
             <Link
               href="/category"
