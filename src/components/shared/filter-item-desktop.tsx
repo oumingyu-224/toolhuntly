@@ -21,7 +21,7 @@ export default function FilterItemDesktop({
         asChild
         variant={active ? "default" : "outline"}
         size="sm"
-        className="px-3 py-3"
+        className="px-3 py-3 whitespace-nowrap"
       >
         <Link href={href} prefetch={false} onClick={clickAction}>
           <li>
