@@ -215,7 +215,7 @@ export default async function GroupPage({
 
       {/* 4. Sub-category filter bar */}
       <ScrollArea className="w-full pb-2">
-        <ul className="flex gap-x-2">
+        <ul className="flex w-max gap-x-2">
           <li>
             <Link
               href={`/group/${params.slug}`}
