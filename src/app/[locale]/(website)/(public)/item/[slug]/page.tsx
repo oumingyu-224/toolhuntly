@@ -52,8 +52,9 @@ export async function generateMetadata({
   }
 
   const imageProps = item?.image ? urlForImage(item?.image) : null;
+  const seoTitle = (item as { seoTitle?: string | null }).seoTitle;
   return constructMetadata({
-    title: `${item.name}`,
+    title: `${seoTitle || item.name}`,
     description: item.description,
     canonicalUrl: `${siteConfig.url}/item/${params.slug}`,
     image: imageProps?.src,

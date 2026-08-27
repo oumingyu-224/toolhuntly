@@ -26,6 +26,13 @@ export default defineType({
       description: "工具名称，必填",
     }),
     defineField({
+      name: "seoTitle",
+      title: "SEO Title",
+      type: "string",
+      description:
+        "SEO 标题，决定浏览器标签页标题；留空则默认使用工具名称 Name",
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",

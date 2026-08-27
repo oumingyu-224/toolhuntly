@@ -41,6 +41,7 @@ export const itemSimpleFields = /* groq */ `
   _id,
   _createdAt,
   name,
+  seoTitle,
   slug,
   description,
   link,
