@@ -88,6 +88,7 @@ Sanity 后台（item 文档）
 
 | md 字段 | Sanity 字段 | 类型 |
 |---------|------------|------|
+| 标题后 **link:** 行 | link | string（提取 URL，新建/更新均写入） |
 | 0. categories（category 子块） | categories | reference[]（按名称查 category 文档 _id） |
 | 1. description | description | string |
 | 2. planLabel | planLabel | string（单选枚举） |
@@ -114,13 +115,14 @@ node --use-env-proxy ./node_modules/.bin/../tsx/dist/cli.mjs scripts/import-item
 - 只解析 item.md 并生成 `item-import.json`，**不会写入 Sanity**
 - 检查终端输出的每个工具的 `categories / coreFeatures / useCases / faqs` 数量是否与 md 一致
 - 打开 `item-import.json` 抽查内容是否完整（尤其 `quickFacts` 三个值不能为空、`whatIs` 多段是否保留、`coreFeatures` 标题是否保留编号）
+- 检查每个工具的 `link` 是否为对应官网 URL；为空说明 md 里缺 `**link:**` 行，需补齐后再导入
 
 ### 3. 正式导入
 ```bash
 node --use-env-proxy ./node_modules/.bin/../tsx/dist/cli.mjs scripts/import-item-from-md.ts
 ```
 - 按工具名（name）查找已有文档：
-  - **已存在** → 只更新内容字段（description/categories/planLabel/platforms/whatIs/coreFeatures/useCases/quickFacts/faqs），**不动 name、slug、link、status、sponsor 等字段**
+  - **已存在** → 只更新内容字段（link/description/categories/planLabel/platforms/whatIs/coreFeatures/useCases/quickFacts/faqs），**不动 name、slug、status、sponsor 等字段**
   - **不存在** → 创建新文档，name 用一级标题，slug 自动生成
 - `[warn] category not found` 只表示该分类引用未关联，工具本身照常创建
 
@@ -161,7 +163,7 @@ node --use-env-proxy ./node_modules/.bin/../tsx/dist/cli.mjs scripts/import-item
 3. **解析必须对照官方数据结构**：动手前先看 `sanity.types.ts` 的 `Item` / `ItemQueryResult` 与 `src/sanity/schemas/documents/directory/item.ts`，字段结构以官方定义为准。
 4. **禁止用 `\z` 当字符串结尾**：字符串结尾一律用 `(?![\s\S])`。
 5. **`new RegExp` 模板字符串必须用双反斜杠**：字符串里 `[\s\S]` 必须写成 `[\\s\\S]`，否则 JS 会丢弃反斜杠变成 `[sS]`，正则失效（历史教训：quickFacts 全部解析为空）。
-6. **永不修改 name / slug / status / sponsor 字段**：同名工具只更新内容字段，工具名、链接、状态（pricePlan/freePlanStatus 等）、赞助字段由用户掌控。
+6. **永不修改 name / slug / status / sponsor 字段**：同名工具只更新内容字段，工具名、状态（pricePlan/freePlanStatus 等）、赞助字段由用户掌控；`link` 例外——以 item.md 为准随内容字段写入（新建与同名更新均覆盖），所以 md 必须为每个工具写准 link 行。
 7. **md 格式必须规范**：
    - 工具标题必须是一级标题 `# 名称`（`##` 及更深层级不会被识别为工具）
    - 字段标记必须是 `N. 字段名`（如 `1. description`），前面的 `#` 数量不限

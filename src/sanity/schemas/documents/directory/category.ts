@@ -30,6 +30,13 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: "group",
+      title: "Group",
+      type: "reference",
+      to: [{ type: "group" }],
+      description: "The group of the category belongs to",
+    }),
+    defineField({
       name: "whatIs",
       title: "What is",
       description: "What is this category? (e.g. What is AI Video Editor?)",
@@ -104,13 +111,6 @@ export default defineType({
           ],
         },
       ],
-    }),
-    defineField({
-      name: "group",
-      title: "Group",
-      type: "reference",
-      to: [{ type: "group" }],
-      description: "The group of the category belongs to",
     }),
     defineField({
       name: "priority",

@@ -22,6 +22,7 @@ const JSON_OUTPUT = path.join(process.cwd(), "item-import.json");
 
 interface ParsedItem {
   name: string;
+  link: string;
   categories: string[];
   description: string;
   planLabel: string;
@@ -151,12 +152,19 @@ function parseFaqs(content: string): { question: string; answer: string }[] {
   return faqs;
 }
 
+/** 解析头部 "**link:** [url](url)" 行，提取 URL */
+function parseLink(body: string): string {
+  const m = body.match(/\*\*link:\*\*[\s\S]*?(https?:\/\/[^\s)\]"']+)/);
+  return m ? m[1].trim() : "";
+}
+
 /** 解析单个工具 */
 function parseItem(name: string, body: string): ParsedItem {
   const fields = parseFieldBlocks(body);
 
   return {
     name,
+    link: parseLink(body),
     categories: parseCategories(fields.categories ?? ""),
     description: fields.description ?? "",
     planLabel: parseBoldValue(fields.planLabel ?? ""),
@@ -248,6 +256,7 @@ async function main() {
 
     // 项目标准写法：_key 只需在数组内唯一，用 index 作为 _key（参照 src/actions/edit.ts）
     const contentFields = {
+      link: item.link || null,
       description: item.description || null,
       categories: categoryRefs,
       tags: tagRefs,

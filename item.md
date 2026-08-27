@@ -1,4 +1,6 @@
-# DeepL
+# Higgsfield
+
+**link:** [https://higgsfield.ai/](https://higgsfield.ai/)
 
 ---
 
@@ -6,368 +8,28 @@
 
 **group**
 
-* **AI Translation** — Core platform focused on AI-powered translation and multilingual communication.
-* **AI Writing** — Provides AI-assisted writing improvement for clearer and more effective content.
-* **Developer Tools** — Offers APIs for integrating language AI into applications and workflows.
+* **AI Video Generator** — Higgsfield focuses on generating, editing, and controlling cinematic AI video.
+* **AI Image Generator** — Provides professional image generation, editing, and visual development workflows.
+* **AI Creative Tools** — Combines multiple generative models and production tools into a unified creative workspace.
 
 **category**
 
-* **Machine Translation** — DeepL's primary use is translating text between supported languages.
-* **Document Translation** — Supports translation of documents while preserving their original structure and formatting.
-* **Writing Assistant** — Helps users improve wording, grammar, style, and tone.
-* **Translation API** — Allows developers to integrate translation capabilities into software and services.
+* **AI Video Generator** — Supports text-to-video, image-to-video, video editing, motion control, and cinematic production.
+* **AI Image Generator** — Generates commercial-ready images with multiple image models and editing tools.
+* **AI Video Editor** — Enables users to modify footage, replace elements, and create visual variations with AI.
+* **AI Creative Suite** — Combines image, video, audio, editing, workflow automation, and creative production tools.
 
 ---
 
 ## 1. description
 
-AI translation platform for text, documents, voice, and multilingual communication.
+AI creative platform for generating cinematic images, videos, ads, and visual content.
 
 ---
 
 ## 2. planLabel
 
 **Freemium**
-
----
-
-## 3. platforms
-
-**Web, API, iOS, Android, Windows, macOS**
-
----
-
-## 4. whatIs
-
-DeepL is an AI-powered language platform for translating text, documents, and spoken content across multiple languages. It also provides writing assistance and developer APIs for individuals, professionals, businesses, and software teams.
-
----
-
-## 5. coreFeatures
-
-**01. AI Text Translation**
-Translates written content between supported languages with automatic language detection and AI-generated translations.
-
-**02. Document Translation**
-Translates supported documents while retaining much of the original formatting and layout, making it useful for professional and business files.
-
-**03. Writing Enhancement**
-DeepL Write helps improve wording, grammar, spelling, style, and tone for clearer written communication.
-
-**04. Voice Translation**
-Provides AI-assisted translation for spoken communication, including conversations and meetings.
-
-**05. Translation API**
-Developers can integrate DeepL translation capabilities into websites, applications, software products, and automated workflows.
-
-**06. Translation Customization**
-Tools such as glossaries and language customization options help maintain consistent terminology across professional and business content.
-
----
-
-## 6. useCases
-
-**International Communication**
-Users can translate emails, messages, articles, and other content when communicating across different languages.
-
-**Business Localization**
-Companies can use DeepL to translate business documents and multilingual content for international operations and customers.
-
-**Developer Integrations**
-Developers can connect the API to applications and automated workflows that require translation or multilingual content processing.
-
-**Professional Writing**
-Writers, marketers, and business professionals can use DeepL Write to improve wording, tone, grammar, and readability.
-
----
-
-## 7. quickFacts
-
-**domainRating:** DR 92 (estimated)
-
-**platforms:** Web, API, iOS, Android, Windows, macOS
-
-**languages:** English, German, French, Spanish, Chinese, Japanese, Korean, Italian, Portuguese, Dutch, Polish, Russian, Ukrainian, Arabic, Vietnamese, and more
-
----
-
-## 8. faqs
-
-**question:** Is DeepL free to use?
-**answer:** DeepL offers a free version of its translation service. Paid plans provide additional capabilities, higher limits, and business-oriented features. The exact limits depend on the product and subscription plan.
-
-**question:** Does DeepL offer a free API?
-**answer:** DeepL has historically provided a free API option with a monthly character allowance. Availability and conditions for API plans can change, so developers should check the current API offering before relying on a specific free quota.
-
-**question:** Can DeepL be integrated through an API?
-**answer:** Yes. DeepL provides an API for developers who want to integrate translation into applications, websites, and automated workflows. It is suitable for use cases such as localization, multilingual content processing, and translation services.
-
-**question:** How accurate is DeepL?
-**answer:** DeepL is designed to provide high-quality machine translation, but accuracy varies by language pair, context, terminology, and content type. There is no single accuracy percentage that applies to every translation. Specialized content may require human review.
-
-**question:** Is DeepL suitable for sensitive business content?
-**answer:** DeepL provides privacy and security controls that vary by product and plan. Business and enterprise offerings provide stronger administrative and data-protection capabilities than basic consumer usage. Organizations handling sensitive information should select a plan that matches their security requirements.
-
-
-
-
-# Doubao
-
----
-
-## 0. categories
-
-**group**
-
-* **AI Chatbot** — Doubao is primarily an AI assistant for conversation, question answering, research, and everyday tasks.
-* **AI Content Creation** — It provides text, image, video, music, and other generative capabilities for creative work.
-* **AI Productivity** — Its search, summarization, writing, translation, and coding features support study and professional workflows.
-
-**category**
-
-* **AI Chatbot** — Core product centered on conversational AI and general-purpose assistance.
-* **AI Image Generator** — Supports AI-assisted image creation and visual content generation.
-* **AI Video Generator** — Provides AI video creation capabilities for creative content.
-* **AI Writing** — Helps users write, rewrite, summarize, and improve different types of content.
-
----
-
-## 1. description
-
-AI assistant for chat, search, writing, coding, image, video, and creative tasks.
-
----
-
-## 2. planLabel
-
-**Free**
-
----
-
-## 3. platforms
-
-**Web, iOS, Android, Windows, macOS**
-
----
-
-## 4. whatIs
-
-Doubao is an AI assistant developed by ByteDance that provides conversational AI, information retrieval, writing, coding, translation, and creative generation features. It is designed for general users, students, creators, and professionals who want an AI assistant for everyday tasks and productivity.
-
----
-
-## 5. coreFeatures
-
-**01. AI Chat and Q&A**
-Doubao can answer questions, explain concepts, provide suggestions, and maintain conversational context across a wide range of everyday topics.
-
-**02. AI Search and Research**
-Its AI search capabilities can retrieve and summarize information from the web, helping users research topics and quickly identify relevant information.
-
-**03. Writing and Content Creation**
-Doubao can generate and improve articles, essays, copywriting, summaries, and other forms of written content across different styles and scenarios.
-
-**04. Multimodal Image and Video Generation**
-Users can create visual content from prompts and reference materials, including AI-generated images and video content.
-
-**05. Voice Interaction**
-Doubao supports voice input and natural voice output, allowing users to interact with the assistant through spoken conversations.
-
-**06. AI Coding Assistance**
-Doubao can assist with programming tasks such as generating code, explaining code, analyzing problems, and supporting development workflows.
-
----
-
-## 6. useCases
-
-**Students and Learning**
-Students can use Doubao to explain difficult concepts, summarize information, brainstorm ideas, and assist with writing and research tasks.
-
-**Content Creation**
-Creators can use Doubao for copywriting, brainstorming, image generation, video creation, and other creative workflows.
-
-**Work and Productivity**
-Professionals can use it to draft documents, summarize information, translate content, research topics, and speed up routine knowledge work.
-
-**Developers**
-Developers can use Doubao for coding assistance, technical explanations, and model-based application development through the broader Doubao model ecosystem.
-
----
-
-## 7. quickFacts
-
-**domainRating:** DR 90 (estimated)
-
-**platforms:** Web, iOS, Android, Windows, macOS
-
-**languages:** Chinese
-
----
-
-## 8. faqs
-
-**question:** Is Doubao free to use?
-**answer:** Doubao is available as a free AI assistant for general users. Many of its consumer-facing chat, writing, search, and creative functions can be accessed without a traditional paid subscription. Availability and usage limits may vary by feature and account.
-
-**question:** Does Doubao provide an API?
-**answer:** Doubao models are available to developers through ByteDance's cloud AI infrastructure and model platform. Developers can access model capabilities through APIs for tasks such as chat, vision, image generation, video generation, and other AI workloads. API usage and pricing are separate from the standard Doubao consumer experience.
-
-**question:** How accurate is Doubao?
-**answer:** Doubao can provide useful answers across general knowledge, writing, analysis, and research tasks, but its responses are not guaranteed to be correct. The official product information explicitly notes that generated content may contain inaccuracies. Important facts should therefore be verified independently, especially for professional or high-stakes use.
-
-**question:** Can Doubao generate images and videos?
-**answer:** Yes. Doubao includes AI creative capabilities for generating visual content, including images and videos. Users can provide natural-language instructions and, for some creative workflows, reference images or videos. Specific generation capabilities can vary by feature and product version.
-
-**question:** Is Doubao private and secure?
-**answer:** Doubao's privacy policy explains that the service may process information provided during use, including text, voice input, interaction data, and feedback. The platform provides privacy controls for features such as memory and explains how certain AI creation data is processed. Users should review the applicable privacy settings and policies before submitting sensitive information.
-
-
-
-
-# ChatGPT
-
----
-
-## 0. categories
-
-**group**
-
-* **AI Chatbot** — ChatGPT is primarily a conversational AI assistant for questions, reasoning, writing, research, and everyday tasks.
-* **AI Productivity** — It combines writing, analysis, search, file processing, and workspace features into a general-purpose productivity platform.
-* **Developer Tools** — ChatGPT provides coding assistance and connects with developer-oriented workflows and tools.
-
-**category**
-
-* **AI Chatbot** — Core product centered on conversational interaction and general-purpose AI assistance.
-* **AI Writing** — Supports drafting, rewriting, summarization, editing, and other writing tasks.
-* **AI Coding** — Helps developers write, understand, debug, and improve code.
-* **AI Research** — Provides web search, deep research, file analysis, and information synthesis.
-
----
-
-## 1. description
-
-General-purpose AI assistant for writing, coding, research, analysis, and creative tasks.
-
----
-
-## 2. planLabel
-
-**Freemium**
-
----
-
-## 3. platforms
-
-**Web, API, iOS, Android, Windows, macOS**
-
----
-
-## 4. whatIs
-
-ChatGPT is a general-purpose AI assistant that can answer questions, explain concepts, write and edit content, analyze information, translate languages, write code, and support creative workflows. It also provides tools such as web search, file and image analysis, image generation, voice interaction, data analysis, memory, and projects, depending on the user's plan and available features.
-
-It is designed for individual users, professionals, students, creators, developers, and organizations that need an AI assistant for knowledge work and everyday tasks.
-
----
-
-## 5. coreFeatures
-
-**01. Conversational AI**
-ChatGPT can answer questions, explain complex concepts, solve problems, brainstorm ideas, and maintain conversational context across a chat.
-
-**02. Writing and Editing**
-It can draft, rewrite, summarize, translate, and improve content for different purposes, formats, and audiences.
-
-**03. Web Search and Research**
-ChatGPT can search the web for current information and perform deeper research tasks that combine information from multiple sources.
-
-**04. File and Data Analysis**
-Users can upload files and images for analysis, summarization, extraction, and transformation. Data analysis can also be used to process structured data and create visualizations.
-
-**05. Image Generation and Multimodal Work**
-ChatGPT can understand images and generate visual content from natural-language instructions, with capabilities varying by plan and feature availability.
-
-**06. Coding Assistance**
-ChatGPT can generate code, explain programming concepts, debug errors, review implementations, and assist with software development workflows.
-
----
-
-## 6. useCases
-
-**Writing and Content Creation**
-Writers, marketers, and professionals can use ChatGPT to draft articles, emails, reports, outlines, and other content, then refine the results through conversation.
-
-**Research and Learning**
-Students and researchers can use ChatGPT to explain difficult concepts, summarize materials, investigate topics, and synthesize information from web searches and uploaded files.
-
-**Software Development**
-Developers can use ChatGPT for code generation, debugging, technical explanations, code review, and development-related problem solving.
-
-**Business Productivity**
-Teams can use ChatGPT for document analysis, data processing, brainstorming, meeting-related tasks, research, and recurring knowledge-work workflows.
-
----
-
-## 7. quickFacts
-
-**domainRating:** DR 94 (estimated)
-
-**platforms:** Web, API, iOS, Android, Windows, macOS
-
-**languages:** English, Chinese, Spanish, French, German, Japanese, Korean, Portuguese, Italian, Dutch, Russian, Arabic, and many other languages
-
----
-
-## 8. faqs
-
-**question:** Is ChatGPT free to use?
-**answer:** ChatGPT has a free tier that provides access to core chat capabilities and a selection of tools. Paid plans provide higher usage limits and access to additional models and features. Available limits and features can change over time and vary by subscription.
-
-**question:** What is included in the free version of ChatGPT?
-**answer:** Free users can access general chat along with features such as web search, file and image uploads, data analysis, image generation, and access to existing GPTs, subject to feature-specific usage limits. Free-tier limits are separate for some tools. The exact models and limits can change as OpenAI updates the service.
-
-**question:** Does ChatGPT have an API?
-**answer:** Yes. OpenAI provides a separate API platform for developers who want to integrate its AI models into applications, websites, and automated workflows. ChatGPT subscriptions and API usage are billed separately. The API supports a broader range of model-based development use cases than the ChatGPT consumer application alone.
-
-**question:** How accurate is ChatGPT?
-**answer:** ChatGPT can produce accurate and useful answers across many tasks, but it can still generate incorrect or misleading information. Accuracy depends on the model, prompt, available context, and whether current information is required. Important factual, legal, financial, medical, or technical information should be independently verified.
-
-**question:** Is ChatGPT private and secure?
-**answer:** ChatGPT provides privacy controls that vary by account type and plan. Users can manage settings related to chat history, data use, memory, and temporary conversations. Business and Enterprise plans provide additional security, administration, and data-protection controls for organizational use.
-
-
-
-# Midjourney
-
----
-
-## 0. categories
-
-**group**
-
-* **AI Image Generation** — Midjourney specializes in creating high-quality images from natural-language prompts and reference images.
-* **AI Video Generation** — Midjourney can transform generated or uploaded images into short AI-generated videos.
-* **AI Creative Tools** — Its web-based creation and editing workflow supports iterative visual exploration and refinement.
-
-**category**
-
-* **AI Image Generator** — Core product focused on generating images from text prompts and visual references.
-* **AI Video Generator** — Converts images into short animated video sequences.
-* **AI Image Editor** — Provides tools for remixing, inpainting, panning, zooming, cropping, and adjusting generated or uploaded images.
-* **AI Art Generator** — Strongly oriented toward artistic, stylized, and visually expressive image creation.
-
----
-
-## 1. description
-
-AI image and video generator for creating, editing, and exploring visual content.
-
----
-
-## 2. planLabel
-
-**Paid**
 
 ---
 
@@ -379,81 +41,82 @@ AI image and video generator for creating, editing, and exploring visual content
 
 ## 4. whatIs
 
-Midjourney is an AI creative platform focused on generating and editing images and videos from natural-language prompts. It is widely used by artists, designers, creators, marketers, and other visual professionals for concept development and visual production.
+Higgsfield is an AI-native creative platform for generating and editing images, videos, and other visual content. It brings multiple leading AI models into a single workspace and adds tools for cinematic camera control, character consistency, image editing, advertising, and creative workflows.
 
-The platform is available through its website and Discord, with web-based tools providing an integrated creation, organization, exploration, and editing workflow.
+It is designed for filmmakers, creators, marketing teams, advertisers, designers, and other professionals producing visual content.
 
 ---
 
 ## 5. coreFeatures
 
-**01. AI Image Generation**
-Generates detailed images from text prompts with controls for aspect ratio, stylization, variety, and other visual characteristics.
+**01. AI Video Generation**
+Higgsfield provides access to multiple AI video models for creating cinematic videos from text prompts, images, and reference material. Users can control motion, camera direction, scenes, and other visual elements.
 
-**02. Image-to-Video Generation**
-Turns a starting image into a short animated video sequence, with options for motion and video resolution depending on the subscription plan.
+**02. AI Image Generation**
+Users can generate professional images using multiple leading image models within the same workspace. The platform supports different aspect ratios, high-resolution output, and visual references.
 
-**03. AI Image Editor**
-Provides editing tools such as Remix, inpainting, Pan, and Zoom Out for refining or extending images.
+**03. Cinematic Camera Control**
+Cinema Studio provides controls for camera movement, lenses, focal lengths, lighting, and other filmmaking parameters to create more deliberate cinematic shots.
 
-**04. Image Reference and Personalization**
-Users can incorporate reference images and personalization features to guide the visual direction and make generated results more consistent with their preferences.
+**04. Character Consistency**
+Soul ID helps maintain a consistent character identity across multiple generated images and video clips, making it suitable for storyboards, campaigns, and recurring characters.
 
-**05. Creative Exploration**
-The Explore and Organize interfaces help users discover, search, sort, and manage generated images and videos while examining prompts and creation details.
+**05. AI Video Editing**
+Users can upload existing footage and use AI to modify styles, replace objects, adjust scenes, and create variations without recreating the entire video.
 
-**06. Discord Creation Workflow**
-Users can generate images and videos through the Midjourney Bot in Discord, providing an alternative workflow alongside the web application.
+**06. Multi-Model Creative Workflow**
+Higgsfield integrates multiple image and video models into one workspace, allowing creators to compare models and chain image, video, and editing steps within a single workflow.
 
 ---
 
 ## 6. useCases
 
-**Concept Art**
-Artists and designers can quickly generate visual concepts, environments, characters, and compositions during early-stage creative development.
+**Film and Pre-Production**
+Filmmakers can visualize scripts, experiment with camera setups, create storyboards, and develop cinematic scenes before production.
 
 **Marketing and Advertising**
-Marketing teams can create campaign concepts, promotional imagery, mood boards, and visual variations without producing every asset manually.
-
-**Game and Film Development**
-Creative teams can explore characters, environments, props, and visual styles during pre-production and world-building.
+Marketing teams can create product advertisements, UGC-style videos, campaign variations, and social media creatives without traditional production costs.
 
 **Content Creation**
-Creators can produce illustrations, social media visuals, thumbnails, and other original visual assets from text prompts and reference images.
+Creators can generate short-form videos, visual effects, social content, thumbnails, and other assets for platforms such as TikTok, Instagram, and YouTube.
+
+**E-commerce**
+Brands can transform product images into promotional videos and place products into different environments without arranging traditional photoshoots.
 
 ---
 
 ## 7. quickFacts
 
-**domainRating:** DR 83 (estimated)
+**domainRating:** DR 74 (estimated)
 
 **platforms:** Web, Discord
 
-**languages:** English and other languages supported through prompt input
+**languages:** English
 
 ---
 
 ## 8. faqs
 
-**question:** Is Midjourney free to use?
-**answer:** Midjourney currently requires a subscription to use its generation services. It offers Basic, Standard, Pro, and Mega plans with different GPU allocations and generation capabilities. There is no permanent free generation tier comparable to some other AI image platforms.
+**question:** Is Higgsfield free to use?
+**answer:** Higgsfield provides a free tier with limited access to selected models and generation capabilities. Paid individual and business plans provide larger monthly credit allowances, access to additional models, and higher generation capacity. Unused subscription credits generally expire at the end of the billing cycle.
 
-**question:** What are the Midjourney subscription plans?
-**answer:** Midjourney offers Basic, Standard, Pro, and Mega subscriptions. Higher tiers provide more Fast GPU time, additional concurrent jobs, and greater access to Relax Mode and video generation. Pro and Mega plans also include Stealth Mode for keeping creations private on the website.
+**question:** What can Higgsfield generate?
+**answer:** Higgsfield supports both image and video generation, along with AI-powered editing and creative workflows. Users can create cinematic scenes, product visuals, advertisements, character-based content, and social media assets. The exact models and generation options depend on the selected tool and subscription plan.
 
-**question:** Does Midjourney have an API?
-**answer:** Midjourney does not provide a general public API for directly integrating its image generation models into third-party applications. Its supported creation interfaces are the Midjourney website and Discord. Developers looking for programmatic image generation typically need to consider other AI image platforms that provide official APIs.
+**question:** Does Higgsfield have an API?
+**answer:** Higgsfield's current developer-oriented integrations include MCP and CLI-based access for compatible AI agents and development workflows. The platform also supports integrations with tools such as Claude, ChatGPT, and Cursor. This is different from a conventional public image-generation API, so developers should check the supported integration method for their specific workflow.
 
-**question:** How accurate or consistent is Midjourney?
-**answer:** Midjourney is optimized for visual quality and creative interpretation rather than factual accuracy. Results can vary between generations even with similar prompts. Reference images, personalization, prompt refinement, and repeated generation can help improve consistency for a specific visual direction.
+**question:** How accurate is Higgsfield?
+**answer:** Higgsfield does not provide a universal accuracy percentage for its generated images or videos. Output quality depends on the underlying model, prompt, reference material, motion requirements, and generation settings. Its multi-model approach allows creators to choose different models for different visual requirements.
 
-**question:** Are Midjourney creations private?
-**answer:** Midjourney is designed as an open-by-default platform, so creations can appear on the public Explore page. Stealth Mode is available only on Pro and Mega plans and can hide creations from other users on the website. Content generated in public Discord channels can still be visible to other participants even when Stealth Mode is enabled.
-
-
+**question:** Is Higgsfield suitable for professional commercial use?
+**answer:** Higgsfield is explicitly positioned toward professional creators, filmmakers, marketers, and commercial visual production. Its platform includes tools for cinematic control, consistent characters, advertising workflows, and high-resolution image generation. Commercial usage rights and restrictions depend on the applicable plan and the specific model or content being generated.
 
 
-# GitHub
+
+# Hailuo AI
+
+**link:** [https://hailuoai.video/](https://hailuoai.video/)
 
 ---
 
@@ -461,112 +124,115 @@ Creators can produce illustrations, social media visuals, thumbnails, and other 
 
 **group**
 
-* **Developer Tools** — GitHub is a comprehensive platform for hosting, managing, reviewing, and collaborating on software projects.
-* **AI Coding** — GitHub integrates AI-powered coding assistance through GitHub Copilot across development workflows.
-* **Project Management** — Provides issues, projects, discussions, code review, and collaboration tools for software teams.
+* **AI Video Generator** — Hailuo AI primarily focuses on generating and transforming video with AI.
+* **AI Image Generator** — The platform also includes AI image creation and image-based creative workflows.
+* **AI Creative Tools** — Its broader toolkit covers video, images, music, editing, and AI-assisted creative production.
 
 **category**
 
-* **Code Hosting** — Provides Git repositories, version control, pull requests, and collaboration for software projects.
-* **AI Code Assistant** — GitHub Copilot assists with code generation, editing, review, and development tasks.
-* **DevOps** — GitHub Actions and related tools support automation, testing, and continuous delivery workflows.
-* **Code Review** — Pull requests, reviews, and AI-assisted code review help teams evaluate and improve code changes.
+* **AI Video Generator** — Supports text-to-video and image-to-video generation for cinematic and creative content.
+* **AI Image Generator** — Provides AI image creation and image-based generation workflows.
+* **AI Video Editor** — Includes AI-assisted editing and transformation capabilities for existing visual content.
+* **AI Avatar Generator** — Supports avatar-based video creation for character and presentation content.
 
 ---
 
 ## 1. description
 
-Developer platform for code hosting, collaboration, automation, security, and AI-assisted development.
+AI creative platform for generating videos, images, avatars, music, and visual content.
 
 ---
 
 ## 2. planLabel
 
-**Free**
+**Freemium**
 
 ---
 
 ## 3. platforms
 
-**Web, API, iOS, Android, Windows, macOS**
+**Web, iOS, Android**
 
 ---
 
 ## 4. whatIs
 
-GitHub is a developer platform for hosting source code, managing software projects, collaborating with teams, and automating development workflows. It combines Git repositories with pull requests, issues, code review, CI/CD, security tools, cloud development environments, and AI-assisted coding.
+Hailuo AI is an AI-powered creative platform focused on generating and transforming videos and images. It supports text-to-video, image-to-video, subject references, AI editing, avatars, and other creative workflows for producing short-form visual content.
 
-It is primarily designed for developers, open-source communities, startups, software teams, and enterprises.
+It is designed for creators, marketers, advertisers, designers, filmmakers, and social media users who want to create visual content with generative AI.
 
 ---
 
 ## 5. coreFeatures
 
-**01. Git Repository Hosting**
-GitHub provides cloud-based repositories for storing, versioning, and collaborating on source code. Developers can manage branches, commits, releases, and project history.
+**01. Text-to-Video Generation**
+Hailuo AI can turn natural-language prompts into short AI-generated videos with cinematic motion, visual effects, and scene composition.
 
-**02. AI-Assisted Development**
-GitHub Copilot provides AI-powered coding assistance for generating code, explaining implementations, making edits, reviewing changes, and supporting development workflows.
+**02. Image-to-Video Generation**
+Users can upload a photo or image and transform it into an animated video while allowing the AI to generate subject movement, camera motion, and scene transitions.
 
-**03. Pull Requests and Code Review**
-Developers can propose changes through pull requests, discuss implementations, review code, and merge approved changes into project branches.
+**03. Subject Reference**
+Reference images can be used to help maintain a character or subject across generated scenes, making the feature useful for recurring characters, personal avatars, and short-form storytelling.
 
-**04. CI/CD Automation**
-GitHub Actions automates software development workflows such as building, testing, deployment, and scheduled maintenance directly from repositories.
+**04. AI Image Generation and Editing**
+Hailuo AI provides image creation and editing tools for generating visual assets, transforming existing images, and applying creative styles.
 
-**05. Project and Issue Management**
-GitHub Issues and Projects help teams track bugs, features, tasks, milestones, and development roadmaps alongside their code.
+**05. AI Avatar Creation**
+The platform supports avatar-based video creation for character-driven content, presentations, and social media production.
 
-**06. Code Security**
-GitHub provides security features for identifying vulnerabilities, protecting secrets, scanning dependencies, and helping developers remediate security issues.
+**06. AI Creative Agent**
+Hailuo Agent brings together video, image, sound, music, and editing capabilities in a more automated workflow, allowing users to create multiple types of media from a single creative instruction.
 
 ---
 
 ## 6. useCases
 
-**Open Source Development**
-Open-source developers can host projects, accept contributions, manage issues, review pull requests, and collaborate with contributors worldwide.
+**Social Media Content**
+Creators can turn photos, ideas, or short prompts into videos for platforms such as TikTok, Instagram, and YouTube.
 
-**Software Development Teams**
-Development teams can use GitHub as a central workspace for source code, code review, project tracking, CI/CD automation, and team collaboration.
+**Marketing and Advertising**
+Marketing teams can create product videos, promotional visuals, advertisements, and creative variations without relying entirely on traditional video production.
 
-**AI-Assisted Coding**
-Developers can use GitHub Copilot to generate code, refactor implementations, investigate problems, review changes, and accelerate routine programming work.
+**Film and Visual Development**
+Filmmakers and visual creators can use text-to-video and image-to-video generation to experiment with scenes, characters, camera movement, and visual concepts.
 
-**DevOps and Deployment**
-Engineering teams can automate testing, builds, releases, and deployment pipelines using GitHub Actions and connected development tools.
+**Personal and Character Content**
+Users can create avatar videos, character-based clips, photo animations, and other personalized visual content from reference images.
 
 ---
 
 ## 7. quickFacts
 
-**domainRating:** DR 100 (estimated)
+**domainRating:** DR 75 (estimated)
 
-**platforms:** Web, API, iOS, Android, Windows, macOS
+**platforms:** Web, iOS, Android
 
-**languages:** English, Japanese, Spanish, Portuguese, Chinese, German, French, Korean, Italian, Russian, and others
+**languages:** English, Chinese, Japanese, Korean, Portuguese, Spanish, and other supported interface languages
 
 ---
 
 ## 8. faqs
 
-**question:** Is GitHub free to use?
-**answer:** GitHub offers a Free plan for individuals and organizations with core repository, collaboration, and development features. Paid plans provide additional capabilities for teams and enterprises. GitHub Copilot is also offered separately through its own Free, Pro, Pro+, Max, Business, and Enterprise plans.
+**question:** Is Hailuo AI free to use?
+**answer:** Hailuo AI provides free access with limited generation capabilities and credits. Paid subscription plans provide additional credits, faster processing, higher usage limits, and benefits such as watermark-free downloads. The exact available credits and features can vary by plan and current promotion.
 
-**question:** Does GitHub provide free AI coding assistance?
-**answer:** GitHub Copilot has a Free plan with limited access to AI-powered coding features. The Free plan includes a monthly allowance for code completions and access to selected models and Copilot capabilities. Paid plans provide higher usage limits, more models, and additional agent-based features.
+**question:** Can Hailuo AI generate videos from text and images?
+**answer:** Yes. Hailuo AI supports both text-to-video and image-to-video workflows. Users can describe a scene with a prompt or upload an image as the starting point for video generation. Some models also provide subject-reference capabilities for improving visual consistency.
 
-**question:** Does GitHub have an API?
-**answer:** Yes. GitHub provides APIs that allow developers to programmatically interact with repositories, issues, pull requests, users, organizations, projects, and other platform resources. Developers can use these APIs to build integrations, automate workflows, and connect GitHub with external applications.
+**question:** Does Hailuo AI provide an API?
+**answer:** Hailuo AI is primarily presented as a consumer and creative production platform rather than a conventional public developer API service. Its current product ecosystem focuses on web and mobile creation workflows and AI-powered creative tools. Developers requiring direct programmatic access should verify the currently available developer options before building an integration.
 
-**question:** Is GitHub suitable for professional software development?
-**answer:** Yes. GitHub is widely used for both individual development and professional software engineering. Its platform combines version control, collaboration, project management, CI/CD, security, and code review in a single environment. Enterprise features also provide additional governance and administrative controls.
+**question:** How accurate and consistent is Hailuo AI?
+**answer:** Hailuo AI is optimized for visual generation quality, motion, and creative interpretation rather than factual accuracy. Results can vary depending on the model, prompt, reference image, and complexity of the requested motion. Subject references and image-to-video workflows can help improve consistency across generated content.
 
-**question:** Is GitHub secure for storing source code?
-**answer:** GitHub provides multiple security features designed to protect repositories and development workflows. These include access controls, secret protection, dependency security, vulnerability detection, and additional security capabilities for eligible plans. Organizations should still configure repository permissions and security policies appropriately for their specific projects.
+**question:** Can Hailuo AI content be used commercially?
+**answer:** Commercial usage depends on the applicable subscription, content type, and current service terms. Paid plans can provide additional usage rights and remove certain restrictions such as watermarks. Users producing commercial content should confirm the license terms of the specific plan and model before publishing or monetizing generated material.
 
 
-# Claude
+
+# Sandcastles
+
+**link:** [https://sandcastles.ai/](https://sandcastles.ai/)
 
 ---
 
@@ -574,22 +240,136 @@ Engineering teams can automate testing, builds, releases, and deployment pipelin
 
 **group**
 
-* **AI Chatbot** — Claude is a general-purpose AI assistant for conversation, reasoning, writing, research, and problem solving.
-* **AI Productivity** — Combines document analysis, research, content creation, data analysis, and project-based workflows.
-* **Developer Tools** — Provides coding assistance, Claude Code, and APIs for building AI-powered applications and agents.
+* **AI Marketing** — Sandcastles uses performance data and AI analysis to help creators and brands develop more effective social media content.
+* **AI Writing** — Its core workflow includes AI-powered hooks, ideas, research, and short-form video script generation.
+* **Social Media Tools** — The platform tracks high-performing content and channels across major short-form social platforms.
 
 **category**
 
-* **AI Chatbot** — Core product focused on conversational assistance and general-purpose problem solving.
-* **AI Writing** — Supports drafting, editing, rewriting, summarization, and content creation.
-* **AI Coding** — Provides code generation, debugging, code understanding, and agentic development workflows.
-* **AI Research** — Supports web search, deep research, document analysis, and information synthesis.
+* **AI Social Media Assistant** — Helps creators research competitors, analyze content performance, and develop social media strategies.
+* **AI Writing** — Generates hooks and short-form video scripts based on proven storytelling frameworks.
+* **Content Research** — Provides searchable data on high-performing videos, channels, transcripts, and content patterns.
+* **AI Marketing** — Uses performance insights and competitor analysis to support content strategy and audience growth.
 
 ---
 
 ## 1. description
 
-AI assistant for writing, research, coding, analysis, and complex problem solving.
+AI platform for researching viral content and creating data-backed short-form video scripts.
+
+---
+
+## 2. planLabel
+
+**Paid**
+
+---
+
+## 3. platforms
+
+**Web**
+
+---
+
+## 4. whatIs
+
+Sandcastles is an AI-powered social media research and content strategy platform built for creators and brands. It analyzes high-performing videos and channels across Instagram, TikTok, and YouTube, then helps users turn those insights into hooks, ideas, and short-form video scripts.
+
+---
+
+## 5. coreFeatures
+
+**01. Viral Content Discovery**
+Sandcastles helps users find high-performing videos and identify outliers within specific niches. Its database contains millions of analyzed videos for content research.
+
+**02. Competitor Channel Research**
+Users can build curated feeds of successful channels and track competitors across Instagram, TikTok, and YouTube. This makes it easier to monitor trends and identify repeatable content patterns.
+
+**03. Viral Hook Generation**
+The platform generates multiple hooks based on templates associated with high-performing content. This helps creators develop stronger openings for short-form videos.
+
+**04. Viral Content Analysis**
+Sandcastles analyzes hooks, storytelling structures, formats, and styles to explain why particular videos performed well. Users can use these insights to inform their own content strategy.
+
+**05. AI Script Writing**
+Users can turn researched ideas into short-form video scripts using data-backed storytelling frameworks. The workflow is designed to reduce the time required for research and script development.
+
+**06. Content Analytics and Workspaces**
+Verified social channels can receive personal performance analytics, while workspaces help users organize research and ideas by niche. Higher plans provide more channels, workspaces, and competitor tracking capacity.
+
+---
+
+## 6. useCases
+
+**Content Creators**
+Creators can research successful videos in their niche, identify patterns, generate hooks, and turn proven ideas into original scripts.
+
+**Social Media Marketing**
+Marketing teams can monitor competitors, analyze successful campaigns, and use performance data to guide short-form content strategy.
+
+**Agencies**
+Agencies can organize multiple content strategies into separate workspaces and track competitor channels for different clients or niches.
+
+**Personal Brand Growth**
+Professionals building a personal brand can analyze their own channel performance, identify content opportunities, and develop more data-informed video ideas.
+
+---
+
+## 7. quickFacts
+
+**domainRating:** DR 46 (estimated)
+
+**platforms:** Web
+
+**languages:** English
+
+---
+
+## 8. faqs
+
+**question:** How much does Sandcastles cost?
+**answer:** Sandcastles currently offers paid Pro, Visionary, and Titan plans. Pro starts at $49 per month when billed monthly or $39 per month when billed annually. Higher tiers increase monthly credits, channel verification limits, workspaces, competitor tracking, and automation capabilities.
+
+**question:** Does Sandcastles offer a free plan or free credits?
+**answer:** The website promotes a free trial, but the core product is subscription-based rather than a permanently free plan. Usage is based on monthly credits, with video analysis and script writing consuming credits. The available trial conditions and subscription limits can change.
+
+**question:** Does Sandcastles have an API?
+**answer:** API access is included with the Titan plan. Sandcastles also provides an MCP connector that can connect its social data to compatible AI workflows. API availability is therefore tied to higher-tier usage rather than the standard Pro or Visionary plans.
+
+**question:** How accurate is Sandcastles' content analysis?
+**answer:** Sandcastles bases its insights on performance data from analyzed social media content and identifies high-performing outliers, hooks, storytelling patterns, formats, and styles. However, viral performance is inherently influenced by audience, timing, platform dynamics, and other factors. Its recommendations should be treated as data-backed guidance rather than guaranteed predictions of future performance.
+
+**question:** Does Sandcastles require access to social media accounts?
+**answer:** No. Connecting social media accounts is optional, so users can still use the platform for content and competitor research without linking their own channels. Connecting verified channels enables additional personal analytics and more tailored insights. Higher-tier plans support more verified channels and more frequent data refreshes.
+
+
+
+# Manus
+
+**link:** [https://manus.im/](https://manus.im/)
+
+---
+
+## 0. categories
+
+**group**
+
+* **AI Agent** — Manus is an autonomous AI agent designed to execute multi-step tasks rather than only provide conversational answers.
+* **AI Productivity** — It can research, analyze information, create documents and presentations, and build digital products.
+* **Developer Tools** — Manus provides API access and development-oriented capabilities for integrating AI agents into automated workflows.
+
+**category**
+
+* **AI Agent** — Core platform focused on autonomous task execution and multi-step workflows.
+* **AI Research** — Performs deep and wide research, gathers information, and produces structured results.
+* **AI Website Builder** — Can build and deploy websites and web applications from natural-language instructions.
+* **AI Slides Generator** — Generates structured presentation decks with research and content generation.
+
+---
+
+## 1. description
+
+Autonomous AI agent for research, coding, websites, slides, and complex workflows.
 
 ---
 
@@ -607,73 +387,191 @@ AI assistant for writing, research, coding, analysis, and complex problem solvin
 
 ## 4. whatIs
 
-Claude is an AI assistant developed by Anthropic for writing, analysis, research, coding, and complex problem solving. It supports text and image inputs and can work with documents, web information, data, and connected tools depending on the plan and workflow.
+Manus is an autonomous AI agent platform designed to complete multi-step tasks with less manual guidance. It can conduct research, create slides, build websites, analyze information, work with files, and perform other complex tasks through an agent-based workflow.
 
-Claude is designed for individual users, students, professionals, developers, and organizations that need an AI assistant for knowledge work and software development.
+It is designed for professionals, researchers, creators, developers, businesses, and users who want AI to execute tasks rather than only generate individual responses.
 
 ---
 
 ## 5. coreFeatures
 
-**01. Conversational AI**
-Claude can answer questions, explain concepts, brainstorm ideas, analyze problems, and maintain context throughout a conversation.
+**01. Autonomous Task Execution**
+Manus can break down complex instructions into multiple steps, use available tools, and work toward a completed result with less user intervention.
 
-**02. Writing and Content Creation**
-Claude can draft, rewrite, edit, summarize, and refine documents, emails, articles, and other written content.
+**02. Deep and Wide Research**
+Research features allow Manus to investigate topics, gather information from multiple sources, and produce structured research outputs for more demanding information tasks.
 
-**03. Research and Web Search**
-Claude can search the web and synthesize information from multiple sources, making it useful for research, analysis, and current-information tasks.
+**03. AI Website Development**
+Manus can build websites and web applications from natural-language instructions and provide deployment capabilities for completed projects.
 
-**04. Document and Image Analysis**
-Users can upload documents and images for analysis, extraction, summarization, and interpretation, allowing Claude to work with information beyond plain text.
+**04. AI Slide Generation**
+Manus can create presentation decks with structured content and research-driven insights, reducing the manual work required to prepare presentations.
 
-**05. Coding and Claude Code**
-Claude can generate and explain code, debug problems, review implementations, and support software development through Claude Code and other coding workflows.
+**05. Browser and Computer Operation**
+Manus can interact with web environments and perform browser-based tasks, enabling workflows that require navigation, information gathering, and action execution.
 
-**06. Artifacts and Projects**
-Artifacts provide an interactive workspace for creating and iterating on documents, code, websites, and other outputs, while Projects organize conversations and relevant knowledge into dedicated workspaces.
+**06. API and Workflow Integration**
+The Manus API allows developers to create and manage agent tasks programmatically, send follow-up instructions, handle files, and integrate Manus into automated applications and workflows.
 
 ---
 
 ## 6. useCases
 
-**Research and Learning**
-Students, researchers, and knowledge workers can use Claude to analyze documents, investigate topics, summarize information, and work through complex questions.
+**Research and Analysis**
+Researchers and professionals can delegate multi-step research tasks to Manus and receive organized findings, reports, and supporting analysis.
 
-**Professional Writing**
-Writers, marketers, and business professionals can use Claude to draft reports, proposals, articles, emails, and other business content.
+**Website Development**
+Non-technical users and developers can describe a website or web application in natural language and use Manus to build and deploy the project.
 
-**Software Development**
-Developers can use Claude for code generation, debugging, refactoring, technical analysis, and longer development workflows through Claude Code.
+**Business Presentations**
+Business professionals can use Manus to research a topic and turn the findings into structured presentation slides with less manual preparation.
 
-**Business Productivity**
-Teams can use Claude to analyze files, conduct research, organize project knowledge, create documents, and support recurring knowledge-work tasks.
+**Workflow Automation**
+Developers and teams can connect Manus through its API to automate agent-based tasks, coordinate multi-step processes, and integrate AI execution into existing systems.
 
 ---
 
 ## 7. quickFacts
 
-**domainRating:** DR 88 (estimated)
+**domainRating:** DR 76 (estimated)
 
 **platforms:** Web, API, iOS, Android, Windows, macOS
 
-**languages:** English, Chinese, Japanese, Korean, French, German, Spanish, Portuguese, Italian, and others
+**languages:** English, Chinese, Japanese, Korean, and other supported languages
 
 ---
 
 ## 8. faqs
 
-**question:** Is Claude free to use?
-**answer:** Claude offers a Free plan that provides access to core conversational and productivity features with usage limits. Paid plans such as Pro and Max provide higher usage limits and additional capabilities. Team and Enterprise plans are available for organizations with broader collaboration and administration requirements.
+**question:** Is Manus free to use?
+**answer:** Manus offers a Free plan with limited access to its Chat Mode and Agent Mode. Free users receive daily refreshed credits and can run a limited number of concurrent and scheduled tasks. Paid Pro and Team plans provide more credits, additional models, and broader workflow capabilities.
 
-**question:** What can free Claude users do?
-**answer:** Free users can chat with Claude, write and edit content, analyze text and uploaded images, generate code, visualize data, and use web search within supported limits. Free access includes a restricted amount of usage compared with paid plans. The available models and limits can change as Anthropic updates the product.
+**question:** Does Manus offer free credits?
+**answer:** Yes. The Free plan currently includes daily refreshed credits, and new users can also receive introductory credits when signing up. Free access is intended for trying the platform and handling lighter workloads. More demanding research, development, and agent tasks generally require a paid plan.
 
-**question:** Does Claude have an API?
-**answer:** Yes. Anthropic provides an API and SDKs for developers building applications and AI agents with Claude models. The developer platform supports capabilities including tool use, file processing, prompt caching, batch requests, and integrations with major cloud AI platforms. API usage is billed separately from Claude consumer subscriptions.
+**question:** Does Manus have an API?
+**answer:** Yes. Manus provides a REST API that allows developers to create and manage AI agent tasks programmatically. The API supports tasks, projects, files, follow-up interactions, and other workflow operations. It is intended for integrating Manus agents into applications and automated systems.
 
-**question:** How accurate is Claude?
-**answer:** Claude is designed for reliable reasoning, analysis, writing, and coding, but it can still produce incorrect information or flawed conclusions. Accuracy depends on the task, model, available context, and quality of the provided information. Important claims and high-stakes outputs should be independently verified.
+**question:** How accurate are Manus results?
+**answer:** Manus can perform multi-step research and reasoning, but its outputs are not guaranteed to be correct. Accuracy depends on the quality of the available information, task complexity, instructions, and tools used during execution. Important factual or business-critical results should still be reviewed before use.
 
-**question:** Is Claude private and secure?
-**answer:** Anthropic provides privacy, security, and compliance controls that vary by product and plan. Business and Enterprise offerings provide additional administrative, security, and data-protection capabilities for organizations. Users should review the applicable data-use settings and terms before submitting sensitive information.
+**question:** Is Manus suitable for professional and business use?
+**answer:** Yes. Manus provides Pro and Team plans with features aimed at professional and organizational workflows. Team capabilities include SSO, usage analytics, access controls, and options related to data training. Its API and deployment capabilities also make it suitable for more advanced business automation.
+
+
+
+# ElevenLabs
+
+**link:** [https://elevenlabs.io/](https://elevenlabs.io/)
+
+---
+
+## 0. categories
+
+**group**
+
+* **AI Audio** — ElevenLabs specializes in AI-generated speech, music, sound effects, voice transformation, and audio processing.
+* **AI Creative Tools** — Its creative platform supports audio, video, voice, and multimedia content production.
+* **Developer Tools** — ElevenLabs provides APIs and agent infrastructure for integrating AI audio and conversational capabilities into applications.
+
+**category**
+
+* **AI Voice Generator** — Core platform for generating natural and expressive AI speech from text.
+* **AI Voice Cloning** — Allows users to create custom voices and clone existing voices.
+* **AI Music Generator** — Generates music from natural-language prompts across different genres and styles.
+* **AI Dubbing** — Translates and dubs audio and video while preserving the original speakers' characteristics and expression.
+
+---
+
+## 1. description
+
+AI audio platform for voice generation, cloning, dubbing, music, and sound creation.
+
+---
+
+## 2. planLabel
+
+**Freemium**
+
+---
+
+## 3. platforms
+
+**Web, API, iOS, Android**
+
+---
+
+## 4. whatIs
+
+ElevenLabs is an AI audio platform focused on realistic speech generation, voice cloning, dubbing, music, sound effects, and speech recognition. It serves creators, developers, media companies, marketers, and businesses that need to generate, edit, localize, or automate audio content.
+
+The platform also provides conversational AI agents and developer APIs for integrating voice and audio capabilities into applications and business workflows.
+
+---
+
+## 5. coreFeatures
+
+**01. AI Text-to-Speech**
+Converts written text into expressive, natural-sounding speech with controls designed for different voices, styles, and use cases.
+
+**02. Voice Cloning and Design**
+Users can clone compatible voices or create new voices based on descriptions, providing reusable voices for narration, characters, and branded content.
+
+**03. AI Dubbing and Localization**
+Dubbing tools can automatically translate and dub audio or video into multiple languages while preserving speaker identity and emotional characteristics.
+
+**04. Speech-to-Text**
+ElevenLabs provides speech recognition for converting audio into text, with features such as speaker diarization and detailed timestamps.
+
+**05. AI Music and Sound Effects**
+Users can generate music, sound effects, soundscapes, and ambient audio from natural-language descriptions for creative and production workflows.
+
+**06. Conversational AI Agents**
+ElevenLabs supports agents that can communicate through voice and chat, execute workflows, connect to external systems, and be tested and monitored before deployment.
+
+---
+
+## 6. useCases
+
+**Video and Podcast Production**
+Creators can generate narration, character voices, sound effects, and music for videos, podcasts, audiobooks, and other media projects.
+
+**Content Localization**
+Media companies and creators can dub existing video and audio content into multiple languages while retaining natural-sounding voices and delivery.
+
+**Customer Service**
+Businesses can deploy AI voice or chat agents to handle customer conversations, automate support workflows, and connect conversations with business systems.
+
+**Developer Applications**
+Developers can integrate text-to-speech, speech-to-text, voice conversion, music, sound effects, and dubbing capabilities into applications through APIs.
+
+---
+
+## 7. quickFacts
+
+**domainRating:** DR 86 (estimated)
+
+**platforms:** Web, API, iOS, Android
+
+**languages:** English, Chinese, Japanese, Korean, Spanish, French, German, Italian, Portuguese, and other supported languages
+
+---
+
+## 8. faqs
+
+**question:** Is ElevenLabs free to use?
+**answer:** Yes. ElevenLabs offers a Free plan with a monthly allocation of credits and access to selected AI audio features. Paid plans increase usage limits and add capabilities such as commercial licensing, voice cloning options, and additional production features. The current Free plan includes 10,000 credits per month.
+
+**question:** Does ElevenLabs offer a free API?
+**answer:** Yes. Most API endpoints are available on the Free plan, although API usage consumes credits from the account. Paid plans provide larger included allowances and higher limits. API pricing varies by service, with different billing models for text-to-speech, speech-to-text, dubbing, music, and audio processing.
+
+**question:** How accurate is ElevenLabs speech recognition?
+**answer:** ElevenLabs provides a speech-to-text model designed for high transcription accuracy and currently advertises up to 98% accuracy for its Scribe model. Actual results can vary depending on audio quality, accents, background noise, speakers, and language. Critical transcripts should still be reviewed when exact wording matters.
+
+**question:** Can ElevenLabs clone a voice?
+**answer:** Yes. ElevenLabs provides instant and professional voice cloning options depending on the subscription plan. Users can create reusable custom voices from voice samples for supported applications. Voice cloning should only be performed with appropriate authorization from the voice owner.
+
+**question:** Is ElevenLabs suitable for commercial use?
+**answer:** Yes, but commercial rights depend on the subscription plan and specific feature being used. The Free plan is more restricted, while paid plans such as Starter and above include commercial-use licensing for eligible content. Businesses should also review the applicable voice, music, dubbing, and model-specific terms before commercial distribution.
+
+
