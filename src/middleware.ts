@@ -58,6 +58,12 @@ export default auth((req) => {
     return null;
   }
 
+  // API routes (NextAuth callback, error page, webhooks, etc.) must never be
+  // locale-prefixed or redirected by next-intl; pass them through untouched.
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
   // Redirect legacy /zh* URLs to /zh-CN (locale renamed from "zh" to "zh-CN").
   // 301 keeps previously crawled hreflang links working.
   if (pathname === "/zh" || pathname.startsWith("/zh/")) {
